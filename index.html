@@ -1,25 +1,33 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>나의 GitHub 페이지</title>
+  <title>울새버스</title>
 
   <style>
+    /* 기본 설정 */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
+      min-height: 100vh;
+      padding: 18px;
+      background: #292929;
+      color: #252525;
       font-family:
-        Pretendard, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-      background: #0d1117;
-      color: #e6edf3;
-      line-height: 1.6;
+        Pretendard,
+        "Noto Sans KR",
+        "Malgun Gothic",
+        sans-serif;
     }
 
     a {
@@ -27,321 +35,420 @@
       text-decoration: none;
     }
 
-    header {
-      position: sticky;
-      top: 0;
-      background: rgba(13, 17, 23, 0.9);
-      border-bottom: 1px solid #30363d;
-      backdrop-filter: blur(10px);
-      z-index: 10;
+    /* 흰색 페이지 전체 */
+    .page {
+      position: relative;
+      width: min(100%, 1100px);
+      min-height: calc(100vh - 36px);
+      margin: 0 auto;
+      overflow: hidden;
+      background: #ffffff;
     }
 
-    nav {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 18px 24px;
+    /* 첫 화면 */
+    .main-screen {
+      position: relative;
+      min-height: calc(100vh - 36px);
+      padding: 50px 54px;
+    }
+
+    /* 캐릭터 대표 이미지 영역 */
+    .main-image {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .main-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.95;
+    }
+
+    /* 이미지가 없을 때 보이는 기본 배경 */
+    .main-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.05) 0%,
+          rgba(255, 255, 255, 0.15) 45%,
+          rgba(255, 255, 255, 0.92) 100%
+        );
+    }
+
+    /* 사이트 정보 */
+    .main-info {
+      position: absolute;
+      left: 54px;
+      right: 54px;
+      bottom: 46px;
+      z-index: 2;
+    }
+
+    .site-title {
+      margin-bottom: 26px;
+      font-size: clamp(30px, 5vw, 48px);
+      font-weight: 800;
+      letter-spacing: -3px;
+    }
+
+    /* 캐릭터 메뉴 */
+    .character-menu {
       display: flex;
-      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px 26px;
+    }
+
+    .character-menu a {
+      position: relative;
+      padding: 5px 0;
+      color: #333333;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.7px;
+      transition: 0.2s;
+    }
+
+    .character-menu a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: #222222;
+      transition: width 0.2s;
+    }
+
+    .character-menu a:hover {
+      color: #777777;
+    }
+
+    .character-menu a:hover::after {
+      width: 100%;
+    }
+
+    /* 캐릭터 소개 영역 */
+    .characters {
+      background: #f5f5f3;
+    }
+
+    .character-section {
+      min-height: 100vh;
+      padding: 100px 54px;
+      border-top: 1px solid #dddddd;
+    }
+
+    .character-card {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.8fr) minmax(300px, 1.2fr);
+      gap: 55px;
+      max-width: 950px;
+      margin: 0 auto;
       align-items: center;
     }
 
-    .logo {
-      font-size: 20px;
-      font-weight: 800;
+    .character-portrait {
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      background: #dededb;
     }
 
-    .nav-links {
-      display: flex;
-      gap: 20px;
-      color: #8b949e;
+    .character-portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
     }
 
-    .nav-links a:hover {
-      color: #ffffff;
-    }
-
-    main {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    .hero {
-      min-height: 75vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-    }
-
-    .hero-label {
-      margin-bottom: 16px;
-      color: #7ee787;
-      font-size: 15px;
-      font-weight: 700;
-    }
-
-    .hero h1 {
-      font-size: clamp(42px, 8vw, 82px);
-      line-height: 1.05;
-      margin-bottom: 24px;
-    }
-
-    .hero h1 span {
-      color: #8b949e;
-    }
-
-    .hero p {
-      max-width: 620px;
-      margin-bottom: 32px;
-      color: #8b949e;
-      font-size: 18px;
-    }
-
-    .button-group {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .button {
-      display: inline-block;
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-weight: 700;
-      transition: 0.2s;
-    }
-
-    .button-primary {
-      background: #238636;
-      color: #ffffff;
-    }
-
-    .button-primary:hover {
-      background: #2ea043;
-      transform: translateY(-2px);
-    }
-
-    .button-secondary {
-      border: 1px solid #30363d;
-      background: #161b22;
-    }
-
-    .button-secondary:hover {
-      border-color: #8b949e;
-      transform: translateY(-2px);
-    }
-
-    section {
-      padding: 90px 0;
-    }
-
-    section h2 {
+    .character-number {
       margin-bottom: 12px;
-      font-size: 32px;
+      color: #999999;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 3px;
     }
 
-    .section-description {
-      margin-bottom: 32px;
-      color: #8b949e;
+    .character-name {
+      margin-bottom: 8px;
+      font-size: clamp(36px, 6vw, 62px);
+      line-height: 1.1;
+      letter-spacing: -4px;
     }
 
-    .about-box {
-      padding: 28px;
-      border: 1px solid #30363d;
-      border-radius: 12px;
-      background: #161b22;
+    .character-subtitle {
+      margin-bottom: 30px;
+      color: #777777;
+      font-size: 16px;
     }
 
-    .project-grid {
+    .character-description {
+      margin-bottom: 30px;
+      color: #444444;
+      font-size: 16px;
+      line-height: 1.9;
+      word-break: keep-all;
+    }
+
+    .character-data {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .project-card {
-      min-height: 220px;
-      padding: 24px;
-      border: 1px solid #30363d;
-      border-radius: 12px;
-      background: #161b22;
-      transition: 0.2s;
-    }
-
-    .project-card:hover {
-      border-color: #58a6ff;
-      transform: translateY(-5px);
-    }
-
-    .project-card h3 {
-      margin-bottom: 12px;
-      color: #58a6ff;
-    }
-
-    .project-card p {
-      margin-bottom: 22px;
-      color: #8b949e;
-    }
-
-    .tag {
-      display: inline-block;
-      margin-right: 6px;
-      margin-bottom: 6px;
-      padding: 4px 9px;
-      border-radius: 20px;
-      background: #21262d;
-      color: #c9d1d9;
-      font-size: 12px;
-    }
-
-    .contact {
-      text-align: center;
-    }
-
-    .contact p {
-      margin-bottom: 24px;
-      color: #8b949e;
-    }
-
-    footer {
-      margin-top: 80px;
-      padding: 30px 24px;
-      border-top: 1px solid #30363d;
-      color: #8b949e;
-      text-align: center;
+      grid-template-columns: 90px 1fr;
+      gap: 12px 16px;
+      padding-top: 22px;
+      border-top: 1px solid #cccccc;
       font-size: 14px;
     }
 
-    @media (max-width: 750px) {
-      .project-grid {
+    .character-data dt {
+      color: #999999;
+      font-weight: 700;
+    }
+
+    .character-data dd {
+      color: #333333;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-top: 38px;
+      padding-bottom: 3px;
+      border-bottom: 1px solid #222222;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    /* 하단 */
+    footer {
+      padding: 30px;
+      background: #202020;
+      color: #aaaaaa;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    /* 모바일 */
+    @media (max-width: 720px) {
+      body {
+        padding: 10px;
+      }
+
+      .page {
+        min-height: calc(100vh - 20px);
+      }
+
+      .main-screen {
+        min-height: calc(100vh - 20px);
+        padding: 32px 28px;
+      }
+
+      .main-info {
+        left: 28px;
+        right: 28px;
+        bottom: 36px;
+      }
+
+      .site-title {
+        margin-bottom: 20px;
+      }
+
+      .character-menu {
+        gap: 10px 18px;
+      }
+
+      .character-menu a {
+        font-size: 15px;
+      }
+
+      .character-section {
+        padding: 70px 28px;
+      }
+
+      .character-card {
         grid-template-columns: 1fr;
+        gap: 35px;
       }
 
-      .nav-links {
-        gap: 12px;
-        font-size: 14px;
-      }
-
-      .hero {
-        min-height: 65vh;
+      .character-portrait {
+        max-width: 430px;
       }
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <nav>
-      <a class="logo" href="#">MY PAGE</a>
+  <div class="page">
 
-      <div class="nav-links">
-        <a href="#about">소개</a>
-        <a href="#projects">프로젝트</a>
-        <a href="#contact">연락처</a>
+    <!-- 메인 화면 -->
+    <section class="main-screen" id="home">
+
+      <!--
+        메인 대표 이미지를 넣으려면
+        아래 src의 main.jpg를 실제 이미지 파일 이름으로 바꾸세요.
+
+        이미지 없이 흰 배경으로 사용하려면
+        img 태그 한 줄을 삭제해도 됩니다.
+      -->
+      <div class="main-image">
+        <!-- <img src="main.jpg" alt="울새버스 메인 이미지"> -->
       </div>
-    </nav>
-  </header>
 
-  <main>
-    <section class="hero">
-      <p class="hero-label">HELLO, WORLD!</p>
+      <div class="main-info">
+        <h1 class="site-title">울새버스</h1>
 
-      <h1>
-        안녕하세요.<br />
-        <span>나의 첫 웹페이지입니다.</span>
-      </h1>
-
-      <p>
-        GitHub Pages로 만든 개인 홈페이지입니다.
-        나에 대한 소개, 작업물, 프로젝트 등을 자유롭게 기록할 수 있습니다.
-      </p>
-
-      <div class="button-group">
-        <a class="button button-primary" href="#projects">
-          프로젝트 보기
-        </a>
-
-        <a
-          class="button button-secondary"
-          href="https://github.com/깃허브아이디"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          GitHub 방문
-        </a>
+        <nav class="character-menu">
+          <a href="#character1">캐릭터이름1</a>
+          <a href="#character2">캐릭터이름2</a>
+          <a href="#character3">캐릭터이름3</a>
+        </nav>
       </div>
     </section>
 
-    <section id="about">
-      <h2>About Me</h2>
-      <p class="section-description">
-        나에 대한 간단한 소개를 적는 공간입니다.
-      </p>
+    <!-- 캐릭터 소개 -->
+    <main class="characters">
 
-      <div class="about-box">
-        <p>
-          안녕하세요. 저는 웹사이트 만들기를 배우고 있습니다.
-          아직 처음이지만 HTML과 CSS를 이용해 하나씩 직접 만들어보는 중입니다.
-          이 페이지에는 앞으로 제가 만든 작업물과 기록을 올릴 예정입니다.
-        </p>
-      </div>
-    </section>
+      <!-- 캐릭터 1 -->
+      <section class="character-section" id="character1">
+        <div class="character-card">
 
-    <section id="projects">
-      <h2>Projects</h2>
-      <p class="section-description">
-        내가 만든 프로젝트를 소개합니다.
-      </p>
+          <div class="character-portrait">
+            <img src="character1.jpg" alt="캐릭터이름1">
+          </div>
 
-      <div class="project-grid">
-        <a class="project-card" href="#">
-          <h3>첫 번째 프로젝트</h3>
-          <p>
-            프로젝트에 대한 간단한 설명을 적어주세요.
-          </p>
+          <div class="character-text">
+            <p class="character-number">CHARACTER 01</p>
 
-          <span class="tag">HTML</span>
-          <span class="tag">CSS</span>
-        </a>
+            <h2 class="character-name">캐릭터이름1</h2>
 
-        <a class="project-card" href="#">
-          <h3>두 번째 프로젝트</h3>
-          <p>
-            그림, 글, 캐릭터 설정 등 원하는 작업물을 소개할 수 있습니다.
-          </p>
+            <p class="character-subtitle">
+              캐릭터를 표현하는 짧은 문장
+            </p>
 
-          <span class="tag">Design</span>
-          <span class="tag">Creative</span>
-        </a>
+            <p class="character-description">
+              이곳에 캐릭터에 대한 소개를 적어주세요.
+              성격이나 배경, 세계관 속 역할을 자연스럽게 작성할 수 있습니다.
+              너무 길게 쓰기보다는 대표적인 특징을 먼저 보여주는 것이 좋습니다.
+            </p>
 
-        <a class="project-card" href="#">
-          <h3>세 번째 프로젝트</h3>
-          <p>
-            아직 작업물이 없다면 준비 중이라고 적어두어도 됩니다.
-          </p>
+            <dl class="character-data">
+              <dt>이름</dt>
+              <dd>캐릭터이름1</dd>
 
-          <span class="tag">Coming Soon</span>
-        </a>
-      </div>
-    </section>
+              <dt>나이</dt>
+              <dd>28세</dd>
 
-    <section class="contact" id="contact">
-      <h2>Contact</h2>
-      <p>
-        연락처나 SNS 주소를 적어주세요.
-      </p>
+              <dt>키</dt>
+              <dd>175cm</dd>
 
-      <a
-        class="button button-primary"
-        href="mailto:example@email.com"
-      >
-        이메일 보내기
-      </a>
-    </section>
-  </main>
+              <dt>성격</dt>
+              <dd>무심함, 냉소적, 예민함</dd>
 
-  <footer>
-    © 2026 나의 이름. Made with GitHub Pages.
-  </footer>
+              <dt>능력</dt>
+              <dd>캐릭터 능력 또는 특징</dd>
+            </dl>
+
+            <a class="back-button" href="#home">메인으로 돌아가기</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 캐릭터 2 -->
+      <section class="character-section" id="character2">
+        <div class="character-card">
+
+          <div class="character-portrait">
+            <img src="character2.jpg" alt="캐릭터이름2">
+          </div>
+
+          <div class="character-text">
+            <p class="character-number">CHARACTER 02</p>
+
+            <h2 class="character-name">캐릭터이름2</h2>
+
+            <p class="character-subtitle">
+              캐릭터를 표현하는 짧은 문장
+            </p>
+
+            <p class="character-description">
+              두 번째 캐릭터 소개를 적는 공간입니다.
+              캐릭터의 외형이나 성격, 다른 인물과의 관계를 적어도 좋습니다.
+            </p>
+
+            <dl class="character-data">
+              <dt>이름</dt>
+              <dd>캐릭터이름2</dd>
+
+              <dt>나이</dt>
+              <dd>31세</dd>
+
+              <dt>키</dt>
+              <dd>184cm</dd>
+
+              <dt>성격</dt>
+              <dd>나른함, 침착함, 빈틈 있음</dd>
+
+              <dt>능력</dt>
+              <dd>캐릭터 능력 또는 특징</dd>
+            </dl>
+
+            <a class="back-button" href="#home">메인으로 돌아가기</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 캐릭터 3 -->
+      <section class="character-section" id="character3">
+        <div class="character-card">
+
+          <div class="character-portrait">
+            <img src="character3.jpg" alt="캐릭터이름3">
+          </div>
+
+          <div class="character-text">
+            <p class="character-number">CHARACTER 03</p>
+
+            <h2 class="character-name">캐릭터이름3</h2>
+
+            <p class="character-subtitle">
+              캐릭터를 표현하는 짧은 문장
+            </p>
+
+            <p class="character-description">
+              세 번째 캐릭터 소개를 적는 공간입니다.
+              필요한 만큼 캐릭터 영역을 복사해서 인물을 추가할 수도 있습니다.
+            </p>
+
+            <dl class="character-data">
+              <dt>이름</dt>
+              <dd>캐릭터이름3</dd>
+
+              <dt>나이</dt>
+              <dd>나이 미상</dd>
+
+              <dt>키</dt>
+              <dd>160cm</dd>
+
+              <dt>성격</dt>
+              <dd>차가움, 고고함, 선택적인 다정함</dd>
+
+              <dt>능력</dt>
+              <dd>캐릭터 능력 또는 특징</dd>
+            </dl>
+
+            <a class="back-button" href="#home">메인으로 돌아가기</a>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      © 2026 울새버스
+    </footer>
+  </div>
 </body>
 </html>
