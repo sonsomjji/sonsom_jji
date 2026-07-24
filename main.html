@@ -1,56 +1,382 @@
-<!-- 캐릭터 목록 -->
-    <section class="character-section" id="characters">
-      <h2 class="section-title">STAR RAIN</h2>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      <div class="character-grid">
+  <title>Star Rain Archive</title>
 
-        <!-- 캐릭터 1 -->
-        <a class="character-card" href="character1.html">
-          <div class="character-image">
-            <img
-              src="character1.jpg"
-              alt="캐릭터 1 프로필"
-            >
-          </div>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap"
+    rel="stylesheet"
+  >
 
-          <h3 class="character-name">캐릭터이름1</h3>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-          <p class="character-description">
-            캐릭터에 대한 짧은 설명
-          </p>
-        </a>
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(
+          circle at top,
+          rgba(87, 28, 121, 0.16),
+          transparent 42%
+        ),
+        #000000;
 
-        <!-- 캐릭터 2 -->
-        <a class="character-card" href="character2.html">
-          <div class="character-image">
-            <img
-              src="character2.jpg"
-              alt="캐릭터 2 프로필"
-            >
-          </div>
+      color: #ffffff;
 
-          <h3 class="character-name">캐릭터이름2</h3>
+      font-family:
+        Pretendard,
+        "Noto Sans KR",
+        "Malgun Gothic",
+        sans-serif;
+    }
 
-          <p class="character-description">
-            캐릭터에 대한 짧은 설명
-          </p>
-        </a>
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-        <!-- 캐릭터 3 -->
-        <a class="character-card" href="character3.html">
-          <div class="character-image">
-            <img
-              src="character3.jpg"
-              alt="캐릭터 3 프로필"
-            >
-          </div>
+    .page {
+      width: min(calc(100% - 40px), 1050px);
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 45px 0 100px;
+    }
 
-          <h3 class="character-name">캐릭터이름3</h3>
+    /* 상단 메뉴 */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
-          <p class="character-description">
-            캐릭터에 대한 짧은 설명
-          </p>
-        </a>
+      padding-bottom: 22px;
+      border-bottom: 1px solid #24192b;
+    }
 
-      </div>
+    .logo {
+      color: #cf91ff;
+
+      font-family:
+        "Share Tech Mono",
+        Consolas,
+        monospace;
+
+      font-size: 22px;
+      letter-spacing: 2px;
+
+      text-shadow:
+        0 0 10px rgba(162, 69, 255, 0.45);
+    }
+
+    .back-link {
+      color: #806f8d;
+
+      font-family:
+        "Share Tech Mono",
+        Consolas,
+        monospace;
+
+      font-size: 14px;
+
+      transition:
+        color 0.2s ease,
+        text-shadow 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: #d39cff;
+      text-shadow: 0 0 8px rgba(169, 91, 255, 0.5);
+    }
+
+    /* 페이지 소개 */
+    .archive-header {
+      padding: 80px 0 55px;
+    }
+
+    .system-line {
+      color: #815a9e;
+
+      font-family:
+        "Share Tech Mono",
+        Consolas,
+        monospace;
+
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+
+    .page-title {
+      margin-top: 12px;
+
+      color: #f4eaff;
+
+      font-family:
+        "Share Tech Mono",
+        Consolas,
+        monospace;
+
+      font-size: clamp(34px, 6vw, 58px);
+      font-weight: 400;
+      letter-spacing: 3px;
+
+      text-shadow:
+        0 0 15px rgba(146, 61, 225, 0.35);
+    }
+
+    .page-description {
+      max-width: 640px;
+      margin-top: 18px;
+
+      color: #95899d;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    /* 캐릭터 카드 */
+    .character-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 38px;
+    }
+
+    .character-card {
+      display: block;
+      position: relative;
+
+      transition:
+        transform 0.22s ease,
+        opacity 0.22s ease;
+    }
+
+    .character-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .character-image {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+
+      border: 1px solid #2d2134;
+      border-radius: 3px;
+      background: #0d0b0f;
+
+      transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .character-card:hover .character-image {
+      border-color: #8040ad;
+
+      box-shadow:
+        0 0 20px rgba(118, 42, 175, 0.25);
+    }
+
+    .character-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      pointer-events: none;
+
+      background:
+        linear-gradient(
+          to bottom,
+          transparent 60%,
+          rgba(0, 0, 0, 0.35)
+        );
+    }
+
+    .character-image img {
+      display: block;
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+      object-position: center;
+
+      filter:
+        saturate(0.86)
+        contrast(1.06);
+
+      transition:
+        transform 0.35s ease,
+        filter 0.35s ease;
+    }
+
+    .character-card:hover .character-image img {
+      transform: scale(1.045);
+
+      filter:
+        saturate(1)
+        contrast(1.08);
+    }
+
+    .character-code {
+      margin-top: 13px;
+
+      color: #6f4e82;
+
+      font-family:
+        "Share Tech Mono",
+        Consolas,
+        monospace;
+
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    .character-name {
+      margin-top: 4px;
+
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+    }
+
+    .character-description {
+      margin-top: 6px;
+
+      color: #8e858f;
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    /* 모바일 */
+    @media (max-width: 750px) {
+      .character-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 26px 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page {
+        width: min(calc(100% - 32px), 1050px);
+        padding-top: 28px;
+      }
+
+      .archive-header {
+        padding: 60px 0 42px;
+      }
+
+      .character-grid {
+        grid-template-columns: 1fr;
+        gap: 42px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+
+    <header class="top-bar">
+      <a class="logo" href="index.html">
+        STAR RAIN
+      </a>
+
+      <a class="back-link" href="index.html">
+        &lt; RETURN
+      </a>
+    </header>
+
+    <section class="archive-header">
+      <p class="system-line">
+        SECURE ARCHIVE / REGISTERED SUBJECTS
+      </p>
+
+      <h1 class="page-title">
+        NODE DIRECTORY
+      </h1>
+
+      <p class="page-description">
+        인증된 기록만 표시됩니다.
+        열람할 대상을 선택하십시오.
+      </p>
     </section>
+
+    <section class="character-grid">
+
+      <!-- 캐릭터 1 -->
+      <a class="character-card" href="character1.html">
+        <div class="character-image">
+          <img
+            src="character1.jpg"
+            alt="캐릭터 1 프로필"
+          >
+        </div>
+
+        <p class="character-code">
+          SUBJECT_001
+        </p>
+
+        <h2 class="character-name">
+          캐릭터이름1
+        </h2>
+
+        <p class="character-description">
+          캐릭터에 대한 짧은 설명
+        </p>
+      </a>
+
+      <!-- 캐릭터 2 -->
+      <a class="character-card" href="character2.html">
+        <div class="character-image">
+          <img
+            src="character2.jpg"
+            alt="캐릭터 2 프로필"
+          >
+        </div>
+
+        <p class="character-code">
+          SUBJECT_002
+        </p>
+
+        <h2 class="character-name">
+          캐릭터이름2
+        </h2>
+
+        <p class="character-description">
+          캐릭터에 대한 짧은 설명
+        </p>
+      </a>
+
+      <!-- 캐릭터 3 -->
+      <a class="character-card" href="character3.html">
+        <div class="character-image">
+          <img
+            src="character3.jpg"
+            alt="캐릭터 3 프로필"
+          >
+        </div>
+
+        <p class="character-code">
+          SUBJECT_003
+        </p>
+
+        <h2 class="character-name">
+          캐릭터이름3
+        </h2>
+
+        <p class="character-description">
+          캐릭터에 대한 짧은 설명
+        </p>
+      </a>
+
+    </section>
+
+  </main>
+</body>
+</html>
