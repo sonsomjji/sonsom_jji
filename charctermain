@@ -1,0 +1,56 @@
+<!-- 캐릭터 목록 -->
+    <section class="character-section" id="characters">
+      <h2 class="section-title">STAR RAIN</h2>
+
+      <div class="character-grid">
+
+        <!-- 캐릭터 1 -->
+        <a class="character-card" href="character1.html">
+          <div class="character-image">
+            <img
+              src="character1.jpg"
+              alt="캐릭터 1 프로필"
+            >
+          </div>
+
+          <h3 class="character-name">캐릭터이름1</h3>
+
+          <p class="character-description">
+            캐릭터에 대한 짧은 설명
+          </p>
+        </a>
+
+        <!-- 캐릭터 2 -->
+        <a class="character-card" href="character2.html">
+          <div class="character-image">
+            <img
+              src="character2.jpg"
+              alt="캐릭터 2 프로필"
+            >
+          </div>
+
+          <h3 class="character-name">캐릭터이름2</h3>
+
+          <p class="character-description">
+            캐릭터에 대한 짧은 설명
+          </p>
+        </a>
+
+        <!-- 캐릭터 3 -->
+        <a class="character-card" href="character3.html">
+          <div class="character-image">
+            <img
+              src="character3.jpg"
+              alt="캐릭터 3 프로필"
+            >
+          </div>
+
+          <h3 class="character-name">캐릭터이름3</h3>
+
+          <p class="character-description">
+            캐릭터에 대한 짧은 설명
+          </p>
+        </a>
+
+      </div>
+    </section>
