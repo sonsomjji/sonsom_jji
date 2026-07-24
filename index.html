@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Star Rain</title>
+  <title>Star Rain | Secure Access</title>
 
-  <!-- 터미널 느낌의 Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link
     href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap"
     rel="stylesheet"
@@ -21,8 +21,9 @@
       padding: 0;
     }
 
-    html {
-      scroll-behavior: smooth;
+    html,
+    body {
+      min-height: 100%;
     }
 
     body {
@@ -33,10 +34,9 @@
       color: #ffffff;
 
       font-family:
-        Pretendard,
-        "Noto Sans KR",
-        "Malgun Gothic",
-        sans-serif;
+        "Share Tech Mono",
+        Consolas,
+        monospace;
     }
 
     a {
@@ -44,14 +44,19 @@
       text-decoration: none;
     }
 
-    /* 전체 페이지 */
     .page {
       width: 100%;
       min-height: 100vh;
-      padding-bottom: 100px;
+      background:
+        radial-gradient(
+          circle at 50% 35%,
+          rgba(102, 29, 153, 0.11),
+          transparent 35%
+        ),
+        #000000;
     }
 
-    /* 위쪽 다크웹 배너 */
+    /* 상단 이미지 */
     .hero {
       position: relative;
       width: 100%;
@@ -67,63 +72,92 @@
 
       object-fit: cover;
       object-position: center;
+
       image-rendering: pixelated;
     }
 
-    /* 배너 아래쪽에 자연스럽게 검정으로 연결 */
     .hero::after {
       content: "";
       position: absolute;
       right: 0;
       bottom: 0;
       left: 0;
-      height: 80px;
+
+      height: 110px;
 
       pointer-events: none;
 
-      background: linear-gradient(
-        to bottom,
-        transparent,
-        #000000
-      );
+      background:
+        linear-gradient(
+          to bottom,
+          transparent,
+          rgba(0, 0, 0, 0.7),
+          #000000
+        );
     }
 
-    /* 접속 안내 영역 */
-    .main-entry {
-      min-height: 500px;
-      padding: 105px 24px 90px;
+    /* 접속 화면 */
+    .access-section {
+      min-height: 520px;
+      padding: 95px 24px 110px;
 
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
 
       text-align: center;
     }
 
-    /* 버튼 위 터미널 대사 */
-    .concept-text {
-      color: #c98dff;
+    .system-label {
+      margin-bottom: 25px;
 
-      font-family:
-        "Share Tech Mono",
-        Consolas,
-        monospace;
+      color: #715783;
+
+      font-size: 12px;
+      letter-spacing: 2px;
+    }
+
+    .terminal-message {
+      color: #cc91ff;
 
       font-size: 18px;
-      font-weight: 400;
-      line-height: 1.85;
+      line-height: 1.9;
       letter-spacing: 1px;
 
       text-shadow:
-        0 0 5px rgba(179, 104, 255, 0.75),
-        0 0 14px rgba(127, 47, 210, 0.35);
+        0 0 5px rgba(180, 106, 255, 0.75),
+        0 0 15px rgba(117, 36, 185, 0.4);
     }
 
-    /* 터미널 버튼 */
+    .terminal-message .dim {
+      color: #826496;
+
+      text-shadow: none;
+    }
+
+    .status-box {
+      width: min(100%, 420px);
+      margin-top: 42px;
+      padding: 17px 20px;
+
+      border-top: 1px solid #2d1b36;
+      border-bottom: 1px solid #2d1b36;
+
+      color: #75637e;
+
+      font-size: 12px;
+      line-height: 1.75;
+      text-align: left;
+    }
+
+    .status-success {
+      color: #b27cdb;
+    }
+
+    /* 접속 버튼 */
     .enter-button {
       min-width: 245px;
-      margin-top: 65px;
+      margin-top: 55px;
       padding: 18px 30px;
 
       display: inline-flex;
@@ -142,7 +176,6 @@
         monospace;
 
       font-size: 18px;
-      font-weight: 400;
       letter-spacing: 1px;
 
       cursor: pointer;
@@ -162,6 +195,7 @@
     .enter-button:hover {
       color: #ffffff;
       border-color: #ba6cff;
+
       background: rgba(28, 15, 36, 0.98);
 
       box-shadow:
@@ -180,6 +214,7 @@
     .cursor {
       display: inline-block;
       margin-left: 2px;
+
       animation: blink 0.9s steps(1) infinite;
     }
 
@@ -195,194 +230,63 @@
       }
     }
 
-    /* 캐릭터 목록 */
-    .character-section {
-      width: min(calc(100% - 40px), 1000px);
-      margin: 0 auto;
-      padding-top: 80px;
-      scroll-margin-top: 40px;
+    .warning {
+      margin-top: 22px;
+
+      color: #57495d;
+
+      font-size: 11px;
+      letter-spacing: 0.5px;
     }
 
-    .section-title {
-      margin-bottom: 28px;
-
-      color: #d5a4ff;
-
-      font-family:
-        "Share Tech Mono",
-        Consolas,
-        monospace;
-
-      font-size: clamp(30px, 5vw, 46px);
-      font-weight: 400;
-      letter-spacing: 2px;
-
-      text-shadow:
-        0 0 10px rgba(140, 60, 255, 0.35);
-    }
-
-    .character-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 38px;
-    }
-
-    .character-card {
-      display: block;
-
-      transition:
-        transform 0.2s ease,
-        opacity 0.2s ease;
-    }
-
-    .character-card:hover {
-      transform: translateY(-8px);
-    }
-
-    .character-card:active {
-      transform: translateY(-2px);
-    }
-
-    .character-image {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 4 / 5;
-      overflow: hidden;
-
-      border: 1px solid #29202f;
-      border-radius: 3px;
-
-      background: #0e0e0e;
-
-      transition:
-        border-color 0.25s ease,
-        box-shadow 0.25s ease;
-    }
-
-    .character-card:hover .character-image {
-      border-color: #7435a4;
-
-      box-shadow:
-        0 0 17px rgba(122, 44, 190, 0.25);
-    }
-
-    .character-image img {
-      display: block;
-      width: 100%;
-      height: 100%;
-
-      object-fit: cover;
-      object-position: center;
-
-      filter:
-        saturate(0.9)
-        contrast(1.05);
-
-      transition:
-        transform 0.3s ease,
-        filter 0.3s ease;
-    }
-
-    .character-card:hover .character-image img {
-      transform: scale(1.04);
-
-      filter:
-        saturate(1)
-        contrast(1.08);
-    }
-
-    .character-name {
-      margin-top: 11px;
-
-      color: #ffffff;
-
-      font-size: 17px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
-
-    .character-description {
-      margin-top: 5px;
-
-      color: #8f8f8f;
-
-      font-size: 13px;
-      line-height: 1.6;
-    }
-
-    /* 태블릿 */
+    /* 모바일 */
     @media (max-width: 700px) {
       .hero-image {
         min-height: 240px;
         max-height: 320px;
-        object-fit: cover;
       }
 
-      .main-entry {
-        min-height: 445px;
-        padding: 90px 20px 70px;
+      .access-section {
+        min-height: 500px;
+        padding: 80px 20px 90px;
       }
 
-      .concept-text {
+      .terminal-message {
         font-size: 16px;
-        letter-spacing: 0.7px;
       }
 
       .enter-button {
         min-width: 220px;
-        margin-top: 55px;
         font-size: 17px;
-      }
-
-      .character-grid {
-        gap: 20px;
-      }
-
-      .character-name {
-        font-size: 14px;
-      }
-
-      .character-description {
-        display: none;
       }
     }
 
-    /* 모바일 */
     @media (max-width: 480px) {
       .hero-image {
-        min-height: 190px;
+        min-height: 195px;
         max-height: 230px;
-        object-position: center;
       }
 
-      .main-entry {
-        min-height: 410px;
-        padding: 80px 18px 65px;
+      .access-section {
+        min-height: 470px;
+        padding: 70px 18px 80px;
       }
 
-      .concept-text {
+      .terminal-message {
         font-size: 14px;
-        line-height: 1.8;
+        line-height: 1.85;
+      }
+
+      .status-box {
+        font-size: 11px;
       }
 
       .enter-button {
         min-width: 205px;
         margin-top: 48px;
         padding: 16px 22px;
+
         font-size: 16px;
-      }
-
-      .character-grid {
-        grid-template-columns: 1fr;
-        gap: 42px;
-      }
-
-      .character-name {
-        font-size: 17px;
-      }
-
-      .character-description {
-        display: block;
       }
     }
   </style>
@@ -391,31 +295,61 @@
 <body>
   <main class="page">
 
-    <!-- 맨 위 다크웹 메인 대문 -->
+    <!-- 상단 다크웹 이미지 -->
     <header class="hero">
       <img
         class="hero-image"
         src="darkweb-main.png"
-        alt="다크웹 스타일 메인 배너"
+        alt="Star Rain secure access"
       >
     </header>
 
-    <!-- 접속 안내 -->
-    <section class="main-entry">
-      <p class="concept-text">
+    <!-- 숨겨진 사이트 접속 화면 -->
+    <section class="access-section">
+
+      <p class="system-label">
+        STAR RAIN / PRIVATE NETWORK
+      </p>
+
+      <p class="terminal-message">
         Anonymous Route Established.<br><br>
 
         Connection encrypted.<br>
         Identity masked.<br>
-        Awaiting authentication...
+        Authentication bypassed.<br><br>
+
+        <span class="dim">
+          Secure archive access is now available.
+        </span>
       </p>
 
-      <!-- 클릭하면 캐릭터 목록으로 이동 -->
-      <a class="enter-button" href="#characters">
+      <div class="status-box">
+        <p>
+          [01] Anonymous route
+          <span class="status-success">ESTABLISHED</span>
+        </p>
+
+        <p>
+          [02] Identity trace
+          <span class="status-success">BLOCKED</span>
+        </p>
+
+        <p>
+          [03] Archive gateway
+          <span class="status-success">READY</span>
+        </p>
+      </div>
+
+      <!-- 버튼을 누르면 main.html로 이동 -->
+      <a class="enter-button" href="main.html">
         &gt; ENTER NODE<span class="cursor">_</span>
       </a>
-    </section>
 
+      <p class="warning">
+        Unauthorized access may be permanently recorded.
+      </p>
+
+    </section>
 
   </main>
 </body>
