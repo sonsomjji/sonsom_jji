@@ -4,10 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Star Rain Archive</title>
+  <title>Star Rain | Database</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link
     href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap"
     rel="stylesheet"
@@ -20,23 +21,42 @@
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       min-height: 100vh;
+
       background:
+        linear-gradient(
+          rgba(255, 255, 255, 0.012) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.012) 1px,
+          transparent 1px
+        ),
         radial-gradient(
           circle at top,
-          rgba(87, 28, 121, 0.16),
+          rgba(91, 26, 133, 0.15),
           transparent 42%
         ),
         #000000;
 
+      background-size:
+        45px 45px,
+        45px 45px,
+        auto,
+        auto;
+
       color: #ffffff;
 
       font-family:
-        Pretendard,
-        "Noto Sans KR",
-        "Malgun Gothic",
-        sans-serif;
+        "Share Tech Mono",
+        Consolas,
+        monospace;
     }
 
     a {
@@ -45,10 +65,11 @@
     }
 
     .page {
-      width: min(calc(100% - 40px), 1050px);
+      width: min(calc(100% - 40px), 1100px);
       min-height: 100vh;
+
       margin: 0 auto;
-      padding: 45px 0 100px;
+      padding: 38px 0 110px;
     }
 
     /* 상단 메뉴 */
@@ -57,71 +78,53 @@
       align-items: center;
       justify-content: space-between;
 
-      padding-bottom: 22px;
-      border-bottom: 1px solid #24192b;
+      padding-bottom: 20px;
+
+      border-bottom: 1px solid #2a1c30;
     }
 
     .logo {
-      color: #cf91ff;
+      color: #d095ff;
 
-      font-family:
-        "Share Tech Mono",
-        Consolas,
-        monospace;
-
-      font-size: 22px;
+      font-size: 21px;
       letter-spacing: 2px;
 
       text-shadow:
-        0 0 10px rgba(162, 69, 255, 0.45);
+        0 0 10px rgba(163, 65, 242, 0.45);
     }
 
-    .back-link {
-      color: #806f8d;
+    .return-link {
+      color: #7f6c88;
 
-      font-family:
-        "Share Tech Mono",
-        Consolas,
-        monospace;
-
-      font-size: 14px;
+      font-size: 13px;
 
       transition:
         color 0.2s ease,
         text-shadow 0.2s ease;
     }
 
-    .back-link:hover {
+    .return-link:hover {
       color: #d39cff;
-      text-shadow: 0 0 8px rgba(169, 91, 255, 0.5);
+      text-shadow:
+        0 0 8px rgba(169, 91, 255, 0.5);
     }
 
-    /* 페이지 소개 */
-    .archive-header {
-      padding: 80px 0 55px;
+    /* 데이터베이스 소개 */
+    .database-header {
+      padding: 75px 0 54px;
     }
 
-    .system-line {
-      color: #815a9e;
+    .system-path {
+      color: #75588a;
 
-      font-family:
-        "Share Tech Mono",
-        Consolas,
-        monospace;
-
-      font-size: 13px;
-      letter-spacing: 1px;
+      font-size: 12px;
+      letter-spacing: 1.2px;
     }
 
-    .page-title {
-      margin-top: 12px;
+    .database-title {
+      margin-top: 13px;
 
-      color: #f4eaff;
-
-      font-family:
-        "Share Tech Mono",
-        Consolas,
-        monospace;
+      color: #f2e8fa;
 
       font-size: clamp(34px, 6vw, 58px);
       font-weight: 400;
@@ -131,55 +134,136 @@
         0 0 15px rgba(146, 61, 225, 0.35);
     }
 
-    .page-description {
-      max-width: 640px;
+    .database-description {
+      max-width: 650px;
       margin-top: 18px;
 
-      color: #95899d;
+      color: #988da0;
+
+      font-family:
+        Pretendard,
+        "Noto Sans KR",
+        "Malgun Gothic",
+        sans-serif;
+
       font-size: 14px;
       line-height: 1.8;
     }
 
-    /* 캐릭터 카드 */
+    .database-status {
+      margin-top: 27px;
+
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .status-chip {
+      padding: 7px 11px;
+
+      border: 1px solid #302038;
+      border-radius: 2px;
+
+      background: rgba(18, 12, 21, 0.8);
+      color: #78588b;
+
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+
+    .status-chip strong {
+      color: #bd85e6;
+      font-weight: 400;
+    }
+
+    /* 캐릭터 카드 목록 */
     .character-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 38px;
+      gap: 42px 32px;
     }
 
     .character-card {
-      display: block;
       position: relative;
+      display: block;
+
+      padding: 12px;
+
+      border: 1px solid transparent;
 
       transition:
         transform 0.22s ease,
-        opacity 0.22s ease;
+        border-color 0.22s ease,
+        background-color 0.22s ease,
+        box-shadow 0.22s ease;
+    }
+
+    .character-card::before {
+      content: "";
+      position: absolute;
+
+      top: 0;
+      left: 0;
+
+      width: 22px;
+      height: 22px;
+
+      border-top: 1px solid #57336b;
+      border-left: 1px solid #57336b;
+
+      transition:
+        width 0.2s ease,
+        height 0.2s ease,
+        border-color 0.2s ease;
+    }
+
+    .character-card::after {
+      content: "";
+      position: absolute;
+
+      right: 0;
+      bottom: 0;
+
+      width: 22px;
+      height: 22px;
+
+      border-right: 1px solid #57336b;
+      border-bottom: 1px solid #57336b;
+
+      transition:
+        width 0.2s ease,
+        height 0.2s ease,
+        border-color 0.2s ease;
     }
 
     .character-card:hover {
-      transform: translateY(-8px);
+      transform: translateY(-7px);
+
+      border-color: rgba(111, 54, 145, 0.25);
+      background: rgba(27, 14, 34, 0.42);
+
+      box-shadow:
+        0 0 22px rgba(102, 32, 154, 0.13);
+    }
+
+    .character-card:hover::before,
+    .character-card:hover::after {
+      width: 40px;
+      height: 40px;
+
+      border-color: #a85bd4;
     }
 
     .character-image {
       position: relative;
+
       width: 100%;
       aspect-ratio: 4 / 5;
+
       overflow: hidden;
 
-      border: 1px solid #2d2134;
-      border-radius: 3px;
-      background: #0d0b0f;
-
-      transition:
-        border-color 0.25s ease,
-        box-shadow 0.25s ease;
-    }
-
-    .character-card:hover .character-image {
-      border-color: #8040ad;
-
-      box-shadow:
-        0 0 20px rgba(118, 42, 175, 0.25);
+      border: 1px solid #2e2233;
+      background: #0d0a0f;
     }
 
     .character-image::after {
@@ -193,12 +277,13 @@
         linear-gradient(
           to bottom,
           transparent 60%,
-          rgba(0, 0, 0, 0.35)
+          rgba(0, 0, 0, 0.42)
         );
     }
 
     .character-image img {
       display: block;
+
       width: 100%;
       height: 100%;
 
@@ -206,7 +291,7 @@
       object-position: center;
 
       filter:
-        saturate(0.86)
+        saturate(0.85)
         contrast(1.06);
 
       transition:
@@ -219,61 +304,103 @@
 
       filter:
         saturate(1)
-        contrast(1.08);
+        contrast(1.09);
+    }
+
+    .character-meta {
+      padding: 14px 2px 5px;
     }
 
     .character-code {
-      margin-top: 13px;
+      color: #735087;
 
-      color: #6f4e82;
-
-      font-family:
-        "Share Tech Mono",
-        Consolas,
-        monospace;
-
-      font-size: 12px;
-      letter-spacing: 1px;
+      font-size: 11px;
+      letter-spacing: 1.2px;
     }
 
     .character-name {
-      margin-top: 4px;
+      margin-top: 6px;
 
       color: #ffffff;
-      font-size: 18px;
+
+      font-family:
+        Pretendard,
+        "Noto Sans KR",
+        "Malgun Gothic",
+        sans-serif;
+
+      font-size: 19px;
       font-weight: 700;
-      letter-spacing: -0.4px;
     }
 
     .character-description {
-      margin-top: 6px;
+      margin-top: 7px;
 
-      color: #8e858f;
+      color: #88818b;
+
+      font-family:
+        Pretendard,
+        "Noto Sans KR",
+        "Malgun Gothic",
+        sans-serif;
+
       font-size: 13px;
       line-height: 1.65;
     }
 
-    /* 모바일 */
-    @media (max-width: 750px) {
+    .open-file {
+      margin-top: 13px;
+
+      color: #825d94;
+
+      font-size: 11px;
+      letter-spacing: 0.8px;
+
+      transition: color 0.2s ease;
+    }
+
+    .character-card:hover .open-file {
+      color: #c483ed;
+    }
+
+    /* 태블릿 */
+    @media (max-width: 760px) {
       .character-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 26px 20px;
+        gap: 35px 20px;
       }
     }
 
-    @media (max-width: 480px) {
+    /* 모바일 */
+    @media (max-width: 500px) {
       .page {
-        width: min(calc(100% - 32px), 1050px);
-        padding-top: 28px;
+        width: min(calc(100% - 28px), 1100px);
+        padding-top: 25px;
       }
 
-      .archive-header {
-        padding: 60px 0 42px;
+      .top-bar {
+        align-items: flex-start;
+      }
+
+      .logo {
+        font-size: 18px;
+      }
+
+      .database-header {
+        padding: 58px 0 42px;
+      }
+
+      .database-description {
+        font-size: 13px;
       }
 
       .character-grid {
         grid-template-columns: 1fr;
         gap: 42px;
+      }
+
+      .character-card {
+        padding: 10px;
       }
     }
   </style>
@@ -282,79 +409,122 @@
 <body>
   <main class="page">
 
+    <!-- 상단 -->
     <header class="top-bar">
-      <a class="logo" href="index.html">
+      <a class="logo" href="main.html">
         STAR RAIN
       </a>
 
-      <a class="back-link" href="index.html">
-        &lt; RETURN
+      <a class="return-link" href="index.html">
+        &lt; DISCONNECT
       </a>
     </header>
 
-    <section class="archive-header">
-      <p class="system-line">
-        SECURE ARCHIVE / REGISTERED SUBJECTS
+    <!-- 데이터베이스 안내 -->
+    <section class="database-header">
+
+      <p class="system-path">
+        ROOT / SECURE_ARCHIVE / SUBJECT_DATABASE
       </p>
 
-      <h1 class="page-title">
+      <h1 class="database-title">
         NODE DIRECTORY
       </h1>
 
-      <p class="page-description">
-        인증된 기록만 표시됩니다.
+      <p class="database-description">
+        제한된 인물 기록 보관소입니다.<br>
         열람할 대상을 선택하십시오.
       </p>
+
+      <div class="database-status">
+        <span class="status-chip">
+          CONNECTION:
+          <strong>SECURE</strong>
+        </span>
+
+        <span class="status-chip">
+          USER:
+          <strong>ANONYMOUS</strong>
+        </span>
+
+        <span class="status-chip">
+          ACCESS:
+          <strong>GRANTED</strong>
+        </span>
+      </div>
+
     </section>
 
+    <!-- 캐릭터 목록 -->
     <section class="character-grid">
 
       <!-- 캐릭터 1 -->
       <a class="character-card" href="character1.html">
+
         <div class="character-image">
           <img
             src="character1.jpg"
-            alt="캐릭터 1 프로필"
+            alt="결 프로필"
           >
         </div>
 
-        <p class="character-code">
-          SUBJECT_001
-        </p>
+        <div class="character-meta">
 
-        <h2 class="character-name">
-          캐릭터이름1
-        </h2>
+          <p class="character-code">
+            SUBJECT_001 / ACTIVE
+          </p>
 
-        <p class="character-description">
-          캐릭터에 대한 짧은 설명
-        </p>
+          <h2 class="character-name">
+            결
+          </h2>
+
+          <p class="character-description">
+            캐릭터에 대한 짧은 소개 문구를 입력하세요.
+          </p>
+
+          <p class="open-file">
+            &gt; OPEN FILE_
+          </p>
+
+        </div>
+
       </a>
 
       <!-- 캐릭터 2 -->
       <a class="character-card" href="character2.html">
+
         <div class="character-image">
           <img
             src="character2.jpg"
-            alt="캐릭터 2 프로필"
+            alt="연리 프로필"
           >
         </div>
 
-        <p class="character-code">
-          SUBJECT_002
-        </p>
+        <div class="character-meta">
 
-        <h2 class="character-name">
-          캐릭터이름2
-        </h2>
+          <p class="character-code">
+            SUBJECT_002 / ACTIVE
+          </p>
 
-        <p class="character-description">
-          캐릭터에 대한 짧은 설명
-        </p>
+          <h2 class="character-name">
+            연리
+          </h2>
+
+          <p class="character-description">
+            캐릭터에 대한 짧은 소개 문구를 입력하세요.
+          </p>
+
+          <p class="open-file">
+            &gt; OPEN FILE_
+          </p>
+
+        </div>
+
       </a>
 
       <!-- 캐릭터 3 -->
       <a class="character-card" href="character3.html">
+
         <div class="character-image">
           <img
             src="character3.jpg"
@@ -362,17 +532,26 @@
           >
         </div>
 
-        <p class="character-code">
-          SUBJECT_003
-        </p>
+        <div class="character-meta">
 
-        <h2 class="character-name">
-          캐릭터이름3
-        </h2>
+          <p class="character-code">
+            SUBJECT_003 / UNKNOWN
+          </p>
 
-        <p class="character-description">
-          캐릭터에 대한 짧은 설명
-        </p>
+          <h2 class="character-name">
+            캐릭터 이름
+          </h2>
+
+          <p class="character-description">
+            캐릭터에 대한 짧은 소개 문구를 입력하세요.
+          </p>
+
+          <p class="open-file">
+            &gt; OPEN FILE_
+          </p>
+
+        </div>
+
       </a>
 
     </section>
