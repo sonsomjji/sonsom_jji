@@ -1,20 +1,14 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Star Rain | SUBJECT ARCHIVE</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@300;400;500;600&family=Noto+Serif+KR:wght@400;500;600&family=Share+Tech+Mono&family=Yuji+Boku&display=swap"
-    rel="stylesheet"
-  >
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Star Rain | SUBJECT ARCHIVE</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@300;400;500;600&amp;family=Noto+Serif+KR:wght@400;500;600&amp;family=Share+Tech+Mono&amp;family=Yuji+Boku&amp;display=swap" rel="stylesheet"/>
+<style>
     :root {
       --background: #000000;
       --panel: rgba(13, 9, 17, 0.92);
@@ -718,6 +712,107 @@
       font-family: var(--font-system);
     }
 
+
+    /* 15-subject archive layout */
+    .character-grid {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 24px 18px;
+    }
+
+    .character-card {
+      min-width: 0;
+    }
+
+    .character-image {
+      aspect-ratio: 4 / 5;
+    }
+
+    .character-meta {
+      min-height: 172px;
+    }
+
+    .character-name {
+      font-size: 28px;
+      letter-spacing: 1.5px;
+    }
+
+    .character-name-english {
+      font-size: 21px;
+      letter-spacing: 1.3px;
+    }
+
+    .vacant-card {
+      cursor: default;
+      border-style: dashed;
+      opacity: 0.72;
+    }
+
+    .vacant-card:hover {
+      transform: none;
+      border-color: var(--line);
+      background:
+        linear-gradient(
+          145deg,
+          rgba(20, 12, 25, 0.92),
+          rgba(7, 5, 9, 0.96)
+        );
+      box-shadow:
+        inset 0 0 20px rgba(128, 48, 180, 0.025);
+    }
+
+    .vacant-card:hover::before,
+    .vacant-card:hover::after {
+      width: 25px;
+      height: 25px;
+      border-color: #75428d;
+    }
+
+    .vacant-card .character-image {
+      display: grid;
+      place-items: center;
+      background:
+        linear-gradient(rgba(164, 84, 207, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(164, 84, 207, 0.035) 1px, transparent 1px),
+        #070509;
+      background-size: 24px 24px;
+    }
+
+    .vacant-card .character-image::after {
+      background:
+        linear-gradient(
+          to bottom,
+          transparent 48%,
+          rgba(0, 0, 0, 0.9)
+        );
+    }
+
+    .vacant-mark {
+      position: relative;
+      z-index: 5;
+      color: #5f4a68;
+      font-size: 40px;
+      letter-spacing: 4px;
+      text-shadow: 0 0 10px rgba(150, 75, 190, 0.12);
+    }
+
+    @media (max-width: 1100px) {
+      .character-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 820px) {
+      .character-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 540px) {
+      .character-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* Footer */
 
     .footer {
@@ -802,233 +897,93 @@
     }
   </style>
 </head>
-
 <body>
-  <main class="page">
-
-    <header class="top-bar">
-
-      <a class="logo" href="main.html">
+<main class="page">
+<header class="top-bar">
+<a class="logo" href="main.html">
         STAR RAIN
       </a>
-
-      <div class="node-status">
-        <span class="status-dot"></span>
+<div class="node-status">
+<span class="status-dot"></span>
         NODE CONNECTION ACTIVE
       </div>
-
-      <a class="disconnect" href="index.html">
+<a class="disconnect" href="index.html">
         &lt; DISCONNECT
       </a>
-
-    </header>
-
-    <section class="directory-header">
-
-      <p class="system-path">
+</header>
+<section class="directory-header">
+<p class="system-path">
         ROOT / PRIVATE NETWORK / SUBJECT DIRECTORY
       </p>
-
-      <h1 class="directory-title">
+<h1 class="directory-title">
         SUBJECT ARCHIVE
       </h1>
-
-      <p class="directory-description">
-        Restricted subject files detected.<br>
+<p class="directory-description">
+        Restricted subject files detected.<br/>
         Select a registered record to continue.
       </p>
-
-      <div class="access-line">
-
-        <span>
+<div class="access-line">
+<span>
           USER:
           <strong>ANONYMOUS</strong>
-        </span>
-
-        <span>
+</span>
+<span>
           ACCESS:
           <strong>GRANTED</strong>
-        </span>
-
-        <span>
+</span>
+<span>
           TRACE:
           <strong>BLOCKED</strong>
-        </span>
-
-      </div>
-
-    </section>
-
-    <section class="subject-section">
-
-      <div class="section-heading">
-
-        <h2>
+</span>
+</div>
+</section>
+<section class="subject-section">
+<div class="section-heading">
+<h2>
           REGISTERED SUBJECTS
         </h2>
+<span class="subject-count">15 FILES DETECTED</span>
+</div>
+<div class="character-grid">
+        <a class="character-card" href="bihong.html"><div class="character-image"><img alt="Subject 001" src="bihong-main.jpg"/><span class="image-status">ACTIVE</span></div><div class="character-meta"><p class="character-code">SUBJECT_001 / RESTRICTED</p><h2 class="character-name" lang="zh-Hant">飛紅</h2><p class="character-description">Subject record synchronized. Behavioral profile available.</p><div class="file-line"><span class="open-file">&gt; OPEN FILE_</span><span class="file-number">FILE_001</span></div></div></a>
 
-        <span class="subject-count">
-          03 FILES DETECTED
-        </span>
+        <a class="character-card" href="oil.html"><div class="character-image"><img alt="Subject 002" src="oil-main.jpg"/><span class="image-status">ACTIVE</span></div><div class="character-meta"><p class="character-code">SUBJECT_002 / CONFIDENTIAL</p><h2 class="character-name character-name-english">OL</h2><p class="character-description">Operational data verified. Additional records remain limited.</p><div class="file-line"><span class="open-file">&gt; OPEN FILE_</span><span class="file-number">FILE_002</span></div></div></a>
 
+        <a class="character-card" href="bina.html"><div class="character-image"><img alt="Subject 003" src="bina-main.jpg"/><span class="image-status">ACTIVE</span></div><div class="character-meta"><p class="character-code">SUBJECT_003 / RESTRICTED</p><h2 class="character-name character-name-english">BINA</h2><p class="character-description">Identity confirmed. Current activity under observation.</p><div class="file-line"><span class="open-file">&gt; OPEN FILE_</span><span class="file-number">FILE_003</span></div></div></a>
+
+        <a class="character-card" href="astra.html"><div class="character-image"><img alt="Subject 004" src="astra-main.jpg"/><span class="image-status">OBSERVED</span></div><div class="character-meta"><p class="character-code">SUBJECT_004 / CONFIDENTIAL</p><h2 class="character-name character-name-english">ASTRA</h2><p class="character-description">Subject presents anomalous traits. Continuous monitoring advised.</p><div class="file-line"><span class="open-file">&gt; OPEN FILE_</span><span class="file-number">FILE_004</span></div></div></a>
+
+        <a class="character-card" href="delta.html"><div class="character-image"><img alt="Subject 005" src="delta-main.jpg"/><span class="image-status">ACTIVE</span></div><div class="character-meta"><p class="character-code">SUBJECT_005 / CLASSIFIED</p><h2 class="character-name character-name-english">Δ</h2><p class="character-description">Research access granted under restricted clearance.</p><div class="file-line"><span class="open-file">&gt; OPEN FILE_</span><span class="file-number">FILE_005</span></div></div></a>
+
+        <a class="character-card" href="hwa.html"><div class="character-image"><img alt="Subject 006" src="hwa-main.jpg"/><span class="image-status">ACTIVE</span></div><div class="character-meta"><p class="character-code">SUBJECT_006 / RESTRICTED</p><h2 class="character-name" lang="zh-Hant">華</h2><p class="character-description">Record stable. Field activity remains under review.</p><div class="file-line"><span class="open-file">&gt; OPEN FILE_</span><span class="file-number">FILE_006</span></div></div></a>
+
+        <article class="character-card vacant-card"><div class="character-image"><span class="vacant-mark">//</span><span class="image-status">UNASSIGNED</span></div><div class="character-meta"><p class="character-code">SUBJECT_007 / EMPTY</p><h2 class="character-name character-name-english">VACANT</h2><p class="character-description">No subject has been assigned to this record.</p><div class="file-line"><span class="open-file">&gt; NO RECORD</span><span class="file-number">FILE_007</span></div></div></article>
+
+        <article class="character-card vacant-card"><div class="character-image"><span class="vacant-mark">//</span><span class="image-status">UNASSIGNED</span></div><div class="character-meta"><p class="character-code">SUBJECT_008 / EMPTY</p><h2 class="character-name character-name-english">VACANT</h2><p class="character-description">No subject has been assigned to this record.</p><div class="file-line"><span class="open-file">&gt; NO RECORD</span><span class="file-number">FILE_008</span></div></div></article>
+
+        <a class="character-card" href="yeon.html"><div class="character-image"><img alt="Subject 009" src="yeon-main.jpg"/><span class="image-status">OBSERVED</span></div><div class="character-meta"><p class="character-code">SUBJECT_009 / REDACTED</p><h2 class="character-name" lang="zh-Hant">緣</h2><p class="character-description">Partial record recovered. Several sections remain redacted.</p><div class="file-line"><span class="open-file">&gt; OPEN FILE_</span><span class="file-number">FILE_009</span></div></div></a>
+
+        <a class="character-card" href="yeonri.html"><div class="character-image"><img alt="Subject 010" src="yeonri-main.jpg"/><span class="image-status">OBSERVED</span></div><div class="character-meta"><p class="character-code">SUBJECT_010 / CONFIDENTIAL</p><h2 class="character-name" lang="zh-Hant">緣離</h2><p class="character-description" lang="ko">"그대! 손에 든 그것은 무엇이냐? 궁금하다!"</p><div class="file-line"><span class="open-file">&gt; OPEN FILE_</span><span class="file-number">FILE_010</span></div></div></a>
+
+        <a class="character-card" href="baekmu.html"><div class="character-image"><img alt="Subject 011" src="baekmu-main.jpg"/><span class="image-status">ACTIVE</span></div><div class="character-meta"><p class="character-code">SUBJECT_011 / CLASSIFIED</p><h2 class="character-name" lang="zh-Hant">白巫</h2><p class="character-description">Identity confirmed. Ritual data remains classified.</p><div class="file-line"><span class="open-file">&gt; OPEN FILE_</span><span class="file-number">FILE_011</span></div></div></a>
+
+        <a class="character-card" href="gyeol.html"><div class="character-image"><img alt="Subject 012" src="gyeol-main.jpg"/><span class="image-status">ACTIVE</span></div><div class="character-meta"><p class="character-code">SUBJECT_012 / REDACTED</p><h2 class="character-name" lang="zh-Hant">結</h2><p class="character-description" lang="ko">"...뭘 봐. 귀찮게 하지 말고 저리 꺼져."</p><div class="file-line"><span class="open-file">&gt; OPEN FILE_</span><span class="file-number">FILE_012</span></div></div></a>
+
+        <a class="character-card" href="an.html"><div class="character-image"><img alt="Subject 013" src="an-main.jpg"/><span class="image-status">ACTIVE</span></div><div class="character-meta"><p class="character-code">SUBJECT_013 / RESTRICTED</p><h2 class="character-name character-name-english">AN</h2><p class="character-description">Current location confirmed. Threat assessment pending.</p><div class="file-line"><span class="open-file">&gt; OPEN FILE_</span><span class="file-number">FILE_013</span></div></div></a>
+
+        <a class="character-card" href="lumi.html"><div class="character-image"><img alt="Subject 014" src="lumi-main.jpg"/><span class="image-status">ACTIVE</span></div><div class="character-meta"><p class="character-code">SUBJECT_014 / CONFIDENTIAL</p><h2 class="character-name character-name-english">LUMI</h2><p class="character-description">Subject record verified. Access limited to authorized personnel.</p><div class="file-line"><span class="open-file">&gt; OPEN FILE_</span><span class="file-number">FILE_014</span></div></div></a>
+
+        <a class="character-card" href="reve.html"><div class="character-image"><img alt="Subject 015" src="reve-main.jpg"/><span class="image-status">UNKNOWN</span></div><div class="character-meta"><p class="character-code">SUBJECT_015 / SEALED</p><h2 class="character-name character-name-english">REVE</h2><p class="character-description">Signal lost. Full record remains sealed.</p><div class="file-line"><span class="open-file">&gt; OPEN FILE_</span><span class="file-number">FILE_015</span></div></div></a>
       </div>
-
-      <div class="character-grid">
-
-        <!-- Subject 001 -->
-        <a class="character-card" href="gyeol.html">
-
-          <div class="character-image">
-
-            <img
-              src="gyeol-main.jpg"
-              alt="Subject 001"
-            >
-
-            <span class="image-status">
-              ACTIVE
-            </span>
-
-          </div>
-
-          <div class="character-meta">
-
-            <p class="character-code">
-              SUBJECT_001 / REDACTED
-            </p>
-
-            <h2 class="character-name" lang="zh-Hant">
-              結
-            </h2>
-
-            <p class="character-description" lang="ko">
-              "...뭘 봐. 귀찮게 하지 말고 저리 꺼져."
-            </p>
-
-            <div class="file-line">
-
-              <span class="open-file">
-                &gt; OPEN FILE<span class="cursor">_</span>
-              </span>
-
-              <span class="file-number">
-                FILE_001
-              </span>
-
-            </div>
-
-          </div>
-
-        </a>
-
-        <!-- Subject 002 -->
-        <a class="character-card" href="yeonri.html">
-
-          <div class="character-image">
-
-            <img
-              src="yeonri-main.jpg"
-              alt="Subject 002"
-            >
-
-            <span class="image-status">
-              OBSERVED
-            </span>
-
-          </div>
-
-          <div class="character-meta">
-
-            <p class="character-code">
-              SUBJECT_002 / CONFIDENTIAL
-            </p>
-
-            <h2 class="character-name" lang="zh-Hant">
-              緣離
-            </h2>
-
-            <p class="character-description" lang="ko">
-              "그대! 손에 든 그것은 무엇이냐? 궁금하다!"
-            </p>
-
-            <div class="file-line">
-
-              <span class="open-file">
-                &gt; OPEN FILE_
-              </span>
-
-              <span class="file-number">
-                FILE_002
-              </span>
-
-            </div>
-
-          </div>
-
-        </a>
-
-        <!-- Subject 003 -->
-        <a class="character-card" href="siwoo.html">
-
-          <div class="character-image">
-
-            <img
-              src="siwoo-main.jpg"
-              alt="Subject 003"
-            >
-
-            <span class="image-status">
-              UNKNOWN
-            </span>
-
-          </div>
-
-          <div class="character-meta">
-
-            <p class="character-code">
-              SUBJECT_003 / CLASSIFIED
-            </p>
-
-            <h2 class="character-name character-name-english">
-              BAEK SIWOO
-            </h2>
-
-            <p class="character-description">
-              Partial identity confirmed. Full record remains classified.
-            </p>
-
-            <div class="file-line">
-
-              <span class="open-file">
-                &gt; OPEN FILE_
-              </span>
-
-              <span class="file-number">
-                FILE_003
-              </span>
-
-            </div>
-
-          </div>
-
-        </a>
-
-      </div>
-
-    </section>
-
-    <footer class="footer">
-
-      <p>
+</section>
+<footer class="footer">
+<p>
         STAR RAIN PRIVATE NETWORK
       </p>
-
-      <p>
+<p>
         SESSION ENCRYPTED / IDENTITY MASKED
       </p>
-
-    </footer>
-
-  </main>
+</footer>
+</main>
 </body>
 </html>
