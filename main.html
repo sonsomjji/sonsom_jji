@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
-    href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@300;400;500;600&family=Noto+Serif+KR:wght@400;500;600&family=Share+Tech+Mono&family=Yuji+Boku&display=swap"
     rel="stylesheet"
   >
 
@@ -31,6 +31,26 @@
       --text: #f6effa;
       --subtext: #88798f;
       --dim: #57495d;
+
+      --font-system:
+        "Share Tech Mono",
+        Consolas,
+        monospace;
+
+      --font-hanja:
+        "Yuji Boku",
+        "Noto Serif KR",
+        serif;
+
+      --font-korean:
+        "Hahmlet",
+        "Noto Serif KR",
+        serif;
+
+      --font-document:
+        "Noto Serif KR",
+        "Times New Roman",
+        serif;
     }
 
     * {
@@ -72,10 +92,7 @@
 
       color: var(--text);
 
-      font-family:
-        "Share Tech Mono",
-        Consolas,
-        monospace;
+      font-family: var(--font-system);
     }
 
     a {
@@ -485,27 +502,108 @@
       letter-spacing: 1.2px;
     }
 
-    .character-name {
-      margin-top: 8px;
+    .character-name{
+    margin-top:6px;
 
-      color: #ffffff;
+    color:#fff;
 
-      font-size: 23px;
-      font-weight: 400;
-      letter-spacing: 1.5px;
+    font-family:var(--font-hanja);
+
+    font-size:30px;
+    font-weight:400;
+
+    letter-spacing:2px;
+    line-height:1.1;
+
+    text-shadow:
+        0 0 8px rgba(177,91,225,.28);
+
+    transition:
+        color .2s ease;
+}
+
+.character-card:hover .character-name{
+    color:#f0d5ff;
+}
+
+    .character-card:hover .character-name {
+      color: #f0d5ff;
 
       text-shadow:
-        0 0 9px rgba(177, 91, 225, 0.2);
+        1px 0 0 rgba(255, 255, 255, 0.25),
+        -1px 1px 0 rgba(89, 26, 118, 0.5),
+        0 0 9px rgba(204, 145, 255, 0.55),
+        0 0 24px rgba(118, 42, 160, 0.28);
+
+      transform:
+        rotate(-1deg)
+        translateX(2px);
+    }
+
+    .character-name-english {
+      margin-top: 8px;
+
+      font-family: var(--font-system);
+      font-size: 23px;
+      line-height: 1.3;
+      letter-spacing: 1.5px;
+
+      transform: none;
+    }
+
+    .character-card:hover .character-name-english {
+      transform: translateX(2px);
     }
 
     .character-description {
-      min-height: 42px;
-      margin-top: 10px;
+      position: relative;
 
-      color: #887d8c;
+      min-height: 48px;
+      margin-top: 12px;
+      padding-left: 13px;
 
-      font-size: 12px;
-      line-height: 1.7;
+      color: #a99eac;
+
+      font-family: var(--font-system);
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.8;
+      letter-spacing: 0.15px;
+
+      text-shadow:
+        0 0 9px rgba(161, 91, 187, 0.1);
+
+      transition: color 0.2s ease;
+    }
+
+    .character-description[lang="ko"] {
+      font-family: var(--font-korean);
+      letter-spacing: -0.15px;
+      word-break: keep-all;
+    }
+
+    .character-description::before {
+      content: "";
+
+      position: absolute;
+      top: 5px;
+      bottom: 5px;
+      left: 0;
+
+      width: 1px;
+
+      background:
+        linear-gradient(
+          to bottom,
+          transparent,
+          #684577 25%,
+          #684577 75%,
+          transparent
+        );
+    }
+
+    .character-card:hover .character-description {
+      color: #c3b6c7;
     }
 
     .file-line {
@@ -597,6 +695,27 @@
         grayscale(1)
         contrast(1.1)
         brightness(0.42);
+    }
+
+    /* English UI font — unified with index.html */
+    .logo,
+    .node-status,
+    .disconnect,
+    .system-path,
+    .directory-title,
+    .directory-description,
+    .access-line,
+    .section-heading h2,
+    .subject-count,
+    .image-status,
+    .character-code,
+    .character-name-english,
+    .character-description:not([lang="ko"]),
+    .file-line,
+    .open-file,
+    .file-number,
+    .footer {
+      font-family: var(--font-system);
     }
 
     /* Footer */
@@ -778,12 +897,12 @@
               SUBJECT_001 / RESTRICTED
             </p>
 
-            <h2 class="character-name">
+            <h2 class="character-name" lang="zh-Hant">
               結
             </h2>
 
-            <p class="character-description">
-              "...뭘 봐. 귀찮게 하지말고 저리 꺼져."
+            <p class="character-description" lang="ko">
+              "...뭘 봐. 귀찮게 하지 말고 저리 꺼져."
             </p>
 
             <div class="file-line">
@@ -824,11 +943,11 @@
               SUBJECT_002 / RESTRICTED
             </p>
 
-            <h2 class="character-name">
+            <h2 class="character-name" lang="zh-Hant">
               緣離
             </h2>
 
-            <p class="character-description">
+            <p class="character-description" lang="ko">
               "그대! 손에 든 그것은 무엇이냐?! 궁금하도다!"
             </p>
 
@@ -870,7 +989,7 @@
               SUBJECT_003 / CLASSIFIED
             </p>
 
-            <h2 class="character-name">
+            <h2 class="character-name character-name-english">
               BAEK SIWOO
             </h2>
 
