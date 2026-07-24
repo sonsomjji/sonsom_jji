@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Star Rain | YEONRI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@300;400;500;600&family=Noto+Serif+KR:wght@400;500;600;700&family=Share+Tech+Mono&family=Yuji+Boku&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --background:#000;
+      --panel:rgba(12,8,16,.94);
+      --purple:#cc91ff;
+      --purple-light:#e5c3ff;
+      --purple-mid:#a467cc;
+      --purple-dark:#6f4c7e;
+      --line:#2d1b36;
+      --text:#f5eef8;
+      --subtext:#9a8ca0;
+      --dim:#5c4d62;
+      --paper:#e7e2d8;
+      --ink:#181619;
+      --ink-soft:#555057;
+      --stamp:#6c274b;
+      --font-system:"Share Tech Mono",Consolas,monospace;
+      --font-hanja:"Yuji Boku","Noto Serif KR",serif;
+      --font-korean:"Hahmlet","Noto Serif KR",serif;
+      --font-document:"Noto Serif KR","Times New Roman",serif;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    [hidden]{
+      display:none !important;
+    }
+
+    html{scroll-behavior:smooth}
+    body{
+      min-height:100vh;overflow-x:hidden;color:var(--text);font-family:var(--font-system);
+      background:
+        linear-gradient(rgba(164,84,207,.018) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(164,84,207,.018) 1px,transparent 1px),
+        radial-gradient(circle at 50% 0%,rgba(102,29,153,.16),transparent 32%),
+        var(--background);
+      background-size:48px 48px,48px 48px,auto,auto;
+    }
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%}
+    button{font:inherit}
+    .page{width:min(calc(100% - 40px),1180px);margin:0 auto;padding:28px 0 100px}
+    .top-bar{
+      position:sticky;top:0;z-index:100;min-height:68px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+      border-bottom:1px solid var(--line);background:linear-gradient(to bottom,rgba(0,0,0,.98),rgba(0,0,0,.91));backdrop-filter:blur(12px)
+    }
+    .logo{justify-self:start;color:var(--purple);font-size:20px;letter-spacing:2px;text-shadow:0 0 5px rgba(180,106,255,.65),0 0 14px rgba(117,36,185,.35)}
+    .node-status{justify-self:center;display:flex;align-items:center;gap:9px;color:var(--purple-dark);font-size:11px;letter-spacing:1.2px}
+    .status-dot{width:6px;height:6px;border-radius:50%;background:var(--purple-mid);box-shadow:0 0 6px rgba(192,118,240,.8);animation:pulse 1.8s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:.42}50%{opacity:1}}
+    .back-link{justify-self:end;color:var(--dim);font-size:11px;letter-spacing:.7px;transition:color .2s ease,text-shadow .2s ease}
+    .back-link:hover{color:var(--purple);text-shadow:0 0 8px rgba(176,91,229,.45)}
+    .subject-header{padding:70px 0 46px;display:grid;grid-template-columns:1fr auto;align-items:end;gap:30px;border-bottom:1px solid var(--line)}
+    .subject-path{color:var(--purple-dark);font-size:11px;letter-spacing:1.5px}
+    .subject-title{margin-top:13px;color:var(--text);font-size:clamp(34px,6vw,58px);font-weight:400;line-height:1;letter-spacing:4px;text-shadow:0 0 8px rgba(185,100,238,.22),0 0 24px rgba(111,42,179,.16)}
+    .subject-title .hanja{margin-left:12px;color:var(--purple-light);font-family:var(--font-system);font-size:.9em;letter-spacing:1px}
+
+    .subject-title.hanja-only{
+      font-family:var(--font-hanja);
+      font-size:clamp(76px,12vw,138px);
+      line-height:.9;
+      letter-spacing:2px;
+      color:var(--purple-light);
+      text-shadow:
+        0 0 7px rgba(204,145,255,.32),
+        0 0 26px rgba(111,42,179,.24);
+    }
+
+    .subject-summary{margin-top:19px;color:var(--subtext);font-size:12px;line-height:1.8;letter-spacing:.25px}
+    .subject-badges{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}
+    .badge{padding:8px 10px;border:1px solid #4b2d59;background:rgba(14,9,18,.75);color:#a97bc0;font-size:9px;letter-spacing:1px}
+    .section{padding-top:76px}
+    .section-heading{margin-bottom:26px;display:flex;align-items:center;gap:16px}
+    .section-heading h2{color:var(--purple-light);font-size:17px;font-weight:400;letter-spacing:2px}
+    .section-heading span{color:var(--dim);font-size:10px;letter-spacing:1px}
+    .section-heading::after{content:"";flex:1;height:1px;background:linear-gradient(to right,var(--line),transparent)}
+    .document-stage{position:relative;padding:34px;border:1px solid var(--line);background:linear-gradient(145deg,rgba(18,11,23,.92),rgba(6,4,8,.98));box-shadow:inset 0 0 30px rgba(128,48,180,.025),0 20px 80px rgba(0,0,0,.45)}
+    .document-stage::before,.document-stage::after{content:"";position:absolute;width:38px;height:38px;pointer-events:none}
+    .document-stage::before{top:-1px;left:-1px;border-top:1px solid #75428d;border-left:1px solid #75428d}
+    .document-stage::after{right:-1px;bottom:-1px;border-right:1px solid #75428d;border-bottom:1px solid #75428d}
+    .personnel-file{position:relative;width:min(100%,920px);margin:0 auto;padding:42px 44px 36px;overflow:hidden;background:linear-gradient(rgba(0,0,0,.025) 1px,transparent 1px),var(--paper);background-size:100% 25px;color:var(--ink);font-family:var(--font-document);box-shadow:0 18px 50px rgba(0,0,0,.48)}
+    .personnel-file::before{content:"STAR RAIN INTERNAL PERSONNEL RECORD";position:absolute;top:47%;left:50%;color:rgba(78,55,74,.045);font-family:var(--font-system);font-size:clamp(28px,5vw,58px);letter-spacing:4px;white-space:nowrap;transform:translate(-50%,-50%) rotate(-24deg);pointer-events:none}
+    .paper-top{position:relative;z-index:2;padding-bottom:18px;display:grid;grid-template-columns:1fr auto;align-items:start;gap:24px;border-bottom:3px double #2a262b}
+    .agency{font-family:var(--font-system)}
+    .agency-code{font-size:10px;letter-spacing:1.5px}
+    .agency-title{margin-top:6px;font-size:24px;letter-spacing:2px}
+    .paper-classification{padding:8px 12px;border:2px solid var(--stamp);color:var(--stamp);font-family:var(--font-system);font-size:11px;letter-spacing:1.2px;transform:rotate(-2deg)}
+    .record-number{position:relative;z-index:2;margin-top:14px;display:flex;justify-content:space-between;gap:20px;color:var(--ink-soft);font-family:var(--font-system);font-size:10px;letter-spacing:.8px}
+    .identity-block{position:relative;z-index:2;margin-top:26px;display:grid;grid-template-columns:190px 1fr;gap:26px}
+    .id-photo-wrap{border:1px solid #4b464d;padding:7px;background:#d5cec2}
+    .id-photo{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center;filter:grayscale(.25) contrast(1.04) brightness(.95)}
+    .photo-caption{margin-top:8px;color:var(--ink-soft);font-family:var(--font-system);font-size:9px;text-align:center;letter-spacing:1px}
+    .identity-table{display:grid;grid-template-columns:120px 1fr;align-content:start;border-top:1px solid #4f494f;border-left:1px solid #4f494f}
+    .identity-table dt,.identity-table dd{min-height:42px;padding:10px 12px;border-right:1px solid #4f494f;border-bottom:1px solid #4f494f}
+    .identity-table dt{background:rgba(83,72,83,.08);color:var(--ink-soft);font-size:11px;font-weight:600;letter-spacing:.25px}
+    .identity-table dd{font-size:13px;line-height:1.65}
+    .ability-section,.notes-section{position:relative;z-index:2;margin-top:28px}
+    .paper-section-title{margin-bottom:10px;padding:7px 10px;border-top:1px solid #383339;border-bottom:1px solid #383339;background:rgba(73,62,74,.08);font-family:var(--font-system);font-size:11px;letter-spacing:1.2px}
+    .ability-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #4f494f;border-left:1px solid #4f494f}
+    .ability-cell{min-height:74px;padding:11px 12px;border-right:1px solid #4f494f;border-bottom:1px solid #4f494f}
+    .ability-cell.full{grid-column:1/-1;min-height:108px}
+    .cell-label{display:block;margin-bottom:7px;color:var(--ink-soft);font-size:10px;font-weight:600}
+    .cell-value{font-size:13px;line-height:1.75;word-break:keep-all}
+    .notes-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .lined-note{min-height:180px;padding:14px 15px;border:1px solid #4f494f;background:repeating-linear-gradient(to bottom,transparent 0,transparent 27px,rgba(66,60,66,.22) 28px);font-size:13px;line-height:28px;word-break:keep-all}
+    .paper-footer{position:relative;z-index:2;margin-top:28px;padding-top:16px;display:grid;grid-template-columns:1fr auto;align-items:end;gap:20px;border-top:1px solid #403b41}
+    .approval-grid{display:grid;grid-template-columns:repeat(3,82px);gap:5px}
+    .approval-box{min-height:60px;display:grid;place-items:center;border:1px solid #4f494f;color:var(--ink-soft);font-size:9px;text-align:center}
+    .approval-box strong{color:var(--stamp);font-family:var(--font-system);font-size:11px;letter-spacing:.8px}
+    .paper-page{color:var(--ink-soft);font-family:var(--font-system);font-size:9px;letter-spacing:1px}
+    .visual-record{position:relative;border:1px solid var(--line);background:linear-gradient(145deg,rgba(19,12,24,.92),rgba(5,4,7,.98));overflow:hidden}
+    .visual-frame{position:relative;min-height:690px;display:grid;place-items:center;overflow:hidden}
+    .visual-frame::before{content:"";position:absolute;z-index:2;inset:0;pointer-events:none;background:repeating-linear-gradient(to bottom,transparent 0,transparent 4px,rgba(0,0,0,.1) 5px)}
+    .visual-frame::after{content:"";position:absolute;z-index:3;inset:0;pointer-events:none;background:linear-gradient(to bottom,rgba(0,0,0,.08),transparent 35%,rgba(0,0,0,.45))}
+    .visual-slide{display:none;width:100%;height:690px;object-fit:contain;object-position:center bottom;background:radial-gradient(circle at 50% 40%,rgba(80,40,102,.18),transparent 50%),#050306}
+    .visual-slide.active{display:block}
+    .visual-topline{position:absolute;z-index:5;top:18px;left:20px;right:20px;display:flex;justify-content:space-between;gap:20px;color:#896698;font-size:10px;letter-spacing:1px}
+    .visual-controls{position:absolute;z-index:5;right:20px;bottom:18px;display:flex;align-items:center;gap:8px}
+    .visual-button{width:42px;height:34px;border:1px solid #51305e;background:rgba(0,0,0,.72);color:#9f73b4;cursor:pointer;transition:border-color .2s ease,color .2s ease,box-shadow .2s ease}
+    .visual-button:hover{border-color:var(--purple);color:var(--purple);box-shadow:0 0 12px rgba(166,92,210,.16)}
+    .slide-counter{min-width:68px;color:#765584;font-size:10px;text-align:center;letter-spacing:1px}
+    .archive-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+
+    .simplified-archive{
+      grid-template-columns:repeat(3,1fr);
+    }
+    .archive-gateway{
+      position:relative;
+      min-height:190px;
+      padding:24px 22px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      border:1px solid var(--line);
+      background:
+        linear-gradient(145deg,rgba(18,11,23,.95),rgba(5,3,7,.99));
+      overflow:hidden;
+      transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
+    }
+    .archive-gateway::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg,transparent,rgba(182,103,233,.035),transparent);
+      transform:translateX(-100%);
+      transition:transform .45s ease;
+    }
+    .archive-gateway:hover{
+      transform:translateY(-4px);
+      border-color:#7d4a92;
+      box-shadow:0 14px 34px rgba(0,0,0,.34),0 0 20px rgba(145,67,190,.08);
+    }
+    .archive-gateway:hover::before{transform:translateX(100%)}
+    .archive-code{
+      position:absolute;
+      top:18px;
+      left:20px;
+      color:#6f4c7e;
+      font-size:9px;
+      letter-spacing:1.2px;
+    }
+    .archive-gateway strong{
+      color:var(--purple-light);
+      font-size:15px;
+      font-weight:400;
+      letter-spacing:1.5px;
+    }
+    .archive-gateway small{
+      margin-top:9px;
+      color:#746779;
+      font-size:10px;
+      line-height:1.6;
+      letter-spacing:.2px;
+    }
+    .archive-arrow{
+      margin-top:18px;
+      color:#7a5788;
+      font-size:10px;
+      letter-spacing:1px;
+      transition:color .2s ease,text-shadow .2s ease;
+    }
+    .archive-gateway:hover .archive-arrow{
+      color:var(--purple);
+      text-shadow:0 0 8px rgba(176,91,229,.4);
+    }
+
+    .archive-panel{border:1px solid var(--line);background:linear-gradient(145deg,rgba(18,11,23,.92),rgba(6,4,8,.98));overflow:hidden}
+    .archive-panel-header{padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:16px;border-bottom:1px solid var(--line)}
+    .archive-panel-header h3{color:var(--purple-light);font-size:14px;font-weight:400;letter-spacing:1.6px}
+    .archive-panel-header span{color:var(--dim);font-size:9px;letter-spacing:1px}
+    .archive-list{list-style:none}
+    .archive-item{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:13px;min-height:64px;padding:13px 17px;border-bottom:1px solid #211628;transition:background-color .2s ease,color .2s ease}
+    .archive-item:last-child{border-bottom:0}
+    .archive-item:hover{background:rgba(77,36,99,.14)}
+    .archive-index{color:#6f4c7e;font-size:9px;letter-spacing:1px}
+    .archive-info strong{display:block;color:#cdbbd5;font-size:11px;font-weight:400;letter-spacing:.8px}
+    .archive-info small{display:block;margin-top:5px;color:#6e6173;font-size:9px;line-height:1.5;letter-spacing:.25px}
+    .archive-open{color:#725080;font-size:10px;letter-spacing:.8px;transition:color .2s ease,text-shadow .2s ease}
+    .archive-item:hover .archive-open{color:var(--purple);text-shadow:0 0 8px rgba(176,91,229,.4)}
+    .archive-empty{min-height:64px;padding:20px 17px;color:#514555;font-size:10px;letter-spacing:.7px}
+    .footer{margin-top:90px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;color:#4d4052;font-size:10px;letter-spacing:.8px}
+
+
+    /* 서류 밖 인터페이스 폰트 통합 */
+    .top-bar,
+    .subject-header,
+    .section-heading,
+    .file-switcher,
+    .visual-record,
+    .archive-grid,
+    .footer,
+    button,
+    input{
+      font-family:var(--font-system);
+    }
+
+    /* 연리 인사서류 용 발자국 이미지 */
+    .dragon-footprint{
+      position:absolute;
+      z-index:3;
+      right:42px;
+      bottom:54px;
+      width:138px;
+      opacity:.24;
+      transform:rotate(-13deg);
+      mix-blend-mode:multiply;
+      pointer-events:none;
+      user-select:none;
+    }
+
+    @media(max-width:680px){
+      .dragon-footprint{
+        right:18px;
+        bottom:34px;
+        width:96px;
+        opacity:.20;
+      }
+    }
+
+    /* 캐릭터 파일 이동 */
+    .character-nav{
+      margin-top:66px;
+      padding:22px 0 4px;
+      border-top:1px solid var(--line);
+      font-family:var(--font-system);
+    }
+    .character-nav-meta{
+      margin-bottom:14px;
+      color:#4a3c4f;
+      font-size:8px;
+      text-align:center;
+      letter-spacing:1.4px;
+    }
+    .character-nav-row{
+      display:grid;
+      grid-template-columns:1fr auto 1fr;
+      align-items:center;
+      gap:14px;
+    }
+    .character-nav-link{
+      min-height:46px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 12px;
+      border:1px solid #2f1d37;
+      background:rgba(7,4,9,.72);
+      transition:border-color .2s ease,box-shadow .2s ease;
+    }
+    .character-nav-link.next{
+      justify-content:flex-end;
+      text-align:right;
+    }
+    .character-nav-link:hover{
+      border-color:#744188;
+      box-shadow:0 0 12px rgba(155,73,199,.08);
+    }
+    .character-arrow{
+      color:#b583ca;
+      font-size:20px;
+      line-height:1;
+      text-shadow:0 0 7px rgba(195,111,245,.26);
+    }
+    .character-nav-copy small{
+      display:block;
+      color:#55465a;
+      font-size:8px;
+      letter-spacing:1px;
+    }
+    .character-nav-copy strong{
+      display:block;
+      margin-top:3px;
+      color:#a58bae;
+      font-size:10px;
+      font-weight:400;
+      letter-spacing:.9px;
+    }
+    .darkweb-sigil{
+      position:relative;
+      width:48px;
+      height:48px;
+      display:grid;
+      place-items:center;
+      color:#8b5d9d;
+      font-family:var(--font-system);
+      font-size:9px;
+    }
+    .darkweb-sigil::before{
+      content:"";
+      position:absolute;
+      inset:11px;
+      border:1px solid #4d2d58;
+      transform:rotate(45deg);
+    }
+    .darkweb-sigil span{
+      position:relative;
+      z-index:2;
+      text-shadow:0 0 6px rgba(184,99,228,.3);
+    }
+
+    @media(max-width:680px){
+      .character-nav-row{gap:6px}
+      .character-nav-link{min-height:42px;padding:7px 9px}
+      .character-nav-copy small{display:none}
+      .character-nav-copy strong{font-size:9px}
+      .character-arrow{font-size:18px}
+      .darkweb-sigil{width:38px;height:38px;font-size:8px}
+      .darkweb-sigil::before{inset:9px}
+    }
+
+    @media(max-width:900px){.subject-header{grid-template-columns:1fr}.subject-badges{justify-content:flex-start}.identity-block{grid-template-columns:160px 1fr}.archive-grid{grid-template-columns:1fr}}
+    @media(max-width:680px){.page{width:min(calc(100% - 24px),1180px);padding-top:14px}.top-bar{min-height:58px;grid-template-columns:1fr 1fr}.node-status{display:none}.subject-header{padding-top:52px}.subject-title{line-height:1.2}.subject-title .hanja{display:block;margin:10px 0 0}.document-stage{padding:10px}.personnel-file{padding:28px 20px 26px}.paper-top,.identity-block,.paper-footer{grid-template-columns:1fr}.paper-classification{justify-self:start}.id-photo-wrap{width:min(100%,220px)}.identity-table{grid-template-columns:96px 1fr}.ability-grid{grid-template-columns:1fr}.ability-cell.full{grid-column:auto}.notes-grid{grid-template-columns:1fr}.visual-frame,.visual-slide,.visual-lock-slide,.visual-loading{height:540px;min-height:540px}.footer{flex-direction:column;gap:8px}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="top-bar">
+      <a class="logo" href="main.html">STAR RAIN</a>
+      <div class="node-status"><span class="status-dot"></span>NODE CONNECTION ACTIVE</div>
+      <a class="back-link" href="main.html">&lt; RETURN TO ARCHIVE</a>
+    </header>
+
+    <section class="subject-header">
+      <div>
+        <p class="subject-path">ROOT / PERSONNEL NODE / SUBJECT_YEONRI</p>
+        <h1 class="subject-title hanja-only" lang="zh-Hant">連理</h1>
+        <p class="subject-summary">PERSONNEL RECORD VERIFIED.<br>FIELD ACCESS AUTHORIZED.</p>
+      </div>
+      <div class="subject-badges">
+        <span class="badge">STATUS: ACTIVE</span>
+        <span class="badge">ACCESS: AUTHORIZED</span>
+        <span class="badge">CLASS: ACTIVE</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading"><h2>PERSONNEL FILE</h2><span>CURRENT PERSONNEL RECORD</span></div>
+      <div class="document-stage">
+        <article class="personnel-file">
+          <img class="dragon-footprint" src="dragon-paw.png" alt="" aria-hidden="true">
+          <div class="paper-top">
+            <div class="agency">
+              <p class="agency-code">STAR RAIN / INTERNAL SECURITY BUREAU</p>
+              <h2 class="agency-title">PERSONNEL RECORD CARD</h2>
+            </div>
+            <div class="paper-classification">ACTIVE PERSONNEL</div>
+          </div>
+          <div class="record-number"><span>RECORD NO. SR-YEONRI-A</span><span>ISSUED: 20XX.XX.XX</span></div>
+          <div class="identity-block">
+            <div class="id-photo-wrap">
+              <img class="id-photo" src="yeonri-main.jpg" alt="연리 요원 증명사진">
+              <p class="photo-caption">CURRENT IDENTIFICATION PHOTO</p>
+            </div>
+            <dl class="identity-table">
+              <dt>이름</dt><dd>連理</dd>
+              <dt>본명</dt><dd>連理</dd>
+              <dt>성별</dt><dd>여성체</dd>
+              <dt>나이</dt><dd>외형 기준 20대 초반 추정</dd>
+              <dt>생일</dt><dd>—</dd>
+              <dt>국적</dt><dd>에리테이아</dd>
+              <dt>소속 / 부서</dt><dd>—</dd>
+            </dl>
+          </div>
+          <section class="ability-section">
+            <h3 class="paper-section-title">ABILITY CLASSIFICATION / 능력 분류</h3>
+            <div class="ability-grid">
+              <div class="ability-cell"><span class="cell-label">능력명</span><p class="cell-value">萬象流轉</p></div>
+              <div class="ability-cell"><span class="cell-label">등급</span><p class="cell-value">S</p></div>
+              <div class="ability-cell"><span class="cell-label">분류</span><p class="cell-value">인지·개념형</p></div>
+              <div class="ability-cell full"><span class="cell-label">능력 설명</span><p class="cell-value">‘흐름’으로 인식되는 모든 현상을 시각적으로 감지할 수 있다.흐름은 물리적 유동(물·바람·에너지)뿐 아니라 감정의 고조,전장의 기세,인과적 연결 등 추상적 개념까지 포함한다. 또한 연리의 판단에 ‘흐름’이 고르지 않다면 개입하여 끊어낼 수 있다. 단, 단절은 반드시 자신의 편린으로 제작된 무기를 통해서만 가능하다.</p></div>
+            </div>
+          </section>
+          <section class="notes-section">
+            <h3 class="paper-section-title">PHYSICAL PROFILE / 외형 및 특이사항</h3>
+            <div class="notes-grid">
+              <div><span class="cell-label">외형</span><div class="lined-note">155cm. 푸른빛을 띠는 동양 용의 뿔과 복슬한 용의 귀를 지녔다. 라벤더색의 풍성한 장발은 하나로 길게 땋아 종아리까지 내려오며, 맑은 물을 연상시키는 푸른 눈동자는 뱀의 세로 동공을 하고 있다. 흰 속눈썹과 살짝 드러난 송곳니, 젖살이 남은 앳된 얼굴이 특징이다. 연보라와 백색이 조화를 이루는 현대식 개량 한복을 착용하며, 저고리와 짧은 치마 차림을 기본으로 한다. 허리 뒤로는 크고 긴 연보라·백색의 동양 용 꼬리가 늘어져 있다.평상시에는 인간형을 유지하지만, 본래 모습은 연보라색 털을 지닌 백색 동양 용이다. 체구는 대형견보다 약간 작은 수준으로, 외형과 달리 상당한 기동성과 민첩성을 보유한 것으로 추정된다.최근 울프독 요원인 D가 다양한 스타일로 머리를 묶어준다.</div></div>
+              <div><span class="cell-label">특이사항</span><div class="lined-note">비선공 S급 몬스터. 게이트의 군주 '오르티'를 따르는 개체로 확인된다. 자신의 편린으로 형성한 연보라빛 언월도를 주무장으로 사용하며, 상황에 따라 단검 형태로 변형할 수 있다. 군주를 흉내 낸 활기찬 성격과 미숙한 해라체를 사용하며, 허가 없이 게이트 밖으로 이탈한 전력이 있다. 인간 여성의 모습으로 의태하는 것이 가능하나 일부 신체적 특징은 완전히 위장되지 않는다. 인간 사회와 문화에 대한 지식이 거의 없어 강한 호기심을 보이며, 행인을 붙잡아 질문하는 행동이 자주 관찰된다. 이로 인해 일반인에게 위협적인 몬스터로 오인받아 추적을 피해 도주하는 사례가 반복적으로 확인되었다.(현재는 안전한 개체로 확인되었음.)</div></div>
+            </div>
+          </section>
+          <div class="paper-footer">
+            <div class="approval-grid">
+              <div class="approval-box">작성<br><strong>VERIFIED</strong></div>
+              <div class="approval-box">검토<br><strong>APPROVED</strong></div>
+              <div class="approval-box">보안<br><strong>SEALED</strong></div>
+            </div>
+            <p class="paper-page">STAR RAIN INTERNAL USE ONLY / Y-01</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading"><h2>VISUAL RECORD</h2><span>FIELD IMAGE ARCHIVE</span></div>
+      <div class="visual-record">
+        <div class="visual-frame">
+          <div class="visual-topline"><span>SUBJECT_YEONRI / VISUAL DATA</span><span>IMAGE QUALITY: VERIFIED</span></div>
+          <img class="visual-slide active" src="yeonri-full-01.jpg" alt="연리 전신 이미지">
+          <img class="visual-slide" src="yeonri-visual-02.jpg" alt="연리 추가 기록 이미지">
+          <div class="visual-controls">
+            <button class="visual-button" type="button" id="prevSlide" aria-label="이전 이미지">&lt;</button>
+            <span class="slide-counter" id="slideCounter">01 / 02</span>
+            <button class="visual-button" type="button" id="nextSlide" aria-label="다음 이미지">&gt;</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading"><h2>ARCHIVE INDEX</h2><span>AUTHORIZED FILE ACCESS</span></div>
+      <div class="archive-grid simplified-archive">
+        <a class="archive-gateway" href="yeonri-story.html">
+          <span class="archive-code">ARCHIVE / 01</span>
+          <strong>STORY ARCHIVE</strong>
+          <small>사건 기록 및 서사 문서 열람</small>
+          <span class="archive-arrow">OPEN &gt;</span>
+        </a>
+
+        <a class="archive-gateway" href="yeonri-commission.html">
+          <span class="archive-code">ARCHIVE / 02</span>
+          <strong>COMMISSION ARCHIVE</strong>
+          <small>외부 시각 자료 및 의뢰 기록 열람</small>
+          <span class="archive-arrow">OPEN &gt;</span>
+        </a>
+
+        <a class="archive-gateway" href="yeonri-playlist.html">
+          <span class="archive-code">ARCHIVE / 03</span>
+          <strong>PLAYLIST</strong>
+          <small>대상 관련 음성·음악 자료 열람</small>
+          <span class="archive-arrow">OPEN &gt;</span>
+        </a>
+      </div>
+    </section>
+
+    <nav class="character-nav" aria-label="캐릭터 파일 이동">
+      <p class="character-nav-meta">ROUTE MASKED / NODE-TO-NODE TRANSFER</p>
+      <div class="character-nav-row">
+        <a class="character-nav-link previous" href="yeon.html">
+          <span class="character-arrow" aria-hidden="true">‹</span>
+          <span class="character-nav-copy">
+            <small>PREVIOUS SUBJECT</small>
+            <strong>緣</strong>
+          </span>
+        </a>
+
+        <div class="darkweb-sigil" aria-hidden="true">
+          <span>◈</span>
+        </div>
+
+        <a class="character-nav-link next" href="baekmu.html">
+          <span class="character-nav-copy">
+            <small>NEXT SUBJECT</small>
+            <strong>白巫</strong>
+          </span>
+          <span class="character-arrow" aria-hidden="true">›</span>
+        </a>
+      </div>
+    </nav>
+
+    <footer class="footer"><p>STAR RAIN PRIVATE NETWORK</p><p>SUBJECT_YEONRI / SESSION ENCRYPTED</p></footer>
+  </main>
+
+  <script>
+    const slides=[...document.querySelectorAll('.visual-slide')];
+    const previousButton=document.getElementById('prevSlide');
+    const nextButton=document.getElementById('nextSlide');
+    const counter=document.getElementById('slideCounter');
+    let currentSlide=0;
+
+    function updateSlide(){
+      slides.forEach((slide,index)=>slide.classList.toggle('active',index===currentSlide));
+      counter.textContent=`${String(currentSlide+1).padStart(2,'0')} / ${String(slides.length).padStart(2,'0')}`;
+    }
+
+    previousButton.addEventListener('click',()=>{
+      currentSlide=(currentSlide-1+slides.length)%slides.length;
+      updateSlide();
+    });
+
+    nextButton.addEventListener('click',()=>{
+      currentSlide=(currentSlide+1)%slides.length;
+      updateSlide();
+    });
+
+    updateSlide();
+  </script>
+</body>
+</html>
