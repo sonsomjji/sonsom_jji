@@ -13,6 +13,12 @@
       padding: 0;
     }
 
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+    }
+
     body {
       min-height: 100vh;
       background: #000000;
@@ -36,24 +42,275 @@
       padding: 22px 26px 80px;
     }
 
-    /* 상단 문구 박스 */
+    /* 유성우 이미지 영역 */
     .intro-box {
-      min-height: 200px;
-      padding: 40px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #ffffff;
-      color: #111111;
+      position: relative;
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
       border-radius: 5px;
-      text-align: center;
+      background-color: #08051c;
+
+      background-image:
+        linear-gradient(
+          rgba(35, 10, 70, 0.05),
+          rgba(19, 5, 50, 0.15)
+        ),
+        url("night-city.png.png");
+
+      background-size: cover;
+      background-position: center bottom;
+      background-repeat: no-repeat;
+
+      image-rendering: pixelated;
+      isolation: isolate;
     }
 
-    .intro-box h1 {
-      font-size: clamp(24px, 4vw, 38px);
-      font-weight: 500;
-      letter-spacing: -1.5px;
-      word-break: keep-all;
+    /* 보라색 분위기 */
+    .purple-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 6;
+      pointer-events: none;
+
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(22, 10, 70, 0.05),
+          rgba(99, 35, 150, 0.12)
+        );
+    }
+
+    /* 별 */
+    .stars,
+    .stars::before,
+    .stars::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      pointer-events: none;
+      background-repeat: repeat;
+      background-size: 240px 240px;
+    }
+
+    .stars {
+      z-index: 2;
+      opacity: 0.8;
+
+      background-image:
+        radial-gradient(circle, #ffffff 0 1px, transparent 2px),
+        radial-gradient(circle, #b994ff 0 1px, transparent 2px),
+        radial-gradient(circle, #8bbcff 0 1px, transparent 2px);
+
+      background-position:
+        25px 30px,
+        120px 80px,
+        190px 160px;
+
+      animation: twinkle 4s steps(2) infinite;
+    }
+
+    .stars::before {
+      opacity: 0.5;
+
+      background-image:
+        radial-gradient(circle, #ffffff 0 1px, transparent 2px),
+        radial-gradient(circle, #d9bcff 0 1px, transparent 2px);
+
+      background-position:
+        70px 120px,
+        210px 45px;
+
+      animation: twinkle 6s steps(2) infinite reverse;
+    }
+
+    .stars::after {
+      opacity: 0.35;
+
+      background-image:
+        radial-gradient(circle, #8fb7ff 0 1px, transparent 2px),
+        radial-gradient(circle, #ffffff 0 1px, transparent 2px);
+
+      background-position:
+        150px 20px,
+        35px 190px;
+
+      animation: twinkle 7s steps(2) infinite;
+    }
+
+    @keyframes twinkle {
+      0%,
+      100% {
+        opacity: 0.25;
+      }
+
+      50% {
+        opacity: 0.95;
+      }
+    }
+
+    /* 구름 */
+    .cloud-layer {
+      position: absolute;
+      top: 2%;
+      left: -20%;
+      z-index: 3;
+
+      width: 140%;
+      height: 65%;
+      opacity: 0.14;
+      pointer-events: none;
+
+      background:
+        radial-gradient(
+          ellipse at 15% 35%,
+          rgba(157, 126, 220, 0.9) 0 8%,
+          transparent 9%
+        ),
+        radial-gradient(
+          ellipse at 25% 48%,
+          rgba(110, 90, 190, 0.8) 0 11%,
+          transparent 12%
+        ),
+        radial-gradient(
+          ellipse at 42% 25%,
+          rgba(145, 120, 210, 0.7) 0 9%,
+          transparent 10%
+        ),
+        radial-gradient(
+          ellipse at 67% 42%,
+          rgba(130, 105, 200, 0.8) 0 12%,
+          transparent 13%
+        ),
+        radial-gradient(
+          ellipse at 87% 20%,
+          rgba(160, 130, 220, 0.7) 0 10%,
+          transparent 11%
+        );
+
+      filter: blur(2px);
+      animation: cloudMove 80s linear infinite;
+    }
+
+    @keyframes cloudMove {
+      from {
+        transform: translateX(-4%);
+      }
+
+      to {
+        transform: translateX(14%);
+      }
+    }
+
+    /* 유성 */
+    .meteor {
+      position: absolute;
+      top: -20%;
+      left: var(--left);
+      z-index: 5;
+
+      width: var(--length);
+      height: 3px;
+      opacity: 0;
+      pointer-events: none;
+
+      border-radius: 999px;
+
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(118, 121, 255, 0.25),
+        #ba80ff,
+        #ffffff
+      );
+
+      box-shadow:
+        0 0 5px #b67cff,
+        0 0 11px rgba(111, 125, 255, 0.8);
+
+      transform: rotate(var(--angle));
+      transform-origin: right center;
+
+      animation: meteorFall var(--duration) linear infinite;
+      animation-delay: var(--delay);
+    }
+
+    .meteor::after {
+      content: "";
+      position: absolute;
+      right: -2px;
+      top: 50%;
+
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+
+      background: #ffffff;
+
+      box-shadow:
+        0 0 7px #ffffff,
+        0 0 15px #a96cff;
+
+      transform: translateY(-50%);
+    }
+
+    @keyframes meteorFall {
+      0% {
+        opacity: 0;
+
+        transform:
+          translate3d(0, 0, 0)
+          rotate(var(--angle));
+      }
+
+      4% {
+        opacity: 1;
+      }
+
+      16% {
+        opacity: 1;
+      }
+
+      24%,
+      100% {
+        opacity: 0;
+
+        transform:
+          translate3d(-700px, 450px, 0)
+          rotate(var(--angle));
+      }
+    }
+
+    .meteor-1 {
+      --left: 95%;
+      --length: 150px;
+      --angle: -35deg;
+      --duration: 8s;
+      --delay: 1s;
+    }
+
+    .meteor-2 {
+      --left: 78%;
+      --length: 105px;
+      --angle: -42deg;
+      --duration: 11s;
+      --delay: 5s;
+    }
+
+    .meteor-3 {
+      --left: 60%;
+      --length: 135px;
+      --angle: -30deg;
+      --duration: 13s;
+      --delay: 8s;
+    }
+
+    .meteor-4 {
+      --left: 105%;
+      --length: 90px;
+      --angle: -48deg;
+      --duration: 10s;
+      --delay: 10s;
     }
 
     /* 캐릭터 목록 */
@@ -74,9 +331,9 @@
       gap: 38px;
     }
 
-    /* 카드 전체가 클릭 영역 */
     .character-card {
       display: block;
+
       transition:
         transform 0.2s ease,
         opacity 0.2s ease;
@@ -94,6 +351,7 @@
       width: 100%;
       aspect-ratio: 4 / 5;
       overflow: hidden;
+
       background: #ffffff;
       border-radius: 4px;
     }
@@ -102,8 +360,10 @@
       width: 100%;
       height: 100%;
       display: block;
+
       object-fit: cover;
       object-position: center;
+
       transition: transform 0.3s ease;
     }
 
@@ -113,6 +373,7 @@
 
     .character-name {
       margin-top: 10px;
+
       font-size: 17px;
       font-weight: 700;
       letter-spacing: -0.6px;
@@ -120,20 +381,21 @@
 
     .character-description {
       margin-top: 5px;
+
       color: #aaaaaa;
       font-size: 13px;
       line-height: 1.5;
     }
 
-    /* 모바일 */
+    /* 태블릿 및 모바일 */
     @media (max-width: 650px) {
       .page {
         padding: 18px 20px 60px;
       }
 
       .intro-box {
-        min-height: 180px;
-        padding: 28px 20px;
+        height: 230px;
+        background-position: center bottom;
       }
 
       .character-area {
@@ -154,6 +416,11 @@
     }
 
     @media (max-width: 430px) {
+      .intro-box {
+        height: 200px;
+        background-position: 55% bottom;
+      }
+
       .character-grid {
         grid-template-columns: 1fr;
         gap: 36px;
@@ -171,15 +438,33 @@
         display: block;
       }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      .stars,
+      .stars::before,
+      .stars::after,
+      .cloud-layer,
+      .meteor {
+        animation: none;
+      }
+    }
   </style>
 </head>
 
 <body>
   <main class="page">
 
-    <!-- 위쪽 문구 -->
+    <!-- 유성우 애니메이션 이미지 영역 -->
     <section class="intro-box">
-      <h1>밤하늘에 유성우 떨어지는 움짤</h1>
+      <div class="stars"></div>
+      <div class="cloud-layer"></div>
+
+      <div class="meteor meteor-1"></div>
+      <div class="meteor meteor-2"></div>
+      <div class="meteor meteor-3"></div>
+      <div class="meteor meteor-4"></div>
+
+      <div class="purple-overlay"></div>
     </section>
 
     <!-- 캐릭터 선택 -->
@@ -198,6 +483,7 @@
           </div>
 
           <h3 class="character-name">캐릭터이름1</h3>
+
           <p class="character-description">
             캐릭터에 대한 짧은 설명
           </p>
@@ -213,6 +499,7 @@
           </div>
 
           <h3 class="character-name">캐릭터이름2</h3>
+
           <p class="character-description">
             캐릭터에 대한 짧은 설명
           </p>
@@ -228,6 +515,7 @@
           </div>
 
           <h3 class="character-name">캐릭터이름3</h3>
+
           <p class="character-description">
             캐릭터에 대한 짧은 설명
           </p>
