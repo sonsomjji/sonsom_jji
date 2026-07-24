@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Star Rain | Database</title>
+  <title>Star Rain | SUBJECT ARCHIVE</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,6 +15,24 @@
   >
 
   <style>
+    :root {
+      --background: #000000;
+      --panel: rgba(13, 9, 17, 0.92);
+      --panel-hover: rgba(27, 15, 35, 0.92);
+
+      --purple: #cc91ff;
+      --purple-light: #e4bcff;
+      --purple-mid: #a566cc;
+      --purple-dark: #6f4c7e;
+
+      --line: #2d1b36;
+      --line-light: #6f2ab3;
+
+      --text: #f6effa;
+      --subtext: #88798f;
+      --dim: #57495d;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -27,31 +45,32 @@
 
     body {
       min-height: 100vh;
+      overflow-x: hidden;
 
       background:
         linear-gradient(
-          rgba(255, 255, 255, 0.012) 1px,
+          rgba(164, 84, 207, 0.018) 1px,
           transparent 1px
         ),
         linear-gradient(
           90deg,
-          rgba(255, 255, 255, 0.012) 1px,
+          rgba(164, 84, 207, 0.018) 1px,
           transparent 1px
         ),
         radial-gradient(
-          circle at top,
-          rgba(91, 26, 133, 0.15),
-          transparent 42%
+          circle at 50% 0%,
+          rgba(102, 29, 153, 0.15),
+          transparent 35%
         ),
-        #000000;
+        var(--background);
 
       background-size:
-        45px 45px,
-        45px 45px,
+        48px 48px,
+        48px 48px,
         auto,
         auto;
 
-      color: #ffffff;
+      color: var(--text);
 
       font-family:
         "Share Tech Mono",
@@ -64,132 +83,243 @@
       text-decoration: none;
     }
 
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
     .page {
-      width: min(calc(100% - 40px), 1100px);
+      width: min(calc(100% - 40px), 1120px);
       min-height: 100vh;
 
       margin: 0 auto;
-      padding: 38px 0 110px;
+      padding: 28px 0 100px;
     }
 
-    /* 상단 메뉴 */
+    /* Header */
+
     .top-bar {
-      display: flex;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      justify-content: space-between;
 
-      padding-bottom: 20px;
+      min-height: 68px;
 
-      border-bottom: 1px solid #2a1c30;
+      border-bottom: 1px solid var(--line);
+
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.98),
+          rgba(0, 0, 0, 0.9)
+        );
+
+      backdrop-filter: blur(12px);
     }
 
     .logo {
-      color: #d095ff;
+      justify-self: start;
 
-      font-size: 21px;
+      color: var(--purple);
+
+      font-size: 20px;
       letter-spacing: 2px;
 
       text-shadow:
-        0 0 10px rgba(163, 65, 242, 0.45);
+        0 0 5px rgba(180, 106, 255, 0.65),
+        0 0 14px rgba(117, 36, 185, 0.35);
     }
 
-    .return-link {
-      color: #7f6c88;
+    .node-status {
+      justify-self: center;
 
-      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+
+      color: var(--purple-dark);
+
+      font-size: 11px;
+      letter-spacing: 1.2px;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+
+      border-radius: 50%;
+
+      background: var(--purple-mid);
+
+      box-shadow:
+        0 0 6px rgba(192, 118, 240, 0.8);
+
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%,
+      100% {
+        opacity: 0.45;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    .disconnect {
+      justify-self: end;
+
+      color: var(--dim);
+
+      font-size: 11px;
+      letter-spacing: 0.7px;
 
       transition:
         color 0.2s ease,
         text-shadow 0.2s ease;
     }
 
-    .return-link:hover {
-      color: #d39cff;
+    .disconnect:hover {
+      color: var(--purple);
+
       text-shadow:
-        0 0 8px rgba(169, 91, 255, 0.5);
+        0 0 8px rgba(176, 91, 229, 0.45);
     }
 
-    /* 데이터베이스 소개 */
-    .database-header {
-      padding: 75px 0 54px;
+    /* Intro */
+
+    .directory-header {
+      padding: 90px 0 72px;
+
+      text-align: center;
     }
 
     .system-path {
-      color: #75588a;
+      color: var(--purple-dark);
 
-      font-size: 12px;
-      letter-spacing: 1.2px;
+      font-size: 11px;
+      letter-spacing: 1.6px;
     }
 
-    .database-title {
-      margin-top: 13px;
+    .directory-title {
+      margin-top: 17px;
 
-      color: #f2e8fa;
+      color: var(--text);
 
-      font-size: clamp(34px, 6vw, 58px);
+      font-size: clamp(42px, 8vw, 72px);
       font-weight: 400;
-      letter-spacing: 3px;
+      letter-spacing: 5px;
 
       text-shadow:
-        0 0 15px rgba(146, 61, 225, 0.35);
+        0 0 8px rgba(185, 100, 238, 0.25),
+        0 0 24px rgba(111, 42, 179, 0.18);
     }
 
-    .database-description {
-      max-width: 650px;
-      margin-top: 18px;
+    .directory-description {
+      max-width: 580px;
+      margin: 21px auto 0;
 
-      color: #988da0;
+      color: var(--subtext);
 
-      font-family:
-        Pretendard,
-        "Noto Sans KR",
-        "Malgun Gothic",
-        sans-serif;
-
-      font-size: 14px;
-      line-height: 1.8;
+      font-size: 13px;
+      line-height: 1.85;
+      letter-spacing: 0.3px;
     }
 
-    .database-status {
-      margin-top: 27px;
+    .access-line {
+      width: min(100%, 520px);
+      margin: 34px auto 0;
+      padding: 15px 18px;
 
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
 
-    .status-chip {
-      padding: 7px 11px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
 
-      border: 1px solid #302038;
-      border-radius: 2px;
-
-      background: rgba(18, 12, 21, 0.8);
-      color: #78588b;
+      color: var(--dim);
 
       font-size: 11px;
       letter-spacing: 0.5px;
     }
 
-    .status-chip strong {
-      color: #bd85e6;
+    .access-line strong {
+      color: #b27cdb;
       font-weight: 400;
     }
 
-    /* 캐릭터 카드 목록 */
+    /* Section heading */
+
+    .section-heading {
+      margin-bottom: 25px;
+
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .section-heading h2 {
+      color: var(--purple-light);
+
+      font-size: 17px;
+      font-weight: 400;
+      letter-spacing: 2px;
+    }
+
+    .section-heading::after {
+      content: "";
+
+      flex: 1;
+      height: 1px;
+
+      background:
+        linear-gradient(
+          to right,
+          var(--line),
+          transparent
+        );
+    }
+
+    .subject-count {
+      color: var(--dim);
+
+      font-size: 10px;
+      letter-spacing: 1px;
+    }
+
+    /* Character grid */
+
     .character-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 42px 32px;
+      gap: 36px 26px;
     }
 
     .character-card {
       position: relative;
+      overflow: hidden;
+
       display: block;
 
-      padding: 12px;
+      border: 1px solid var(--line);
 
-      border: 1px solid transparent;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(20, 12, 25, 0.92),
+          rgba(7, 5, 9, 0.96)
+        );
+
+      box-shadow:
+        inset 0 0 20px rgba(128, 48, 180, 0.025);
 
       transition:
         transform 0.22s ease,
@@ -198,60 +328,58 @@
         box-shadow 0.22s ease;
     }
 
-    .character-card::before {
-      content: "";
-      position: absolute;
-
-      top: 0;
-      left: 0;
-
-      width: 22px;
-      height: 22px;
-
-      border-top: 1px solid #57336b;
-      border-left: 1px solid #57336b;
-
-      transition:
-        width 0.2s ease,
-        height 0.2s ease,
-        border-color 0.2s ease;
-    }
-
+    .character-card::before,
     .character-card::after {
       content: "";
       position: absolute;
+      z-index: 4;
 
-      right: 0;
-      bottom: 0;
+      width: 25px;
+      height: 25px;
 
-      width: 22px;
-      height: 22px;
-
-      border-right: 1px solid #57336b;
-      border-bottom: 1px solid #57336b;
+      pointer-events: none;
 
       transition:
-        width 0.2s ease,
-        height 0.2s ease,
-        border-color 0.2s ease;
+        width 0.22s ease,
+        height 0.22s ease,
+        border-color 0.22s ease;
+    }
+
+    .character-card::before {
+      top: -1px;
+      left: -1px;
+
+      border-top: 1px solid #75428d;
+      border-left: 1px solid #75428d;
+    }
+
+    .character-card::after {
+      right: -1px;
+      bottom: -1px;
+
+      border-right: 1px solid #75428d;
+      border-bottom: 1px solid #75428d;
     }
 
     .character-card:hover {
       transform: translateY(-7px);
 
-      border-color: rgba(111, 54, 145, 0.25);
-      background: rgba(27, 14, 34, 0.42);
+      border-color: var(--line-light);
+
+      background: var(--panel-hover);
 
       box-shadow:
-        0 0 22px rgba(102, 32, 154, 0.13);
+        inset 0 0 24px rgba(128, 48, 180, 0.04),
+        0 0 12px rgba(131, 52, 183, 0.18),
+        0 0 30px rgba(91, 27, 132, 0.12);
     }
 
     .character-card:hover::before,
     .character-card:hover::after {
-      width: 40px;
-      height: 40px;
+      width: 45px;
+      height: 45px;
 
-      border-color: #a85bd4;
+      border-color: var(--purple);
     }
 
     .character-image {
@@ -262,13 +390,30 @@
 
       overflow: hidden;
 
-      border: 1px solid #2e2233;
-      background: #0d0a0f;
+      background: #080609;
+    }
+
+    .character-image::before {
+      content: "";
+      position: absolute;
+      z-index: 2;
+      inset: 0;
+
+      pointer-events: none;
+
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent 3px,
+          rgba(0, 0, 0, 0.08) 4px
+        );
     }
 
     .character-image::after {
       content: "";
       position: absolute;
+      z-index: 3;
       inset: 0;
 
       pointer-events: none;
@@ -276,14 +421,12 @@
       background:
         linear-gradient(
           to bottom,
-          transparent 60%,
-          rgba(0, 0, 0, 0.42)
+          transparent 52%,
+          rgba(0, 0, 0, 0.88)
         );
     }
 
     .character-image img {
-      display: block;
-
       width: 100%;
       height: 100%;
 
@@ -291,116 +434,251 @@
       object-position: center;
 
       filter:
-        saturate(0.85)
-        contrast(1.06);
+        saturate(0.78)
+        contrast(1.09)
+        brightness(0.88);
 
       transition:
-        transform 0.35s ease,
-        filter 0.35s ease;
+        transform 0.4s ease,
+        filter 0.4s ease;
     }
 
     .character-card:hover .character-image img {
       transform: scale(1.045);
 
       filter:
-        saturate(1)
-        contrast(1.09);
+        saturate(0.95)
+        contrast(1.1)
+        brightness(0.98);
+    }
+
+    .image-status {
+      position: absolute;
+      z-index: 5;
+
+      top: 14px;
+      right: 14px;
+
+      padding: 6px 8px;
+
+      border: 1px solid rgba(117, 66, 141, 0.7);
+
+      background: rgba(0, 0, 0, 0.68);
+      color: #a676bd;
+
+      font-size: 9px;
+      letter-spacing: 1px;
     }
 
     .character-meta {
-      padding: 14px 2px 5px;
+      position: relative;
+      z-index: 5;
+
+      margin-top: -64px;
+      padding: 20px 20px 22px;
     }
 
     .character-code {
-      color: #735087;
+      color: #865e97;
 
-      font-size: 11px;
+      font-size: 10px;
       letter-spacing: 1.2px;
     }
 
     .character-name {
-      margin-top: 6px;
+      margin-top: 8px;
 
       color: #ffffff;
 
-      font-family:
-        Pretendard,
-        "Noto Sans KR",
-        "Malgun Gothic",
-        sans-serif;
+      font-size: 23px;
+      font-weight: 400;
+      letter-spacing: 1.5px;
 
-      font-size: 19px;
-      font-weight: 700;
+      text-shadow:
+        0 0 9px rgba(177, 91, 225, 0.2);
     }
 
     .character-description {
-      margin-top: 7px;
+      min-height: 42px;
+      margin-top: 10px;
 
-      color: #88818b;
+      color: #887d8c;
 
-      font-family:
-        Pretendard,
-        "Noto Sans KR",
-        "Malgun Gothic",
-        sans-serif;
+      font-size: 12px;
+      line-height: 1.7;
+    }
 
-      font-size: 13px;
-      line-height: 1.65;
+    .file-line {
+      margin-top: 18px;
+      padding-top: 13px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+
+      border-top: 1px solid #211628;
+
+      color: #795688;
+
+      font-size: 10px;
+      letter-spacing: 0.7px;
     }
 
     .open-file {
-      margin-top: 13px;
-
-      color: #825d94;
-
-      font-size: 11px;
-      letter-spacing: 0.8px;
-
-      transition: color 0.2s ease;
+      transition:
+        color 0.2s ease,
+        text-shadow 0.2s ease;
     }
 
     .character-card:hover .open-file {
-      color: #c483ed;
+      color: var(--purple);
+
+      text-shadow:
+        0 0 8px rgba(176, 91, 229, 0.4);
     }
 
-    /* 태블릿 */
-    @media (max-width: 760px) {
-      .character-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 35px 20px;
+    .file-number {
+      color: #4e4252;
+    }
+
+    .cursor {
+      display: inline-block;
+      margin-left: 2px;
+
+      animation: blink 0.9s steps(1) infinite;
+    }
+
+    @keyframes blink {
+      0%,
+      49% {
+        opacity: 1;
+      }
+
+      50%,
+      100% {
+        opacity: 0;
       }
     }
 
-    /* 모바일 */
-    @media (max-width: 500px) {
+    /* Empty card */
+
+    .character-card.locked {
+      cursor: default;
+    }
+
+    .character-card.locked:hover {
+      transform: none;
+
+      border-color: var(--line);
+
+      box-shadow: none;
+    }
+
+    .character-card.locked:hover::before,
+    .character-card.locked:hover::after {
+      width: 25px;
+      height: 25px;
+
+      border-color: #75428d;
+    }
+
+    .character-card.locked .character-image img {
+      filter:
+        grayscale(1)
+        contrast(1.1)
+        brightness(0.42);
+    }
+
+    .character-card.locked:hover .character-image img {
+      transform: none;
+
+      filter:
+        grayscale(1)
+        contrast(1.1)
+        brightness(0.42);
+    }
+
+    /* Footer */
+
+    .footer {
+      margin-top: 90px;
+      padding-top: 24px;
+
+      border-top: 1px solid var(--line);
+
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+
+      color: #4d4052;
+
+      font-size: 10px;
+      letter-spacing: 0.8px;
+    }
+
+    /* Tablet */
+
+    @media (max-width: 820px) {
+      .top-bar {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .node-status {
+        display: none;
+      }
+
+      .character-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Mobile */
+
+    @media (max-width: 540px) {
       .page {
-        width: min(calc(100% - 28px), 1100px);
-        padding-top: 25px;
+        width: min(calc(100% - 26px), 1120px);
+        padding-top: 15px;
       }
 
       .top-bar {
-        align-items: flex-start;
+        min-height: 60px;
       }
 
       .logo {
-        font-size: 18px;
+        font-size: 17px;
       }
 
-      .database-header {
-        padding: 58px 0 42px;
+      .directory-header {
+        padding: 65px 0 55px;
       }
 
-      .database-description {
-        font-size: 13px;
+      .directory-title {
+        letter-spacing: 3px;
+      }
+
+      .directory-description {
+        font-size: 12px;
+      }
+
+      .access-line {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
       }
 
       .character-grid {
         grid-template-columns: 1fr;
-        gap: 42px;
+        gap: 35px;
       }
 
-      .character-card {
-        padding: 10px;
+      .character-description {
+        min-height: auto;
+      }
+
+      .footer {
+        flex-direction: column;
+        gap: 8px;
       }
     }
   </style>
@@ -409,152 +687,228 @@
 <body>
   <main class="page">
 
-    <!-- 상단 -->
     <header class="top-bar">
+
       <a class="logo" href="main.html">
         STAR RAIN
       </a>
 
-      <a class="return-link" href="index.html">
+      <div class="node-status">
+        <span class="status-dot"></span>
+        NODE CONNECTION ACTIVE
+      </div>
+
+      <a class="disconnect" href="index.html">
         &lt; DISCONNECT
       </a>
+
     </header>
 
-    <!-- 데이터베이스 안내 -->
-    <section class="database-header">
+    <section class="directory-header">
 
       <p class="system-path">
-        ROOT / SECURE_ARCHIVE / SUBJECT_DATABASE
+        ROOT / PRIVATE NETWORK / SUBJECT DIRECTORY
       </p>
 
-      <h1 class="database-title">
+      <h1 class="directory-title">
         NODE DIRECTORY
       </h1>
 
-      <p class="database-description">
-        제한된 인물 기록 보관소입니다.<br>
-        열람할 대상을 선택하십시오.
+      <p class="directory-description">
+        Restricted subject files detected.<br>
+        Select a registered record to continue.
       </p>
 
-      <div class="database-status">
-        <span class="status-chip">
-          CONNECTION:
-          <strong>SECURE</strong>
-        </span>
+      <div class="access-line">
 
-        <span class="status-chip">
+        <span>
           USER:
           <strong>ANONYMOUS</strong>
         </span>
 
-        <span class="status-chip">
+        <span>
           ACCESS:
           <strong>GRANTED</strong>
         </span>
+
+        <span>
+          TRACE:
+          <strong>BLOCKED</strong>
+        </span>
+
       </div>
 
     </section>
 
-    <!-- 캐릭터 목록 -->
-    <section class="character-grid">
+    <section class="subject-section">
 
-      <!-- 캐릭터 1 -->
-      <a class="character-card" href="character1.html">
+      <div class="section-heading">
 
-        <div class="character-image">
-          <img
-            src="character1.jpg"
-            alt="결 프로필"
-          >
-        </div>
+        <h2>
+          REGISTERED SUBJECTS
+        </h2>
 
-        <div class="character-meta">
+        <span class="subject-count">
+          03 FILES DETECTED
+        </span>
 
-          <p class="character-code">
-            SUBJECT_001 / ACTIVE
-          </p>
+      </div>
 
-          <h2 class="character-name">
-            결
-          </h2>
+      <div class="character-grid">
 
-          <p class="character-description">
-            캐릭터에 대한 짧은 소개 문구를 입력하세요.
-          </p>
+        <!-- Subject 001 -->
+        <a class="character-card" href="gyeol.html">
 
-          <p class="open-file">
-            &gt; OPEN FILE_
-          </p>
+          <div class="character-image">
 
-        </div>
+            <img
+              src="gyeol-main.jpg"
+              alt="Subject 001"
+            >
 
-      </a>
+            <span class="image-status">
+              ACTIVE
+            </span>
 
-      <!-- 캐릭터 2 -->
-      <a class="character-card" href="character2.html">
+          </div>
 
-        <div class="character-image">
-          <img
-            src="character2.jpg"
-            alt="연리 프로필"
-          >
-        </div>
+          <div class="character-meta">
 
-        <div class="character-meta">
+            <p class="character-code">
+              SUBJECT_001 / RESTRICTED
+            </p>
 
-          <p class="character-code">
-            SUBJECT_002 / ACTIVE
-          </p>
+            <h2 class="character-name">
+              GYEOL
+            </h2>
 
-          <h2 class="character-name">
-            연리
-          </h2>
+            <p class="character-description">
+              Structural weakness analysis and classified intelligence operations.
+            </p>
 
-          <p class="character-description">
-            캐릭터에 대한 짧은 소개 문구를 입력하세요.
-          </p>
+            <div class="file-line">
 
-          <p class="open-file">
-            &gt; OPEN FILE_
-          </p>
+              <span class="open-file">
+                &gt; OPEN FILE<span class="cursor">_</span>
+              </span>
 
-        </div>
+              <span class="file-number">
+                FILE_001
+              </span>
 
-      </a>
+            </div>
 
-      <!-- 캐릭터 3 -->
-      <a class="character-card" href="character3.html">
+          </div>
 
-        <div class="character-image">
-          <img
-            src="character3.jpg"
-            alt="캐릭터 3 프로필"
-          >
-        </div>
+        </a>
 
-        <div class="character-meta">
+        <!-- Subject 002 -->
+        <a class="character-card" href="yeonri.html">
 
-          <p class="character-code">
-            SUBJECT_003 / UNKNOWN
-          </p>
+          <div class="character-image">
 
-          <h2 class="character-name">
-            캐릭터 이름
-          </h2>
+            <img
+              src="yeonri-main.jpg"
+              alt="Subject 002"
+            >
 
-          <p class="character-description">
-            캐릭터에 대한 짧은 소개 문구를 입력하세요.
-          </p>
+            <span class="image-status">
+              ACTIVE
+            </span>
 
-          <p class="open-file">
-            &gt; OPEN FILE_
-          </p>
+          </div>
 
-        </div>
+          <div class="character-meta">
 
-      </a>
+            <p class="character-code">
+              SUBJECT_002 / RESTRICTED
+            </p>
+
+            <h2 class="character-name">
+              YEONRI
+            </h2>
+
+            <p class="character-description">
+              Subject record available. Additional data remains encrypted.
+            </p>
+
+            <div class="file-line">
+
+              <span class="open-file">
+                &gt; OPEN FILE_
+              </span>
+
+              <span class="file-number">
+                FILE_002
+              </span>
+
+            </div>
+
+          </div>
+
+        </a>
+
+        <!-- Subject 003 -->
+        <a class="character-card" href="siwoo.html">
+
+          <div class="character-image">
+
+            <img
+              src="siwoo-main.jpg"
+              alt="Subject 003"
+            >
+
+            <span class="image-status">
+              UNKNOWN
+            </span>
+
+          </div>
+
+          <div class="character-meta">
+
+            <p class="character-code">
+              SUBJECT_003 / CLASSIFIED
+            </p>
+
+            <h2 class="character-name">
+              BAEK SIWOO
+            </h2>
+
+            <p class="character-description">
+              Partial identity confirmed. Full record remains classified.
+            </p>
+
+            <div class="file-line">
+
+              <span class="open-file">
+                &gt; OPEN FILE_
+              </span>
+
+              <span class="file-number">
+                FILE_003
+              </span>
+
+            </div>
+
+          </div>
+
+        </a>
+
+      </div>
 
     </section>
+
+    <footer class="footer">
+
+      <p>
+        STAR RAIN PRIVATE NETWORK
+      </p>
+
+      <p>
+        SESSION ENCRYPTED / IDENTITY MASKED
+      </p>
+
+    </footer>
 
   </main>
 </body>
