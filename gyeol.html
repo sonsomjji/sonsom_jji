@@ -243,9 +243,11 @@
       color:var(--purple);
       box-shadow:0 0 16px rgba(181,94,236,.12);
     }
-    .file-tab.locked strong::before{
-      content:"[LOCKED] ";
-      color:#8d375d;
+    .locked-prefix{
+      color:#c44f82;
+    }
+    .file-tab:not(.locked) .locked-prefix{
+      color:#8fb89d;
     }
     .document-page{display:none}
     .document-page.active{display:block}
@@ -338,12 +340,118 @@
       font-size:9px;
       letter-spacing:.7px;
     }
-    .unlock-flash{animation:unlockFlash .65s ease}
-    @keyframes unlockFlash{
-      0%{filter:brightness(1)}
-      40%{filter:brightness(2.2)}
-      100%{filter:brightness(1)}
+
+
+    .decrypt-loading{
+      position:absolute;
+      z-index:4;
+      inset:0;
+      display:grid;
+      place-items:center;
+      background:rgba(214,205,191,.97);
+      color:#2c2228;
+      font-family:var(--font-system);
     }
+    .decrypt-loading[hidden]{display:none}
+    .decrypt-box{
+      width:min(calc(100% - 40px),420px);
+      padding:30px 24px;
+      border:1px solid #665861;
+      background:rgba(235,229,220,.92);
+      text-align:left;
+    }
+    .decrypt-title{
+      font-size:13px;
+      letter-spacing:1.6px;
+    }
+    .decrypt-status{
+      margin-top:13px;
+      color:#6d5f67;
+      font-size:10px;
+      line-height:1.8;
+      letter-spacing:.8px;
+    }
+    .decrypt-bar{
+      height:3px;
+      margin-top:20px;
+      overflow:hidden;
+      background:#b7ada4;
+    }
+    .decrypt-bar::after{
+      content:"";
+      display:block;
+      width:35%;
+      height:100%;
+      background:#5c4d56;
+      animation:decryptProgress 1.15s ease-in-out infinite;
+    }
+    @keyframes decryptProgress{
+      0%{transform:translateX(-110%)}
+      100%{transform:translateX(390%)}
+    }
+
+    /* 잠긴 전신 기록 */
+    .visual-lock-slide{
+      display:none;
+      width:100%;
+      height:690px;
+      position:relative;
+      place-items:center;
+      overflow:hidden;
+      background:
+        linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.42)),
+        radial-gradient(circle at 50% 40%,rgba(80,40,102,.13),transparent 48%),
+        #050306;
+    }
+    .visual-lock-slide.active{display:grid}
+    .visual-lock-slide::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:repeating-linear-gradient(
+        135deg,
+        rgba(146,93,163,.025) 0,
+        rgba(146,93,163,.025) 8px,
+        transparent 8px,
+        transparent 18px
+      );
+    }
+    .visual-lock-message{
+      position:relative;
+      z-index:2;
+      width:min(calc(100% - 40px),420px);
+      padding:26px 24px;
+      border:1px solid #55325f;
+      background:rgba(3,2,5,.78);
+      text-align:center;
+    }
+    .visual-lock-message strong{
+      display:block;
+      color:#b995c7;
+      font-size:13px;
+      font-weight:400;
+      letter-spacing:1.5px;
+    }
+    .visual-lock-message small{
+      display:block;
+      margin-top:11px;
+      color:#705e76;
+      font-size:10px;
+      line-height:1.7;
+      letter-spacing:.4px;
+    }
+    .visual-loading{
+      display:none;
+      width:100%;
+      height:690px;
+      place-items:center;
+      background:#050306;
+      color:#8b6a96;
+      font-family:var(--font-system);
+      font-size:11px;
+      letter-spacing:1.4px;
+    }
+    .visual-loading.active{display:grid}
 
     /* 빌런 시절 서류 */
     .villain-file{
@@ -407,7 +515,7 @@
     }
 
     @media(max-width:900px){.subject-header{grid-template-columns:1fr}.subject-badges{justify-content:flex-start}.identity-block{grid-template-columns:160px 1fr}.archive-grid{grid-template-columns:1fr}}
-    @media(max-width:680px){.page{width:min(calc(100% - 24px),1180px);padding-top:14px}.top-bar{min-height:58px;grid-template-columns:1fr 1fr}.node-status{display:none}.subject-header{padding-top:52px}.subject-title{line-height:1.2}.subject-title .hanja{display:block;margin:10px 0 0}.document-stage{padding:10px}.personnel-file{padding:28px 20px 26px}.paper-top,.identity-block,.paper-footer{grid-template-columns:1fr}.paper-classification{justify-self:start}.id-photo-wrap{width:min(100%,220px)}.identity-table{grid-template-columns:96px 1fr}.ability-grid{grid-template-columns:1fr}.ability-cell.full{grid-column:auto}.notes-grid{grid-template-columns:1fr}.visual-frame,.visual-slide{height:540px;min-height:540px}.footer{flex-direction:column;gap:8px}}
+    @media(max-width:680px){.page{width:min(calc(100% - 24px),1180px);padding-top:14px}.top-bar{min-height:58px;grid-template-columns:1fr 1fr}.node-status{display:none}.subject-header{padding-top:52px}.subject-title{line-height:1.2}.subject-title .hanja{display:block;margin:10px 0 0}.document-stage{padding:10px}.personnel-file{padding:28px 20px 26px}.paper-top,.identity-block,.paper-footer{grid-template-columns:1fr}.paper-classification{justify-self:start}.id-photo-wrap{width:min(100%,220px)}.identity-table{grid-template-columns:96px 1fr}.ability-grid{grid-template-columns:1fr}.ability-cell.full{grid-column:auto}.notes-grid{grid-template-columns:1fr}.visual-frame,.visual-slide,.visual-lock-slide,.visual-loading{height:540px;min-height:540px}.footer{flex-direction:column;gap:8px}}
   </style>
 </head>
 <body>
@@ -421,8 +529,8 @@
     <section class="subject-header">
       <div>
         <p class="subject-path">ROOT / SUBJECT ARCHIVE / SUBJECT_012</p>
-        <h1 class="subject-title">PERSONNEL DOSSIER <span class="hanja" lang="zh-Hant">結</span></h1>
-        <p class="subject-summary">Internal personnel record reconstructed from restricted field data.<br>Unauthorized duplication or distribution is prohibited.</p>
+        <h1 class="subject-title">SUBJECT_012</h1>
+        <p class="subject-summary">IDENTITY RECORD / INTERNAL SECURITY CLEARANCE<br>Unauthorized duplication or distribution is prohibited.</p>
       </div>
       <div class="subject-badges">
         <span class="badge">STATUS: ACTIVE</span>
@@ -440,7 +548,7 @@
           <small>현 소속 요원 인사기록 · 열람 가능</small>
         </button>
         <button class="file-tab locked" type="button" data-file-target="villainFile">
-          <strong>FILE 02 / FORMER HOSTILE RECORD</strong>
+          <strong><span class="locked-prefix">[LOCKED]</span> FILE 02 / FORMER HOSTILE RECORD</strong>
           <small>과거 빌런 활동 기록 · 암호 필요</small>
         </button>
       </div>
@@ -501,6 +609,14 @@
 
       <div class="document-page" id="villainFile">
         <div class="document-stage">
+          <div class="decrypt-loading" id="decryptLoading" hidden>
+            <div class="decrypt-box">
+              <p class="decrypt-title">DECRYPTING RESTRICTED RECORD...</p>
+              <p class="decrypt-status" id="decryptStatus">VERIFYING ACCESS KEY<br>CONNECTING TO ARCHIVE NODE</p>
+              <div class="decrypt-bar" aria-hidden="true"></div>
+            </div>
+          </div>
+
           <div class="locked-document" id="villainLock">
             <div class="lock-panel">
               <p class="lock-mark">SECURITY LEVEL BLACK</p>
@@ -573,8 +689,26 @@
       <div class="visual-record">
         <div class="visual-frame">
           <div class="visual-topline"><span>SUBJECT_012 / VISUAL DATA</span><span>IMAGE QUALITY: RESTORED</span></div>
-          <img class="visual-slide active" src="gyeol-full-01.jpg" alt="결 전신 이미지 1">
-          <img class="visual-slide" src="gyeol-full-02.jpg" alt="결 전신 이미지 2">
+          <img class="visual-slide active" data-visual-index="0" src="gyeol-full-01.jpg" alt="결 현재 전신 이미지 1">
+          <img class="visual-slide" data-visual-index="1" src="gyeol-full-02.jpg" alt="결 현재 전신 이미지 2">
+
+          <div class="visual-lock-slide" data-locked-index="2">
+            <div class="visual-lock-message">
+              <strong>IMAGE_003 / ENCRYPTED</strong>
+              <small>과거 적대 활동 기록과 함께 잠겨 있습니다.<br>FORMER HOSTILE RECORD의 암호를 해제하십시오.</small>
+            </div>
+          </div>
+          <div class="visual-lock-slide" data-locked-index="3">
+            <div class="visual-lock-message">
+              <strong>IMAGE_004 / ENCRYPTED</strong>
+              <small>과거 적대 활동 기록과 함께 잠겨 있습니다.<br>FORMER HOSTILE RECORD의 암호를 해제하십시오.</small>
+            </div>
+          </div>
+
+          <img class="visual-slide restricted-visual" data-visual-index="2" src="gyeol-villain-full-01.jpg" alt="결 과거 빌런 시절 전신 이미지 1" hidden>
+          <img class="visual-slide restricted-visual" data-visual-index="3" src="gyeol-villain-full-02.jpg" alt="결 과거 빌런 시절 전신 이미지 2" hidden>
+          <div class="visual-loading" id="visualDecryptLoading">LOADING DECRYPTED IMAGE DATA...</div>
+
           <div class="visual-controls">
             <button class="visual-button" type="button" id="prevSlide" aria-label="이전 이미지">&lt;</button>
             <span class="slide-counter" id="slideCounter">01 / 02</span>
@@ -614,20 +748,12 @@
   </main>
 
   <script>
-    const slides=document.querySelectorAll('.visual-slide');
     const previousButton=document.getElementById('prevSlide');
     const nextButton=document.getElementById('nextSlide');
     const counter=document.getElementById('slideCounter');
-    let currentSlide=0;
-    function updateSlide(){
-      slides.forEach((slide,index)=>slide.classList.toggle('active',index===currentSlide));
-      const current=String(currentSlide+1).padStart(2,'0');
-      const total=String(slides.length).padStart(2,'0');
-      counter.textContent=`${current} / ${total}`;
-    }
-    previousButton.addEventListener('click',()=>{currentSlide=(currentSlide-1+slides.length)%slides.length;updateSlide()});
-    nextButton.addEventListener('click',()=>{currentSlide=(currentSlide+1)%slides.length;updateSlide()});
-    updateSlide();
+    const visualSlides=[...document.querySelectorAll('.visual-slide')];
+    const visualLocks=[...document.querySelectorAll('.visual-lock-slide')];
+    const visualDecryptLoading=document.getElementById('visualDecryptLoading');
 
     const fileTabs=document.querySelectorAll('.file-tab');
     const documentPages=document.querySelectorAll('.document-page');
@@ -635,24 +761,74 @@
     const passwordInput=document.getElementById('passwordInput');
     const villainLock=document.getElementById('villainLock');
     const villainDocument=document.getElementById('villainDocument');
-    let villainUnlocked=sessionStorage.getItem('gyeolVillainUnlocked')==='true';
+    const decryptLoading=document.getElementById('decryptLoading');
+    const decryptStatus=document.getElementById('decryptStatus');
 
-    function applyUnlockedState(animate=false){
+    let currentSlide=0;
+    let villainUnlocked=sessionStorage.getItem('gyeolVillainUnlocked')==='true';
+    const totalSlides=4;
+
+    function updateSlide(){
+      visualSlides.forEach(slide=>slide.classList.remove('active'));
+      visualLocks.forEach(lock=>lock.classList.remove('active'));
+      visualDecryptLoading.classList.remove('active');
+
+      if(currentSlide<2){
+        const slide=visualSlides.find(item=>Number(item.dataset.visualIndex)===currentSlide);
+        if(slide) slide.classList.add('active');
+      }else if(villainUnlocked){
+        const slide=visualSlides.find(item=>Number(item.dataset.visualIndex)===currentSlide);
+        if(slide){
+          slide.hidden=false;
+          slide.classList.add('active');
+        }
+      }else{
+        const lock=visualLocks.find(item=>Number(item.dataset.lockedIndex)===currentSlide);
+        if(lock) lock.classList.add('active');
+      }
+
+      counter.textContent=`${String(currentSlide+1).padStart(2,'0')} / ${String(totalSlides).padStart(2,'0')}`;
+    }
+
+    previousButton.addEventListener('click',()=>{
+      currentSlide=(currentSlide-1+totalSlides)%totalSlides;
+      updateSlide();
+    });
+
+    nextButton.addEventListener('click',()=>{
+      currentSlide=(currentSlide+1)%totalSlides;
+      updateSlide();
+    });
+
+    function applyUnlockedState(){
       if(!villainUnlocked) return;
+
+      /* 암호 화면은 완전히 제거하고 서류만 표시 */
       villainLock.hidden=true;
+      villainLock.setAttribute('aria-hidden','true');
       villainDocument.hidden=false;
+
+      document.querySelectorAll('.restricted-visual').forEach(slide=>{
+        slide.hidden=false;
+      });
+      visualLocks.forEach(lock=>lock.hidden=true);
+
       const villainTab=document.querySelector('[data-file-target="villainFile"]');
       villainTab.classList.remove('locked');
+      const lockedPrefix=villainTab.querySelector('.locked-prefix');
+      if(lockedPrefix) lockedPrefix.textContent='[OPEN]';
       villainTab.querySelector('small').textContent='과거 빌런 활동 기록 · ACCESS GRANTED';
-      if(animate) villainDocument.classList.add('unlock-flash');
+
+      updateSlide();
     }
 
     function openDocument(targetId){
       fileTabs.forEach(tab=>tab.classList.toggle('active',tab.dataset.fileTarget===targetId));
       documentPages.forEach(page=>page.classList.toggle('active',page.id===targetId));
+
       if(targetId==='villainFile'){
         if(villainUnlocked){
-          applyUnlockedState(false);
+          applyUnlockedState();
         }else{
           setTimeout(()=>passwordInput.focus(),120);
         }
@@ -665,20 +841,31 @@
 
     passwordForm.addEventListener('submit',(event)=>{
       event.preventDefault();
+
       if(passwordInput.value.trim()===''){
         passwordInput.focus();
         passwordInput.placeholder='아무 문자나 입력하세요';
         return;
       }
-      villainUnlocked=true;
-      sessionStorage.setItem('gyeolVillainUnlocked','true');
-      villainLock.classList.add('unlock-flash');
+
+      villainLock.hidden=true;
+      decryptLoading.hidden=false;
+      decryptStatus.innerHTML='VERIFYING ACCESS KEY<br>CONNECTING TO ARCHIVE NODE';
+
       setTimeout(()=>{
-        applyUnlockedState(true);
-      },430);
+        decryptStatus.innerHTML='DECRYPTING PERSONNEL FILE<br>RESTORING IMAGE_003 · IMAGE_004';
+      },800);
+
+      setTimeout(()=>{
+        villainUnlocked=true;
+        sessionStorage.setItem('gyeolVillainUnlocked','true');
+        decryptLoading.hidden=true;
+        applyUnlockedState();
+      },1900);
     });
 
-    applyUnlockedState(false);
+    applyUnlockedState();
+    updateSlide();
   </script>
 </body>
 </html>
