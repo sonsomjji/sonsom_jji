@@ -13,16 +13,15 @@
       padding: 0;
     }
 
-    html,
-    body {
-      width: 100%;
-      min-height: 100%;
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
       min-height: 100vh;
       background: #000000;
       color: #ffffff;
+
       font-family:
         Pretendard,
         "Noto Sans KR",
@@ -35,292 +34,110 @@
       text-decoration: none;
     }
 
+    /* 전체 페이지 */
     .page {
-      width: min(100%, 1000px);
-      min-height: 100vh;
-      margin: 0 auto;
-      padding: 22px 26px 80px;
-    }
-
-    /* 유성우 이미지 영역 */
-    .intro-box {
-      position: relative;
       width: 100%;
-      height: 300px;
+      min-height: 100vh;
+      padding-bottom: 100px;
+    }
+
+    /* 맨 위 대문 이미지 */
+    .hero {
+      width: 100%;
       overflow: hidden;
-      border-radius: 5px;
-      background-color: #08051c;
+      background: #000000;
+    }
 
-      background-image:
-        linear-gradient(
-          rgba(35, 10, 70, 0.05),
-          rgba(19, 5, 50, 0.15)
-        ),
-        url("night-city.png.png");
+    .hero-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 430px;
 
-      background-size: cover;
-      background-position: center bottom;
-      background-repeat: no-repeat;
-
+      object-fit: cover;
+      object-position: center;
       image-rendering: pixelated;
-      isolation: isolate;
     }
 
-    /* 보라색 분위기 */
-    .purple-overlay {
-      position: absolute;
-      inset: 0;
-      z-index: 6;
-      pointer-events: none;
+    /* 이미지 아래 메인 안내 영역 */
+    .main-entry {
+      min-height: 480px;
+      padding: 120px 24px 80px;
 
-      background:
-        linear-gradient(
-          to bottom,
-          rgba(22, 10, 70, 0.05),
-          rgba(99, 35, 150, 0.12)
-        );
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+
+      text-align: center;
     }
 
-    /* 별 */
-    .stars,
-    .stars::before,
-    .stars::after {
-      position: absolute;
-      inset: 0;
-      content: "";
-      pointer-events: none;
-      background-repeat: repeat;
-      background-size: 240px 240px;
+    .concept-text {
+      color: #eeeeee;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.7;
+      letter-spacing: -0.3px;
+      word-break: keep-all;
     }
 
-    .stars {
-      z-index: 2;
-      opacity: 0.8;
+    /* 클릭 버튼 */
+    .enter-button {
+      width: min(100%, 280px);
+      min-height: 72px;
+      margin-top: 70px;
+      padding: 18px 24px;
 
-      background-image:
-        radial-gradient(circle, #ffffff 0 1px, transparent 2px),
-        radial-gradient(circle, #b994ff 0 1px, transparent 2px),
-        radial-gradient(circle, #8bbcff 0 1px, transparent 2px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-      background-position:
-        25px 30px,
-        120px 80px,
-        190px 160px;
+      border: 1px solid #3e3e3e;
+      border-radius: 5px;
 
-      animation: twinkle 4s steps(2) infinite;
+      background: #1b1b1b;
+      color: #f0f0f0;
+
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.55;
+      letter-spacing: -0.3px;
+
+      cursor: pointer;
+
+      transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
     }
 
-    .stars::before {
-      opacity: 0.5;
+    .enter-button:hover {
+      transform: translateY(-4px);
 
-      background-image:
-        radial-gradient(circle, #ffffff 0 1px, transparent 2px),
-        radial-gradient(circle, #d9bcff 0 1px, transparent 2px);
-
-      background-position:
-        70px 120px,
-        210px 45px;
-
-      animation: twinkle 6s steps(2) infinite reverse;
-    }
-
-    .stars::after {
-      opacity: 0.35;
-
-      background-image:
-        radial-gradient(circle, #8fb7ff 0 1px, transparent 2px),
-        radial-gradient(circle, #ffffff 0 1px, transparent 2px);
-
-      background-position:
-        150px 20px,
-        35px 190px;
-
-      animation: twinkle 7s steps(2) infinite;
-    }
-
-    @keyframes twinkle {
-      0%,
-      100% {
-        opacity: 0.25;
-      }
-
-      50% {
-        opacity: 0.95;
-      }
-    }
-
-    /* 구름 */
-    .cloud-layer {
-      position: absolute;
-      top: 2%;
-      left: -20%;
-      z-index: 3;
-
-      width: 140%;
-      height: 65%;
-      opacity: 0.14;
-      pointer-events: none;
-
-      background:
-        radial-gradient(
-          ellipse at 15% 35%,
-          rgba(157, 126, 220, 0.9) 0 8%,
-          transparent 9%
-        ),
-        radial-gradient(
-          ellipse at 25% 48%,
-          rgba(110, 90, 190, 0.8) 0 11%,
-          transparent 12%
-        ),
-        radial-gradient(
-          ellipse at 42% 25%,
-          rgba(145, 120, 210, 0.7) 0 9%,
-          transparent 10%
-        ),
-        radial-gradient(
-          ellipse at 67% 42%,
-          rgba(130, 105, 200, 0.8) 0 12%,
-          transparent 13%
-        ),
-        radial-gradient(
-          ellipse at 87% 20%,
-          rgba(160, 130, 220, 0.7) 0 10%,
-          transparent 11%
-        );
-
-      filter: blur(2px);
-      animation: cloudMove 80s linear infinite;
-    }
-
-    @keyframes cloudMove {
-      from {
-        transform: translateX(-4%);
-      }
-
-      to {
-        transform: translateX(14%);
-      }
-    }
-
-    /* 유성 */
-    .meteor {
-      position: absolute;
-      top: -20%;
-      left: var(--left);
-      z-index: 5;
-
-      width: var(--length);
-      height: 3px;
-      opacity: 0;
-      pointer-events: none;
-
-      border-radius: 999px;
-
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(118, 121, 255, 0.25),
-        #ba80ff,
-        #ffffff
-      );
+      border-color: #6925a8;
+      background: #211726;
 
       box-shadow:
-        0 0 5px #b67cff,
-        0 0 11px rgba(111, 125, 255, 0.8);
-
-      transform: rotate(var(--angle));
-      transform-origin: right center;
-
-      animation: meteorFall var(--duration) linear infinite;
-      animation-delay: var(--delay);
+        0 0 18px rgba(105, 37, 168, 0.25);
     }
 
-    .meteor::after {
-      content: "";
-      position: absolute;
-      right: -2px;
-      top: 50%;
-
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-
-      background: #ffffff;
-
-      box-shadow:
-        0 0 7px #ffffff,
-        0 0 15px #a96cff;
-
-      transform: translateY(-50%);
+    .enter-button:active {
+      transform: translateY(-1px);
     }
 
-    @keyframes meteorFall {
-      0% {
-        opacity: 0;
-
-        transform:
-          translate3d(0, 0, 0)
-          rotate(var(--angle));
-      }
-
-      4% {
-        opacity: 1;
-      }
-
-      16% {
-        opacity: 1;
-      }
-
-      24%,
-      100% {
-        opacity: 0;
-
-        transform:
-          translate3d(-700px, 450px, 0)
-          rotate(var(--angle));
-      }
+    /* 아래 캐릭터 영역 */
+    .character-section {
+      width: min(100% - 40px, 1000px);
+      margin: 0 auto;
+      padding-top: 80px;
     }
 
-    .meteor-1 {
-      --left: 95%;
-      --length: 150px;
-      --angle: -35deg;
-      --duration: 8s;
-      --delay: 1s;
-    }
+    .section-title {
+      margin-bottom: 28px;
 
-    .meteor-2 {
-      --left: 78%;
-      --length: 105px;
-      --angle: -42deg;
-      --duration: 11s;
-      --delay: 5s;
-    }
-
-    .meteor-3 {
-      --left: 60%;
-      --length: 135px;
-      --angle: -30deg;
-      --duration: 13s;
-      --delay: 8s;
-    }
-
-    .meteor-4 {
-      --left: 105%;
-      --length: 90px;
-      --angle: -48deg;
-      --duration: 10s;
-      --delay: 10s;
-    }
-
-    /* 캐릭터 목록 */
-    .character-area {
-      margin-top: 250px;
-    }
-
-    .site-title {
-      margin-bottom: 24px;
-      font-size: clamp(30px, 5vw, 48px);
+      color: #f2f2f2;
+      font-size: clamp(28px, 5vw, 44px);
       font-weight: 500;
       letter-spacing: 1px;
     }
@@ -343,23 +160,20 @@
       transform: translateY(-8px);
     }
 
-    .character-card:active {
-      transform: translateY(-2px);
-    }
-
     .character-image {
       width: 100%;
       aspect-ratio: 4 / 5;
       overflow: hidden;
 
-      background: #ffffff;
+      border: 1px solid #242424;
       border-radius: 4px;
+      background: #111111;
     }
 
     .character-image img {
+      display: block;
       width: 100%;
       height: 100%;
-      display: block;
 
       object-fit: cover;
       object-position: center;
@@ -372,34 +186,41 @@
     }
 
     .character-name {
-      margin-top: 10px;
+      margin-top: 11px;
 
+      color: #ffffff;
       font-size: 17px;
       font-weight: 700;
-      letter-spacing: -0.6px;
+      letter-spacing: -0.5px;
     }
 
     .character-description {
       margin-top: 5px;
 
-      color: #aaaaaa;
+      color: #8f8f8f;
       font-size: 13px;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
-    /* 태블릿 및 모바일 */
-    @media (max-width: 650px) {
-      .page {
-        padding: 18px 20px 60px;
+    /* 모바일 */
+    @media (max-width: 700px) {
+      .hero-image {
+        min-height: 240px;
+        max-height: 320px;
+        object-fit: cover;
       }
 
-      .intro-box {
-        height: 230px;
-        background-position: center bottom;
+      .main-entry {
+        min-height: 430px;
+        padding: 100px 20px 70px;
       }
 
-      .character-area {
-        margin-top: 220px;
+      .concept-text {
+        font-size: 15px;
+      }
+
+      .enter-button {
+        margin-top: 58px;
       }
 
       .character-grid {
@@ -415,19 +236,20 @@
       }
     }
 
-    @media (max-width: 430px) {
-      .intro-box {
-        height: 200px;
-        background-position: 55% bottom;
+    @media (max-width: 480px) {
+      .hero-image {
+        min-height: 190px;
+        max-height: 230px;
+      }
+
+      .main-entry {
+        min-height: 390px;
+        padding-top: 85px;
       }
 
       .character-grid {
         grid-template-columns: 1fr;
-        gap: 36px;
-      }
-
-      .character-image {
-        aspect-ratio: 3 / 4;
+        gap: 42px;
       }
 
       .character-name {
@@ -438,38 +260,38 @@
         display: block;
       }
     }
-
-    @media (prefers-reduced-motion: reduce) {
-      .stars,
-      .stars::before,
-      .stars::after,
-      .cloud-layer,
-      .meteor {
-        animation: none;
-      }
-    }
   </style>
 </head>
 
 <body>
   <main class="page">
 
-    <!-- 유성우 애니메이션 이미지 영역 -->
-    <section class="intro-box">
-      <div class="stars"></div>
-      <div class="cloud-layer"></div>
+    <!-- 맨 위 다크웹 대문 -->
+    <header class="hero">
+      <img
+        class="hero-image"
+        src="darkweb-main.png"
+        alt="다크웹 스타일 메인 배너"
+      >
+    </header>
 
-      <div class="meteor meteor-1"></div>
-      <div class="meteor meteor-2"></div>
-      <div class="meteor meteor-3"></div>
-      <div class="meteor meteor-4"></div>
+    <!-- 메인 입장 안내 -->
+    <section class="main-entry">
+      <p class="concept-text">
+        다크웹스러운 콘셉트 대사<br>
+        혹은 짧은 소개 문구
+      </p>
 
-      <div class="purple-overlay"></div>
+      <!-- 클릭하면 캐릭터 목록으로 이동 -->
+      <a class="enter-button" href="#characters">
+        보라색 글씨 영역을<br>
+        클릭 OK 정말 누를 거야?
+      </a>
     </section>
 
-    <!-- 캐릭터 선택 -->
-    <section class="character-area">
-      <h2 class="site-title">Star Rain</h2>
+    <!-- 캐릭터 목록 -->
+    <section class="character-section" id="characters">
+      <h2 class="section-title">Star Rain</h2>
 
       <div class="character-grid">
 
@@ -478,7 +300,7 @@
           <div class="character-image">
             <img
               src="character1.jpg"
-              alt="캐릭터이름1 프로필 사진"
+              alt="캐릭터 1 프로필"
             >
           </div>
 
@@ -494,7 +316,7 @@
           <div class="character-image">
             <img
               src="character2.jpg"
-              alt="캐릭터이름2 프로필 사진"
+              alt="캐릭터 2 프로필"
             >
           </div>
 
@@ -510,7 +332,7 @@
           <div class="character-image">
             <img
               src="character3.jpg"
-              alt="캐릭터이름3 프로필 사진"
+              alt="캐릭터 3 프로필"
             >
           </div>
 
