@@ -809,7 +809,7 @@
 
     @media (max-width: 540px) {
       .character-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
@@ -882,12 +882,61 @@
       }
 
       .character-grid {
-        grid-template-columns: 1fr;
-        gap: 35px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px 10px;
+      }
+
+      .character-meta {
+        min-height: 148px;
+        margin-top: -42px;
+        padding: 14px 10px 14px;
+      }
+
+      .character-code {
+        font-size: 7px;
+        line-height: 1.35;
+        letter-spacing: 0.35px;
+        overflow-wrap: anywhere;
+      }
+
+      .character-name {
+        margin-top: 5px;
+        font-size: 21px;
+        letter-spacing: 1px;
+      }
+
+      .character-name-english {
+        font-size: 17px;
+        letter-spacing: 0.8px;
       }
 
       .character-description {
-        min-height: auto;
+        min-height: 45px;
+        margin-top: 8px;
+        padding-left: 8px;
+        font-size: 10px;
+        line-height: 1.5;
+        word-break: break-word;
+      }
+
+      .file-line {
+        margin-top: 10px;
+        padding-top: 9px;
+        gap: 5px;
+        font-size: 7px;
+        letter-spacing: 0.15px;
+      }
+
+      .image-status {
+        top: 7px;
+        right: 7px;
+        padding: 4px 5px;
+        font-size: 7px;
+        letter-spacing: 0.5px;
+      }
+
+      .vacant-mark {
+        font-size: 30px;
       }
 
       .footer {
