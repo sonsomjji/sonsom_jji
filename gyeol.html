@@ -764,6 +764,583 @@
 
     @media(max-width:900px){.subject-header{grid-template-columns:1fr}.subject-badges{justify-content:flex-start}.identity-block{grid-template-columns:160px 1fr}.archive-grid{grid-template-columns:1fr}}
     @media(max-width:680px){.page{width:min(calc(100% - 24px),1180px);padding-top:14px}.top-bar{min-height:58px;grid-template-columns:1fr 1fr}.node-status{display:none}.subject-header{padding-top:52px}.subject-title{line-height:1.2}.subject-title .hanja{display:block;margin:10px 0 0}.document-stage{padding:10px}.personnel-file{padding:28px 20px 26px}.paper-top,.identity-block,.paper-footer{grid-template-columns:1fr}.paper-classification{justify-self:start}.id-photo-wrap{width:min(100%,220px)}.identity-table{grid-template-columns:96px 1fr}.ability-grid{grid-template-columns:1fr}.ability-cell.full{grid-column:auto}.notes-grid{grid-template-columns:1fr}.visual-frame,.visual-slide,.visual-lock-slide,.visual-loading{height:540px;min-height:540px}.footer{flex-direction:column;gap:8px}}
+
+    /* =========================================================
+       MOBILE OPTIMIZATION
+       데스크톱 스타일은 유지하고 680px 이하에서만 적용
+       ========================================================= */
+    @media (max-width:680px){
+      body{
+        background-size:32px 32px,32px 32px,auto,auto;
+      }
+
+      .page{
+        width:calc(100% - 16px);
+        padding:8px 0 64px;
+      }
+
+      .top-bar{
+        min-height:54px;
+        padding:0 4px;
+        grid-template-columns:auto 1fr;
+        gap:10px;
+      }
+
+      .logo{
+        font-size:16px;
+        letter-spacing:1.3px;
+      }
+
+      .back-link{
+        max-width:150px;
+        font-size:9px;
+        line-height:1.25;
+        text-align:right;
+        letter-spacing:.35px;
+      }
+
+      .subject-header{
+        padding:40px 4px 30px;
+        gap:20px;
+      }
+
+      .subject-path{
+        font-size:8px;
+        line-height:1.5;
+        letter-spacing:.8px;
+        overflow-wrap:anywhere;
+      }
+
+      .subject-title.hanja-only{
+        margin-top:16px;
+        font-size:76px;
+        line-height:.9;
+      }
+
+      .subject-summary{
+        margin-top:16px;
+        font-size:9px;
+        line-height:1.65;
+        letter-spacing:.15px;
+      }
+
+      .subject-badges{
+        display:grid;
+        grid-template-columns:repeat(3,minmax(0,1fr));
+        width:100%;
+        gap:5px;
+      }
+
+      .badge{
+        min-width:0;
+        padding:7px 4px;
+        font-size:7px;
+        text-align:center;
+        letter-spacing:.35px;
+        overflow-wrap:anywhere;
+      }
+
+      .section{
+        padding-top:48px;
+      }
+
+      .section-heading{
+        margin-bottom:17px;
+        gap:9px;
+      }
+
+      .section-heading h2{
+        flex-shrink:0;
+        font-size:13px;
+        letter-spacing:1.2px;
+      }
+
+      .section-heading span{
+        max-width:110px;
+        font-size:7px;
+        line-height:1.3;
+        text-align:right;
+        letter-spacing:.4px;
+      }
+
+      .file-switcher{
+        gap:7px;
+        margin-bottom:10px;
+      }
+
+      .file-tab{
+        min-height:52px;
+        padding:10px 11px;
+      }
+
+      .file-tab strong{
+        font-size:9px;
+        line-height:1.45;
+        letter-spacing:.45px;
+      }
+
+      .file-tab small{
+        margin-top:4px;
+        font-size:7px;
+        line-height:1.45;
+        letter-spacing:.2px;
+      }
+
+      .document-stage{
+        padding:5px;
+      }
+
+      .document-stage::before,
+      .document-stage::after{
+        width:20px;
+        height:20px;
+      }
+
+      .personnel-file{
+        padding:20px 12px 20px;
+        background-size:100% 22px;
+      }
+
+      .personnel-file::before{
+        font-size:22px;
+        letter-spacing:1px;
+      }
+
+      .paper-top{
+        padding-bottom:12px;
+        gap:12px;
+      }
+
+      .agency-code{
+        font-size:7px;
+        line-height:1.45;
+        letter-spacing:.45px;
+      }
+
+      .agency-title{
+        margin-top:4px;
+        font-size:17px;
+        line-height:1.2;
+        letter-spacing:.8px;
+      }
+
+      .paper-classification{
+        padding:6px 8px;
+        font-size:8px;
+        letter-spacing:.45px;
+      }
+
+      .record-number{
+        margin-top:10px;
+        display:grid;
+        gap:4px;
+        font-size:7px;
+        line-height:1.35;
+        letter-spacing:.25px;
+      }
+
+      .identity-block{
+        margin-top:18px;
+        gap:14px;
+      }
+
+      .id-photo-wrap{
+        width:min(72%,220px);
+        margin:0 auto;
+        padding:5px;
+      }
+
+      .photo-caption{
+        margin-top:6px;
+        font-size:7px;
+        letter-spacing:.45px;
+      }
+
+      .identity-table{
+        grid-template-columns:72px minmax(0,1fr);
+      }
+
+      .identity-table dt,
+      .identity-table dd{
+        min-height:36px;
+        padding:8px 7px;
+      }
+
+      .identity-table dt{
+        font-size:9px;
+        line-height:1.4;
+      }
+
+      .identity-table dd{
+        min-width:0;
+        font-size:10px;
+        line-height:1.55;
+        overflow-wrap:anywhere;
+      }
+
+      .ability-section,
+      .notes-section{
+        margin-top:20px;
+      }
+
+      .paper-section-title{
+        margin-bottom:7px;
+        padding:6px 7px;
+        font-size:8px;
+        line-height:1.4;
+        letter-spacing:.55px;
+      }
+
+      .ability-cell{
+        min-height:auto;
+        padding:9px 8px;
+      }
+
+      .ability-cell.full{
+        min-height:auto;
+      }
+
+      .cell-label{
+        margin-bottom:5px;
+        font-size:8px;
+      }
+
+      .cell-value{
+        font-size:10px;
+        line-height:1.65;
+        word-break:normal;
+        overflow-wrap:anywhere;
+      }
+
+      .ability-description p + p{
+        margin-top:10px;
+      }
+
+      .notes-grid{
+        gap:10px;
+      }
+
+      .lined-note{
+        min-height:auto;
+        padding:10px 10px;
+        font-size:10px;
+        line-height:1.8;
+        background:repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent 20px,
+          rgba(66,60,66,.18) 21px
+        );
+      }
+
+      .paper-footer{
+        margin-top:20px;
+        padding-top:12px;
+        gap:12px;
+      }
+
+      .approval-grid{
+        grid-template-columns:repeat(3,minmax(0,1fr));
+        width:100%;
+        gap:4px;
+      }
+
+      .approval-box{
+        min-height:48px;
+        font-size:7px;
+      }
+
+      .approval-box strong{
+        font-size:8px;
+        letter-spacing:.25px;
+      }
+
+      .paper-page{
+        font-size:7px;
+        line-height:1.4;
+        text-align:right;
+      }
+
+      .locked-document{
+        min-height:460px;
+      }
+
+      .lock-panel{
+        width:calc(100% - 20px);
+        padding:24px 15px;
+      }
+
+      .lock-mark{
+        font-size:9px;
+        letter-spacing:1px;
+      }
+
+      .lock-title{
+        margin-top:12px;
+        font-size:18px;
+        letter-spacing:1px;
+      }
+
+      .lock-copy{
+        margin-top:12px;
+        font-size:10px;
+        line-height:1.7;
+      }
+
+      .password-form{
+        margin-top:18px;
+        gap:6px;
+      }
+
+      .password-input,
+      .unlock-button{
+        height:42px;
+      }
+
+      .password-input{
+        padding:0 10px;
+        font-size:11px;
+      }
+
+      .unlock-button{
+        font-size:10px;
+      }
+
+      .lock-note{
+        font-size:7px;
+        line-height:1.5;
+        letter-spacing:.2px;
+      }
+
+      .decrypt-box{
+        width:calc(100% - 24px);
+        padding:22px 16px;
+      }
+
+      .decrypt-title{
+        font-size:10px;
+        line-height:1.5;
+      }
+
+      .decrypt-status{
+        font-size:8px;
+      }
+
+      .villain-file{
+        clip-path:none;
+      }
+
+      .paper-tear{
+        right:10%;
+        width:38px;
+        height:20px;
+      }
+
+      .evidence-stamp{
+        top:78px;
+        right:14px;
+        padding:5px 7px;
+        font-size:10px;
+        letter-spacing:1px;
+      }
+
+      .evidence-note{
+        display:none;
+      }
+
+      .villain-warning{
+        margin-top:10px;
+        padding:8px;
+        font-size:8px;
+        line-height:1.55;
+        letter-spacing:.2px;
+      }
+
+      .villain-file .id-photo-wrap{
+        width:min(78%,220px);
+        padding:7px 7px 28px;
+      }
+
+      .villain-file .id-photo-wrap::before{
+        left:8px;
+        bottom:8px;
+        font-size:6px;
+        letter-spacing:.35px;
+      }
+
+      .villain-file .id-photo-wrap::after{
+        inset:7px 7px 28px;
+      }
+
+      .visual-frame,
+      .visual-slide,
+      .visual-lock-slide,
+      .visual-loading{
+        height:470px;
+        min-height:470px;
+      }
+
+      .visual-topline{
+        top:10px;
+        left:10px;
+        right:10px;
+        gap:8px;
+        font-size:7px;
+        line-height:1.35;
+        letter-spacing:.35px;
+      }
+
+      .visual-topline span:last-child{
+        text-align:right;
+      }
+
+      .visual-controls{
+        right:10px;
+        bottom:10px;
+        gap:5px;
+      }
+
+      .visual-button{
+        width:38px;
+        height:34px;
+      }
+
+      .slide-counter{
+        min-width:56px;
+        font-size:8px;
+      }
+
+      .visual-lock-message{
+        width:calc(100% - 24px);
+        padding:20px 14px;
+      }
+
+      .visual-lock-message strong{
+        font-size:10px;
+        line-height:1.45;
+      }
+
+      .visual-lock-message small{
+        font-size:8px;
+        line-height:1.6;
+      }
+
+      .archive-grid,
+      .simplified-archive{
+        grid-template-columns:1fr;
+        gap:10px;
+      }
+
+      .archive-gateway{
+        min-height:140px;
+        padding:20px 16px;
+      }
+
+      .archive-code{
+        top:14px;
+        left:15px;
+        font-size:7px;
+      }
+
+      .archive-gateway strong{
+        font-size:12px;
+      }
+
+      .archive-gateway small{
+        margin-top:7px;
+        font-size:9px;
+      }
+
+      .archive-arrow{
+        margin-top:13px;
+        font-size:8px;
+      }
+
+      .character-nav{
+        margin-top:48px;
+        padding-top:16px;
+      }
+
+      .character-nav-meta{
+        margin-bottom:10px;
+        font-size:6px;
+      }
+
+      .character-nav-row{
+        grid-template-columns:minmax(0,1fr) 32px minmax(0,1fr);
+        gap:5px;
+      }
+
+      .character-nav-link{
+        min-width:0;
+        min-height:42px;
+        padding:6px 7px;
+      }
+
+      .character-nav-copy{
+        min-width:0;
+      }
+
+      .character-nav-copy strong{
+        font-size:8px;
+        overflow-wrap:anywhere;
+      }
+
+      .character-arrow{
+        flex-shrink:0;
+        font-size:17px;
+      }
+
+      .darkweb-sigil{
+        width:32px;
+        height:32px;
+        font-size:7px;
+      }
+
+      .darkweb-sigil::before{
+        inset:8px;
+      }
+
+      .footer{
+        margin-top:54px;
+        padding-top:16px;
+        font-size:7px;
+        line-height:1.5;
+      }
+    }
+
+    @media (max-width:390px){
+      .subject-badges{
+        grid-template-columns:1fr;
+      }
+
+      .badge{
+        text-align:left;
+        padding-left:8px;
+      }
+
+      .subject-title.hanja-only{
+        font-size:68px;
+      }
+
+      .identity-table{
+        grid-template-columns:64px minmax(0,1fr);
+      }
+
+      .identity-table dt,
+      .identity-table dd{
+        padding:7px 6px;
+      }
+
+      .visual-frame,
+      .visual-slide,
+      .visual-lock-slide,
+      .visual-loading{
+        height:420px;
+        min-height:420px;
+      }
+    }
+
   </style>
 </head>
 <body>
