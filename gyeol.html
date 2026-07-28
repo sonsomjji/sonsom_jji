@@ -1789,6 +1789,410 @@
       }
     }
 
+
+    /* =========================================================
+       ACCESS BOOT → FINAL SUBJECT INFO
+       ========================================================= */
+    .access-transition-header{
+      position:relative;
+      margin-top:28px;
+      padding:0;
+      display:block;
+      min-height:330px;
+      overflow:hidden;
+      border:1px solid #2e1b37;
+      background:
+        linear-gradient(rgba(188,107,235,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(188,107,235,.025) 1px,transparent 1px),
+        radial-gradient(circle at 15% 18%,rgba(109,39,145,.12),transparent 30%),
+        linear-gradient(145deg,rgba(13,7,17,.97),rgba(3,2,5,.995));
+      background-size:28px 28px,28px 28px,auto,auto;
+      box-shadow:inset 0 0 55px rgba(100,34,132,.07),0 20px 60px rgba(0,0,0,.38);
+      border-bottom:1px solid #2e1b37;
+    }
+
+    .access-transition-header::before,
+    .access-transition-header::after{
+      content:"";
+      position:absolute;
+      z-index:5;
+      width:40px;
+      height:40px;
+      pointer-events:none;
+    }
+
+    .access-transition-header::before{
+      top:-1px;left:-1px;
+      border-top:1px solid #7f4695;
+      border-left:1px solid #7f4695;
+    }
+
+    .access-transition-header::after{
+      right:-1px;bottom:-1px;
+      border-right:1px solid #7f4695;
+      border-bottom:1px solid #7f4695;
+    }
+
+    .access-noise{
+      position:absolute;
+      z-index:1;
+      inset:0;
+      pointer-events:none;
+      opacity:.22;
+      background:repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 4px,
+        rgba(207,147,255,.04) 5px
+      );
+    }
+
+    .access-boot,
+    .access-final{
+      position:relative;
+      z-index:2;
+      min-height:330px;
+    }
+
+    .access-boot{
+      padding:30px 34px 28px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      transition:opacity .45s ease,transform .45s ease;
+    }
+
+    .access-boot.is-leaving{
+      opacity:0;
+      transform:translateY(-8px);
+    }
+
+    .boot-path{
+      padding-bottom:14px;
+      border-bottom:1px solid #24142c;
+      color:#6b4d76;
+      font-size:8px;
+      letter-spacing:1.35px;
+    }
+
+    .boot-log{
+      margin-top:22px;
+      color:#a188ad;
+      font-size:10px;
+      line-height:2;
+      letter-spacing:1px;
+    }
+
+    .boot-log p{
+      opacity:0;
+      transform:translateY(4px);
+      animation:bootLine .28s ease forwards;
+    }
+
+    .boot-log p:first-child{opacity:1;transform:none;animation:none}
+    .boot-delay-1{animation-delay:.35s !important}
+    .boot-delay-2{animation-delay:.7s !important}
+    .boot-delay-3{animation-delay:1.05s !important}
+    .boot-delay-4{animation-delay:1.4s !important}
+    .boot-delay-5{animation-delay:1.75s !important}
+
+    .boot-log span{
+      display:inline-block;
+      width:30px;
+      color:#4d3457;
+    }
+
+    @keyframes bootLine{
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    .boot-progress{
+      width:min(100%,420px);
+      height:3px;
+      margin-top:20px;
+      overflow:hidden;
+      background:#201427;
+    }
+
+    .boot-progress i{
+      display:block;
+      width:35%;
+      height:100%;
+      background:#8d56a5;
+      box-shadow:0 0 8px rgba(182,99,223,.38);
+      animation:bootProgress 1.25s ease-in-out infinite;
+    }
+
+    @keyframes bootProgress{
+      0%{transform:translateX(-110%)}
+      100%{transform:translateX(390%)}
+    }
+
+    .access-final{
+      opacity:0;
+      transform:translateY(8px);
+      transition:opacity .45s ease,transform .45s ease;
+    }
+
+    .access-final.is-visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    .final-path,
+    .final-footer{
+      min-height:38px;
+      padding:0 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      border-bottom:1px solid #24142c;
+      color:#6b4d76;
+      font-size:8px;
+      letter-spacing:1.2px;
+    }
+
+    .final-footer{
+      min-height:34px;
+      border-top:1px solid #24142c;
+      border-bottom:0;
+      color:#513b59;
+    }
+
+    .final-main{
+      min-height:258px;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 360px;
+    }
+
+    .final-identity{
+      padding:38px 40px;
+      display:flex;
+      align-items:center;
+      gap:22px;
+      border-right:1px solid #24142c;
+    }
+
+    .final-glyph{
+      width:92px;
+      height:92px;
+      flex:0 0 92px;
+      display:grid;
+      place-items:center;
+      border:1px solid #4b2d59;
+      background:radial-gradient(circle at 50% 50%,rgba(174,87,224,.12),transparent 58%),rgba(4,2,6,.78);
+      color:#e5c3ff;
+      font-family:var(--font-hanja);
+      font-size:58px;
+      line-height:1;
+      text-shadow:0 0 7px rgba(204,145,255,.34),0 0 20px rgba(111,42,179,.2);
+    }
+
+    .final-kicker{
+      color:#7b5a87;
+      font-size:8px;
+      letter-spacing:1.5px;
+    }
+
+    .final-copy h1{
+      margin-top:9px;
+      color:#f5eef8;
+      font-size:clamp(28px,4vw,42px);
+      font-weight:400;
+      line-height:1;
+      letter-spacing:2.8px;
+      text-shadow:0 0 14px rgba(185,100,238,.17);
+    }
+
+    .final-sub{
+      margin-top:11px;
+      color:#8c6e97;
+      font-size:9px;
+      line-height:1.5;
+      letter-spacing:1px;
+    }
+
+    .final-status-grid{
+      padding:26px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      align-content:center;
+      gap:8px;
+      background:linear-gradient(145deg,rgba(27,13,34,.36),rgba(7,4,9,.18));
+    }
+
+    .final-status{
+      min-height:70px;
+      padding:11px 12px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      border:1px solid #33203c;
+      background:rgba(7,4,9,.62);
+    }
+
+    .final-status span{
+      color:#62486c;
+      font-size:7px;
+      letter-spacing:1.1px;
+    }
+
+    .final-status strong{
+      color:#d09ce6;
+      font-size:9px;
+      font-weight:400;
+      letter-spacing:.9px;
+      text-shadow:0 0 7px rgba(187,101,230,.22);
+      overflow-wrap:anywhere;
+    }
+
+    @media(max-width:760px){
+      .final-main{
+        grid-template-columns:1fr;
+      }
+
+      .final-identity{
+        border-right:0;
+        border-bottom:1px solid #24142c;
+      }
+
+      .final-status-grid{
+        grid-template-columns:repeat(4,minmax(0,1fr));
+      }
+
+      .final-status{
+        min-height:64px;
+      }
+    }
+
+    @media(max-width:680px){
+      .access-transition-header{
+        margin-top:14px;
+        min-height:300px;
+      }
+
+      .access-boot,
+      .access-final{
+        min-height:300px;
+      }
+
+      .access-boot{
+        padding:22px 16px 20px;
+      }
+
+      .boot-path{
+        font-size:6px;
+        letter-spacing:.7px;
+      }
+
+      .boot-log{
+        margin-top:16px;
+        font-size:8px;
+        line-height:1.9;
+        letter-spacing:.55px;
+      }
+
+      .boot-log span{
+        width:24px;
+      }
+
+      .final-path,
+      .final-footer{
+        min-height:34px;
+        padding:7px 10px;
+        font-size:6px;
+        line-height:1.4;
+        letter-spacing:.55px;
+      }
+
+      .final-main{
+        min-height:232px;
+      }
+
+      .final-identity{
+        padding:24px 16px;
+        gap:14px;
+      }
+
+      .final-glyph{
+        width:68px;
+        height:68px;
+        flex-basis:68px;
+        font-size:43px;
+      }
+
+      .final-kicker{
+        font-size:6px;
+        letter-spacing:.9px;
+      }
+
+      .final-copy h1{
+        margin-top:7px;
+        font-size:21px;
+        letter-spacing:1.4px;
+      }
+
+      .final-sub{
+        margin-top:7px;
+        font-size:6px;
+        letter-spacing:.45px;
+      }
+
+      .final-status-grid{
+        padding:10px;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:6px;
+      }
+
+      .final-status{
+        min-height:54px;
+        padding:8px;
+      }
+
+      .final-status span{
+        font-size:6px;
+      }
+
+      .final-status strong{
+        font-size:7px;
+      }
+    }
+
+    @media(max-width:390px){
+      .final-path,
+      .final-footer{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:2px;
+      }
+
+      .final-glyph{
+        width:60px;
+        height:60px;
+        flex-basis:60px;
+        font-size:38px;
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      .boot-log p{
+        opacity:1;
+        transform:none;
+        animation:none;
+      }
+
+      .boot-progress i{
+        animation:none;
+        width:100%;
+      }
+
+      .access-boot,
+      .access-final{
+        transition:none;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -1799,88 +2203,52 @@
       <a class="back-link" href="main.html">&lt; RETURN TO ARCHIVE</a>
     </header>
 
-    <section class="subject-header access-tree-header">
+    <section class="subject-header access-transition-header" id="accessHeader">
       <div class="access-noise" aria-hidden="true"></div>
 
-      <div class="access-tree-shell">
-        <div class="tree-path-line">
-          <span class="tree-root">ROOT</span>
-          <span class="tree-route">/ HIDDEN NODE / SUBJECT_012</span>
+      <div class="access-boot" id="accessBoot" aria-live="polite">
+        <div class="boot-path">ROOT / HIDDEN NODE / SUBJECT_012</div>
+
+        <div class="boot-log">
+          <p><span>│</span></p>
+          <p><span>├─</span> CONNECTING...</p>
+          <p class="boot-step boot-delay-1"><span>├─</span> NODE VERIFIED</p>
+          <p class="boot-step boot-delay-2"><span>├─</span> SUBJECT_012</p>
+          <p class="boot-step boot-delay-3"><span>├─</span> [結]</p>
+          <p class="boot-step boot-delay-4"><span>├─</span> LOADING PERSONNEL RECORD...</p>
+          <p class="boot-step boot-delay-5"><span>└─</span> ACCESS GRANTED</p>
         </div>
 
-        <div class="access-tree" aria-label="대상 파일 접속 기록">
-          <div class="tree-item tree-item-status">
-            <span class="tree-branch">│</span>
-            <span class="tree-node">├─</span>
-            <span class="tree-label">CONNECTING...</span>
-            <span class="tree-pulse" aria-hidden="true"></span>
+        <div class="boot-progress" aria-hidden="true"><i></i></div>
+      </div>
+
+      <div class="access-final" id="accessFinal" hidden>
+        <div class="final-path">
+          <span>ROOT / HIDDEN NODE / SUBJECT_012</span>
+          <span>ACCESS GRANTED</span>
+        </div>
+
+        <div class="final-main">
+          <div class="final-identity">
+            <div class="final-glyph" lang="zh-Hant">結</div>
+            <div class="final-copy">
+              <p class="final-kicker">SUBJECT_012</p>
+              <h1>HAN GYEOL</h1>
+              <p class="final-sub">ACTIVE PERSONNEL / INTERNAL ARCHIVE</p>
+            </div>
           </div>
 
-          <div class="tree-item">
-            <span class="tree-branch">│</span>
-            <span class="tree-node">├─</span>
-            <span class="tree-label">NODE VERIFIED</span>
-            <span class="tree-value verified">SUCCESS</span>
-          </div>
-
-          <div class="tree-item tree-subject-row">
-            <span class="tree-branch">│</span>
-            <span class="tree-node">├─</span>
-            <span class="tree-label">SUBJECT_012</span>
-            <span class="tree-value">HAN GYEOL</span>
-          </div>
-
-          <div class="tree-item tree-glyph-row">
-            <span class="tree-branch">│</span>
-            <span class="tree-node">├─</span>
-            <span class="tree-glyph" lang="zh-Hant">[結]</span>
-          </div>
-
-          <div class="tree-item">
-            <span class="tree-branch">│</span>
-            <span class="tree-node">├─</span>
-            <span class="tree-label">TRACE LEVEL</span>
-            <span class="tree-value danger">03%</span>
-          </div>
-
-          <div class="tree-item">
-            <span class="tree-branch">│</span>
-            <span class="tree-node">├─</span>
-            <span class="tree-label">FILE HASH</span>
-            <span class="tree-value hash">7F2A-9C11-██04</span>
-          </div>
-
-          <div class="tree-item">
-            <span class="tree-branch">│</span>
-            <span class="tree-node">├─</span>
-            <span class="tree-label">LAST UPDATE</span>
-            <span class="tree-value">20XX.XX.XX / 03:18</span>
-          </div>
-
-          <div class="tree-item">
-            <span class="tree-branch">│</span>
-            <span class="tree-node">├─</span>
-            <span class="tree-label">ACCESS KEY</span>
-            <span class="tree-value">SR-S012 / BLACK</span>
-          </div>
-
-          <div class="tree-item tree-loading-row">
-            <span class="tree-branch">│</span>
-            <span class="tree-node">├─</span>
-            <span class="tree-label">LOADING PERSONNEL RECORD...</span>
-            <span class="tree-loading-bar" aria-hidden="true"><i></i></span>
-          </div>
-
-          <div class="tree-item tree-end">
-            <span class="tree-branch">│</span>
-            <span class="tree-node">└─</span>
-            <span class="tree-line"></span>
+          <div class="final-status-grid">
+            <div class="final-status"><span>STATUS</span><strong>ACTIVE</strong></div>
+            <div class="final-status"><span>ACCESS</span><strong>REDACTED</strong></div>
+            <div class="final-status"><span>THREAT</span><strong>CLASS A</strong></div>
+            <div class="final-status"><span>FILE HASH</span><strong>7F2A-9C11-██04</strong></div>
           </div>
         </div>
 
-        <div class="access-footer-link">
-          <span class="access-ready-dot" aria-hidden="true"></span>
-          <span>PERSONNEL FILE READY</span>
+        <div class="final-footer">
+          <span>PERSONNEL RECORD READY</span>
+          <span>SESSION ENCRYPTED</span>
         </div>
       </div>
     </section>
@@ -2253,5 +2621,36 @@
     applyUnlockedState();
     updateSlide();
   </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded',()=>{
+      const boot=document.getElementById('accessBoot');
+      const finalPanel=document.getElementById('accessFinal');
+
+      if(!boot || !finalPanel) return;
+
+      const showFinalPanel=()=>{
+        boot.classList.add('is-leaving');
+
+        window.setTimeout(()=>{
+          boot.hidden=true;
+          finalPanel.hidden=false;
+
+          requestAnimationFrame(()=>{
+            finalPanel.classList.add('is-visible');
+          });
+        },450);
+      };
+
+      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+        boot.hidden=true;
+        finalPanel.hidden=false;
+        finalPanel.classList.add('is-visible');
+      }else{
+        window.setTimeout(showFinalPanel,2300);
+      }
+    });
+  </script>
+
 </body>
 </html>
