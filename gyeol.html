@@ -1424,6 +1424,371 @@
       .console-footerline{align-items:flex-start;flex-direction:column;gap:2px}
     }
 
+
+    /* =========================================================
+       TREE ACCESS HEADER
+       다크웹 접속 로그 → PERSONNEL FILE 연결
+       ========================================================= */
+    .access-tree-header{
+      position:relative;
+      margin-top:28px;
+      padding:0;
+      display:block;
+      overflow:hidden;
+      border:1px solid #2e1b37;
+      background:
+        linear-gradient(rgba(188,107,235,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(188,107,235,.025) 1px,transparent 1px),
+        radial-gradient(circle at 12% 18%,rgba(109,39,145,.12),transparent 30%),
+        linear-gradient(145deg,rgba(13,7,17,.97),rgba(3,2,5,.995));
+      background-size:28px 28px,28px 28px,auto,auto;
+      box-shadow:
+        inset 0 0 55px rgba(100,34,132,.07),
+        0 20px 60px rgba(0,0,0,.38);
+      border-bottom:1px solid #2e1b37;
+    }
+
+    .access-tree-header::before,
+    .access-tree-header::after{
+      content:"";
+      position:absolute;
+      z-index:4;
+      width:40px;
+      height:40px;
+      pointer-events:none;
+    }
+
+    .access-tree-header::before{
+      top:-1px;
+      left:-1px;
+      border-top:1px solid #7f4695;
+      border-left:1px solid #7f4695;
+    }
+
+    .access-tree-header::after{
+      right:-1px;
+      bottom:-1px;
+      border-right:1px solid #7f4695;
+      border-bottom:1px solid #7f4695;
+    }
+
+    .access-noise{
+      position:absolute;
+      z-index:1;
+      inset:0;
+      pointer-events:none;
+      opacity:.22;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent 4px,
+          rgba(207,147,255,.04) 5px
+        );
+    }
+
+    .access-tree-shell{
+      position:relative;
+      z-index:2;
+      padding:24px 28px 22px;
+    }
+
+    .tree-path-line{
+      padding-bottom:14px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      border-bottom:1px solid #24142c;
+      color:#684974;
+      font-size:8px;
+      letter-spacing:1.45px;
+    }
+
+    .tree-root{
+      color:#c37fe2;
+      text-shadow:0 0 8px rgba(190,104,231,.3);
+    }
+
+    .tree-route{
+      color:#5a4163;
+    }
+
+    .access-tree{
+      width:min(100%,780px);
+      margin-top:22px;
+      font-family:var(--font-system);
+    }
+
+    .tree-item{
+      min-height:38px;
+      display:grid;
+      grid-template-columns:18px 30px minmax(180px,auto) 1fr;
+      align-items:center;
+      column-gap:5px;
+      color:#86728e;
+      font-size:10px;
+      letter-spacing:1.05px;
+    }
+
+    .tree-branch,
+    .tree-node{
+      color:#4d3457;
+      user-select:none;
+    }
+
+    .tree-label{
+      color:#a88bb5;
+    }
+
+    .tree-value{
+      justify-self:end;
+      color:#735d7c;
+      font-size:9px;
+      text-align:right;
+      letter-spacing:.85px;
+    }
+
+    .tree-value.verified{
+      color:#b98acb;
+      text-shadow:0 0 7px rgba(190,111,226,.28);
+    }
+
+    .tree-value.danger{
+      color:#c8679a;
+    }
+
+    .tree-value.hash{
+      font-size:8px;
+      color:#6d5874;
+    }
+
+    .tree-item-status{
+      position:relative;
+    }
+
+    .tree-pulse{
+      justify-self:end;
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background:#b174cc;
+      box-shadow:0 0 7px rgba(190,114,226,.65);
+      animation:treePulse 1.6s ease-in-out infinite;
+    }
+
+    @keyframes treePulse{
+      0%,100%{opacity:.25}
+      50%{opacity:1}
+    }
+
+    .tree-subject-row .tree-label{
+      color:#e1c3eb;
+      font-size:13px;
+      letter-spacing:1.7px;
+      text-shadow:0 0 10px rgba(187,102,226,.18);
+    }
+
+    .tree-glyph-row{
+      min-height:76px;
+      grid-template-columns:18px 30px 1fr;
+    }
+
+    .tree-glyph{
+      width:max-content;
+      padding:5px 12px 7px;
+      border:1px solid #4b2d59;
+      background:rgba(13,7,17,.62);
+      color:#e5c3ff;
+      font-family:var(--font-hanja);
+      font-size:40px;
+      line-height:1;
+      letter-spacing:0;
+      text-shadow:
+        0 0 7px rgba(204,145,255,.34),
+        0 0 20px rgba(111,42,179,.2);
+    }
+
+    .tree-loading-row{
+      min-height:48px;
+      grid-template-columns:18px 30px minmax(220px,auto) minmax(120px,1fr);
+    }
+
+    .tree-loading-bar{
+      justify-self:end;
+      width:min(100%,240px);
+      height:3px;
+      overflow:hidden;
+      background:#201427;
+    }
+
+    .tree-loading-bar i{
+      display:block;
+      width:34%;
+      height:100%;
+      background:#8d56a5;
+      box-shadow:0 0 8px rgba(182,99,223,.38);
+      animation:treeLoading 1.6s ease-in-out infinite;
+    }
+
+    @keyframes treeLoading{
+      0%{transform:translateX(-110%)}
+      100%{transform:translateX(390%)}
+    }
+
+    .tree-end{
+      min-height:28px;
+      grid-template-columns:18px 30px 1fr;
+    }
+
+    .tree-line{
+      height:1px;
+      background:linear-gradient(to right,#51335e,transparent);
+    }
+
+    .access-footer-link{
+      margin-top:10px;
+      padding-top:14px;
+      display:flex;
+      align-items:center;
+      gap:9px;
+      border-top:1px solid #24142c;
+      color:#795985;
+      font-size:8px;
+      letter-spacing:1.25px;
+    }
+
+    .access-ready-dot{
+      width:5px;
+      height:5px;
+      border-radius:50%;
+      background:#9b69af;
+      box-shadow:0 0 7px rgba(179,102,218,.55);
+    }
+
+    .personnel-section{
+      padding-top:48px;
+    }
+
+    .personnel-section .section-heading{
+      position:relative;
+    }
+
+    .personnel-section .section-heading::before{
+      content:"";
+      position:absolute;
+      top:-48px;
+      left:18px;
+      width:1px;
+      height:30px;
+      background:linear-gradient(to bottom,#4b2d59,transparent);
+    }
+
+    @media(max-width:680px){
+      .access-tree-header{
+        margin-top:14px;
+      }
+
+      .access-tree-shell{
+        padding:18px 12px 16px;
+      }
+
+      .tree-path-line{
+        padding-bottom:11px;
+        flex-wrap:wrap;
+        gap:5px;
+        font-size:6px;
+        line-height:1.45;
+        letter-spacing:.8px;
+      }
+
+      .access-tree{
+        margin-top:16px;
+      }
+
+      .tree-item{
+        min-height:34px;
+        grid-template-columns:12px 22px minmax(105px,auto) 1fr;
+        column-gap:3px;
+        font-size:7px;
+        letter-spacing:.55px;
+      }
+
+      .tree-value{
+        font-size:6px;
+        letter-spacing:.35px;
+      }
+
+      .tree-value.hash{
+        font-size:6px;
+      }
+
+      .tree-subject-row .tree-label{
+        font-size:10px;
+        letter-spacing:1px;
+      }
+
+      .tree-glyph-row{
+        min-height:60px;
+        grid-template-columns:12px 22px 1fr;
+      }
+
+      .tree-glyph{
+        padding:4px 8px 6px;
+        font-size:31px;
+      }
+
+      .tree-loading-row{
+        min-height:44px;
+        grid-template-columns:12px 22px minmax(138px,auto) 1fr;
+      }
+
+      .tree-loading-bar{
+        width:min(100%,110px);
+      }
+
+      .tree-end{
+        grid-template-columns:12px 22px 1fr;
+      }
+
+      .access-footer-link{
+        margin-top:7px;
+        padding-top:11px;
+        font-size:6px;
+        letter-spacing:.65px;
+      }
+
+      .personnel-section{
+        padding-top:40px;
+      }
+
+      .personnel-section .section-heading::before{
+        top:-40px;
+        left:10px;
+        height:25px;
+      }
+    }
+
+    @media(max-width:390px){
+      .tree-item{
+        grid-template-columns:10px 18px minmax(92px,auto) 1fr;
+      }
+
+      .tree-loading-row{
+        grid-template-columns:10px 18px 1fr;
+        row-gap:6px;
+      }
+
+      .tree-loading-row .tree-loading-bar{
+        grid-column:3;
+        justify-self:stretch;
+        width:100%;
+      }
+
+      .tree-value{
+        overflow-wrap:anywhere;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -1434,42 +1799,93 @@
       <a class="back-link" href="main.html">&lt; RETURN TO ARCHIVE</a>
     </header>
 
-    <section class="subject-header subject-console">
-      <div class="console-scanline" aria-hidden="true"></div>
+    <section class="subject-header access-tree-header">
+      <div class="access-noise" aria-hidden="true"></div>
 
-      <div class="console-topline">
-        <p class="subject-path">ROOT / HIDDEN NODE / SUBJECT_012</p>
-        <p class="console-session">SESSION: ENCRYPTED · TRACE STATUS: UNRESOLVED</p>
-      </div>
+      <div class="access-tree-shell">
+        <div class="tree-path-line">
+          <span class="tree-root">ROOT</span>
+          <span class="tree-route">/ HIDDEN NODE / SUBJECT_012</span>
+        </div>
 
-      <div class="console-grid">
-        <div class="console-identity">
-          <p class="console-kicker">IDENTITY NODE</p>
-          <div class="identity-mark">
-            <span class="subject-glyph" lang="zh-Hant">結</span>
-            <div class="identity-copy">
-              <h1>SUBJECT_012</h1>
-              <p>HAN GYEOL / ACTIVE PERSONNEL</p>
-            </div>
+        <div class="access-tree" aria-label="대상 파일 접속 기록">
+          <div class="tree-item tree-item-status">
+            <span class="tree-branch">│</span>
+            <span class="tree-node">├─</span>
+            <span class="tree-label">CONNECTING...</span>
+            <span class="tree-pulse" aria-hidden="true"></span>
           </div>
-          <p class="subject-summary">THE TRUTH WAS NOT DELETED. IT WAS BURIED.<br>EVERY ACCESS LEAVES A TRACE.</p>
+
+          <div class="tree-item">
+            <span class="tree-branch">│</span>
+            <span class="tree-node">├─</span>
+            <span class="tree-label">NODE VERIFIED</span>
+            <span class="tree-value verified">SUCCESS</span>
+          </div>
+
+          <div class="tree-item tree-subject-row">
+            <span class="tree-branch">│</span>
+            <span class="tree-node">├─</span>
+            <span class="tree-label">SUBJECT_012</span>
+            <span class="tree-value">HAN GYEOL</span>
+          </div>
+
+          <div class="tree-item tree-glyph-row">
+            <span class="tree-branch">│</span>
+            <span class="tree-node">├─</span>
+            <span class="tree-glyph" lang="zh-Hant">[結]</span>
+          </div>
+
+          <div class="tree-item">
+            <span class="tree-branch">│</span>
+            <span class="tree-node">├─</span>
+            <span class="tree-label">TRACE LEVEL</span>
+            <span class="tree-value danger">03%</span>
+          </div>
+
+          <div class="tree-item">
+            <span class="tree-branch">│</span>
+            <span class="tree-node">├─</span>
+            <span class="tree-label">FILE HASH</span>
+            <span class="tree-value hash">7F2A-9C11-██04</span>
+          </div>
+
+          <div class="tree-item">
+            <span class="tree-branch">│</span>
+            <span class="tree-node">├─</span>
+            <span class="tree-label">LAST UPDATE</span>
+            <span class="tree-value">20XX.XX.XX / 03:18</span>
+          </div>
+
+          <div class="tree-item">
+            <span class="tree-branch">│</span>
+            <span class="tree-node">├─</span>
+            <span class="tree-label">ACCESS KEY</span>
+            <span class="tree-value">SR-S012 / BLACK</span>
+          </div>
+
+          <div class="tree-item tree-loading-row">
+            <span class="tree-branch">│</span>
+            <span class="tree-node">├─</span>
+            <span class="tree-label">LOADING PERSONNEL RECORD...</span>
+            <span class="tree-loading-bar" aria-hidden="true"><i></i></span>
+          </div>
+
+          <div class="tree-item tree-end">
+            <span class="tree-branch">│</span>
+            <span class="tree-node">└─</span>
+            <span class="tree-line"></span>
+          </div>
         </div>
 
-        <div class="console-data" aria-label="대상 보안 상태">
-          <div class="data-row"><span>STATUS</span><strong>ACTIVE</strong></div>
-          <div class="data-row"><span>ACCESS</span><strong>REDACTED</strong></div>
-          <div class="data-row"><span>THREAT</span><strong>CLASS A</strong></div>
-          <div class="data-row data-row-wide"><span>NODE KEY</span><strong>SR-S012 / 7F:2A:██</strong></div>
+        <div class="access-footer-link">
+          <span class="access-ready-dot" aria-hidden="true"></span>
+          <span>PERSONNEL FILE READY</span>
         </div>
-      </div>
-
-      <div class="console-footerline">
-        <span>ARCHIVE LINK ESTABLISHED</span>
-        <span>PERSONNEL RECORD READY</span>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section personnel-section">
       <div class="section-heading"><h2>PERSONNEL FILE</h2><span>2 DOCUMENTS / 1 RESTRICTED</span></div>
 
       <div class="file-switcher" role="tablist" aria-label="결 인사기록 선택">
