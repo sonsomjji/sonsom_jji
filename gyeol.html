@@ -766,303 +766,342 @@
     @media(max-width:680px){.page{width:min(calc(100% - 24px),1180px);padding-top:14px}.top-bar{min-height:58px;grid-template-columns:1fr 1fr}.node-status{display:none}.subject-header{padding-top:52px}.subject-title{line-height:1.2}.subject-title .hanja{display:block;margin:10px 0 0}.document-stage{padding:10px}.personnel-file{padding:28px 20px 26px}.paper-top,.identity-block,.paper-footer{grid-template-columns:1fr}.paper-classification{justify-self:start}.id-photo-wrap{width:min(100%,220px)}.identity-table{grid-template-columns:96px 1fr}.ability-grid{grid-template-columns:1fr}.ability-cell.full{grid-column:auto}.notes-grid{grid-template-columns:1fr}.visual-frame,.visual-slide,.visual-lock-slide,.visual-loading{height:540px;min-height:540px}.footer{flex-direction:column;gap:8px}}
 
     /* =========================================================
-       FULL-SCREEN CLASSIFIED INTRO
-       PC 2초 / 모바일 1.5초 / 클릭으로 즉시 종료
+       SIMPLE DARKWEB SYSTEM HEADER
+       본명 없음 / 작은 코드네임 / 최소한의 진입 모션
        ========================================================= */
-    body.intro-lock{
+    .simple-system-header{
+      position:relative;
+      padding:58px 0 34px;
+      border-bottom:1px solid var(--line);
       overflow:hidden;
     }
 
-    .intro-page-content{
-      opacity:1;
-      transform:none;
-    }
-
-    body.intro-lock .intro-page-content{
-      opacity:0;
-      visibility:hidden;
+    .simple-system-header::before{
+      content:"";
+      position:absolute;
+      top:0;
+      right:0;
+      width:42%;
+      height:100%;
       pointer-events:none;
-      transform:translateY(8px);
+      background:
+        linear-gradient(90deg,transparent,rgba(157,75,198,.028)),
+        repeating-linear-gradient(
+          0deg,
+          transparent 0,
+          transparent 17px,
+          rgba(177,95,217,.018) 18px
+        );
+      mask-image:linear-gradient(to left,#000,transparent);
     }
 
-    body.intro-revealed .intro-page-content{
-      visibility:visible;
-      animation:introPageReveal .48s ease both;
+    .system-route{
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:0;
+      color:#66506e;
+      font-size:8px;
+      letter-spacing:1.35px;
+      opacity:0;
+      animation:routeReveal .26s ease .04s forwards;
     }
 
-    @keyframes introPageReveal{
-      from{
-        opacity:0;
-        transform:translateY(8px);
-      }
+    .system-route span{
+      display:flex;
+      align-items:center;
+    }
+
+    .system-route span:not(:last-child)::after{
+      content:"/";
+      margin:0 11px;
+      color:#3d2a44;
+    }
+
+    .system-route span:last-child{
+      color:#a676b8;
+    }
+
+    .system-rule{
+      position:relative;
+      z-index:1;
+      width:100%;
+      height:1px;
+      margin:19px 0 26px;
+      background:#25152b;
+      transform:scaleX(0);
+      transform-origin:left;
+      animation:ruleDraw .35s ease .18s forwards;
+    }
+
+    .system-primary{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns:minmax(160px,1fr) auto;
+      align-items:end;
+      gap:40px;
+    }
+
+    .system-identity{
+      opacity:0;
+      transform:translateY(7px);
+      animation:headerItemReveal .32s ease .31s forwards;
+    }
+
+    .system-label{
+      margin-bottom:10px;
+      color:#58415f;
+      font-size:7px;
+      letter-spacing:1.5px;
+    }
+
+    .system-codename{
+      color:#d9b9e7;
+      font-family:var(--font-hanja);
+      font-size:62px;
+      font-weight:400;
+      line-height:1;
+      text-shadow:0 0 14px rgba(178,92,217,.16);
+    }
+
+    .system-meta{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(96px,auto));
+      gap:28px;
+      margin:0;
+      opacity:0;
+      transform:translateY(7px);
+      animation:headerItemReveal .32s ease .42s forwards;
+    }
+
+    .system-meta div{
+      min-width:96px;
+    }
+
+    .system-meta dt{
+      margin-bottom:8px;
+      color:#503b56;
+      font-size:7px;
+      letter-spacing:1.15px;
+    }
+
+    .system-meta dd{
+      display:flex;
+      align-items:center;
+      gap:7px;
+      margin:0;
+      color:#a77db5;
+      font-size:9px;
+      letter-spacing:1.05px;
+    }
+
+    .status-dot{
+      width:5px;
+      height:5px;
+      border-radius:50%;
+      background:#af72c6;
+      box-shadow:0 0 7px rgba(175,114,198,.48);
+      animation:statusPulse 2.4s ease-in-out infinite;
+    }
+
+    .system-footer-line{
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      margin-top:27px;
+      padding-top:12px;
+      border-top:1px solid #1e1223;
+      color:#45324a;
+      font-size:6px;
+      letter-spacing:1.1px;
+      opacity:0;
+      animation:routeReveal .25s ease .54s forwards;
+    }
+
+    @keyframes routeReveal{
+      to{opacity:1}
+    }
+
+    @keyframes ruleDraw{
+      to{transform:scaleX(1)}
+    }
+
+    @keyframes headerItemReveal{
       to{
         opacity:1;
         transform:translateY(0);
       }
     }
 
-    .intro-overlay{
-      position:fixed;
-      z-index:2147483647;
-      inset:0;
-      display:grid;
-      place-items:center;
-      padding:22px;
-      overflow:hidden;
-      cursor:pointer;
-      outline:none;
-      opacity:1;
-      visibility:visible;
-      background:
-        linear-gradient(rgba(164,84,207,.018) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(164,84,207,.018) 1px,transparent 1px),
-        radial-gradient(circle at 50% 42%,rgba(99,34,130,.14),transparent 35%),
-        #020104;
-      background-size:42px 42px,42px 42px,auto,auto;
-      transition:opacity .5s ease,visibility 0s linear .5s;
-    }
-
-    .intro-overlay.intro-closing{
-      opacity:0;
-      visibility:hidden;
-      pointer-events:none;
-    }
-
-    .intro-cover{
-      width:min(100%,920px);
-      height:min(620px,calc(100vh - 44px));
-      min-height:460px;
-      display:grid;
-      grid-template-rows:auto 1fr auto;
-      border:1px solid #2d1b36;
-      background:
-        radial-gradient(circle at 50% 45%,rgba(98,34,128,.085),transparent 38%),
-        rgba(5,3,7,.9);
-      box-shadow:
-        inset 0 0 65px rgba(82,25,110,.07),
-        0 24px 90px rgba(0,0,0,.55);
-    }
-
-    .intro-cover-top,
-    .intro-cover-bottom{
-      min-height:48px;
-      padding:0 21px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:20px;
-      color:#604469;
-      font-family:var(--font-system);
-      font-size:8px;
-      letter-spacing:1.35px;
-    }
-
-    .intro-cover-top{
-      border-bottom:1px solid #211328;
-    }
-
-    .intro-cover-bottom{
-      border-top:1px solid #211328;
-      color:#4f3b55;
-    }
-
-    .intro-cover-center{
-      padding:54px 24px 50px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-    }
-
-    .intro-cover-path{
-      color:#594061;
-      font-family:var(--font-system);
-      font-size:8px;
-      letter-spacing:1.3px;
-    }
-
-    .intro-cover-subject{
-      margin-top:20px;
-      color:#ad79bf;
-      font-family:var(--font-system);
-      font-size:12px;
-      letter-spacing:2.5px;
-      text-shadow:0 0 8px rgba(184,102,220,.18);
-    }
-
-    .intro-cover-rule{
-      width:min(100%,390px);
-      height:1px;
-      margin:26px 0 28px;
-      background:linear-gradient(to right,transparent,#4e2d5a,transparent);
-    }
-
-    .intro-cover-glyph{
-      color:#e5c8f2;
-      font-family:var(--font-hanja);
-      font-size:106px;
-      font-weight:400;
-      line-height:.95;
-      text-shadow:
-        0 0 8px rgba(204,145,255,.3),
-        0 0 28px rgba(111,42,179,.18);
-    }
-
-    .intro-cover-record{
-      margin-top:23px;
-      color:#87668f;
-      font-family:var(--font-system);
-      font-size:9px;
-      letter-spacing:1.75px;
-    }
-
-    .intro-cover-status{
-      margin-top:38px;
-      color:#a778ba;
-      font-family:var(--font-system);
-      font-size:8px;
-      letter-spacing:1.25px;
-    }
-
-    .intro-cover-status.intro-granted{
-      color:#d3a9e3;
-      text-shadow:0 0 9px rgba(188,105,226,.25);
-    }
-
-    .intro-cover-cursor{
-      animation:introCursorBlink .72s steps(1,end) infinite;
-    }
-
-    @keyframes introCursorBlink{
-      0%,48%{opacity:1}
-      49%,100%{opacity:0}
+    @keyframes statusPulse{
+      0%,100%{opacity:.55}
+      50%{opacity:1}
     }
 
     @media(max-width:680px){
-      .intro-overlay{
-        padding:10px;
-        background-size:30px 30px,30px 30px,auto,auto;
+      .simple-system-header{
+        padding:38px 0 27px;
       }
 
-      .intro-cover{
+      .simple-system-header::before{
+        width:70%;
+      }
+
+      .system-route{
+        font-size:6px;
+        letter-spacing:.7px;
+      }
+
+      .system-route span:not(:last-child)::after{
+        margin:0 7px;
+      }
+
+      .system-rule{
+        margin:15px 0 21px;
+      }
+
+      .system-primary{
+        grid-template-columns:1fr;
+        align-items:start;
+        gap:27px;
+      }
+
+      .system-label{
+        margin-bottom:8px;
+        font-size:6px;
+      }
+
+      .system-codename{
+        font-size:48px;
+      }
+
+      .system-meta{
         width:100%;
-        height:calc(100vh - 20px);
-        min-height:0;
+        grid-template-columns:repeat(3,1fr);
+        gap:10px;
       }
 
-      .intro-cover-top,
-      .intro-cover-bottom{
-        min-height:42px;
-        padding:8px 11px;
-        font-size:6px;
-        line-height:1.4;
-        letter-spacing:.65px;
+      .system-meta div{
+        min-width:0;
+        padding-right:8px;
+        border-right:1px solid #241629;
       }
 
-      .intro-cover-top{
-        align-items:flex-start;
-        flex-direction:column;
-        justify-content:center;
-        gap:2px;
+      .system-meta div:last-child{
+        padding-right:0;
+        border-right:0;
       }
 
-      .intro-cover-center{
-        padding:38px 15px 36px;
-      }
-
-      .intro-cover-path{
+      .system-meta dt{
+        margin-bottom:7px;
         font-size:6px;
         letter-spacing:.7px;
       }
 
-      .intro-cover-subject{
-        margin-top:16px;
-        font-size:9px;
-        letter-spacing:1.65px;
-      }
-
-      .intro-cover-rule{
-        width:min(100%,250px);
-        margin:21px 0 23px;
-      }
-
-      .intro-cover-glyph{
-        font-size:76px;
-      }
-
-      .intro-cover-record{
-        margin-top:18px;
+      .system-meta dd{
+        gap:5px;
         font-size:7px;
-        letter-spacing:1.05px;
+        letter-spacing:.55px;
       }
 
-      .intro-cover-status{
-        margin-top:29px;
+      .status-dot{
+        width:4px;
+        height:4px;
+      }
+
+      .system-footer-line{
+        margin-top:22px;
+        padding-top:10px;
+        font-size:5px;
+        letter-spacing:.55px;
+      }
+    }
+
+    @media(max-width:390px){
+      .system-route span:not(:last-child)::after{
+        margin:0 5px;
+      }
+
+      .system-codename{
+        font-size:44px;
+      }
+
+      .system-meta{
+        gap:7px;
+      }
+
+      .system-meta dd{
         font-size:6px;
-        letter-spacing:.7px;
-      }
-
-      .intro-cover-bottom{
-        align-items:flex-start;
-        flex-direction:column;
-        justify-content:center;
-        gap:3px;
       }
     }
 
     @media(prefers-reduced-motion:reduce){
-      .intro-overlay,
-      .intro-page-content{
-        transition:none !important;
+      .system-route,
+      .system-rule,
+      .system-identity,
+      .system-meta,
+      .system-footer-line,
+      .status-dot{
+        opacity:1;
+        transform:none;
         animation:none !important;
-      }
-
-      .intro-cover-cursor{
-        animation:none;
       }
     }
 
   </style>
 </head>
-<body class="intro-lock">
-
-  <div class="intro-overlay" id="introOverlay" role="button" tabindex="0" aria-label="인트로 건너뛰기">
-    <div class="intro-cover">
-      <header class="intro-cover-top">
-        <span>STAR RAIN INTERNAL DATABASE</span>
-        <span>CLASSIFIED MATERIAL</span>
-      </header>
-
-      <div class="intro-cover-center">
-        <p class="intro-cover-path">ROOT / HIDDEN NODE / SUBJECT_012</p>
-        <p class="intro-cover-subject">SUBJECT_012</p>
-
-        <span class="intro-cover-rule" aria-hidden="true"></span>
-
-        <h1 class="intro-cover-glyph" lang="zh-Hant">結</h1>
-        <p class="intro-cover-record">CLASSIFIED PERSONNEL RECORD</p>
-
-        <p class="intro-cover-status" id="introCoverStatus">
-          ACCESSING SECURE ARCHIVE<span class="intro-cover-cursor">_</span>
-        </p>
-      </div>
-
-      <footer class="intro-cover-bottom">
-        <span>AUTHORIZED ACCESS ONLY</span>
-        <span>CLICK TO SKIP</span>
-      </footer>
-    </div>
-  </div>
-
-  <main class="page intro-page-content" id="introPageContent">
+<body>
+  <main class="page">
     <header class="top-bar">
       <a class="logo" href="main.html">STAR RAIN</a>
       <div class="node-status"><span class="status-dot"></span>NODE CONNECTION ACTIVE</div>
       <a class="back-link" href="main.html">&lt; RETURN TO ARCHIVE</a>
     </header>
 
-<section class="section">
+    <section class="simple-system-header" aria-labelledby="subjectCodename">
+      <div class="system-route" aria-label="database path">
+        <span>ROOT</span>
+        <span>DATABASE</span>
+        <span>SUBJECT_012</span>
+      </div>
+
+      <div class="system-rule" aria-hidden="true"></div>
+
+      <div class="system-primary">
+        <div class="system-identity">
+          <p class="system-label">CODENAME</p>
+          <h1 class="system-codename" id="subjectCodename" lang="zh-Hant">結</h1>
+        </div>
+
+        <dl class="system-meta">
+          <div>
+            <dt>STATUS</dt>
+            <dd><span class="status-dot" aria-hidden="true"></span>ACTIVE</dd>
+          </div>
+          <div>
+            <dt>ACCESS</dt>
+            <dd>LEVEL III</dd>
+          </div>
+          <div>
+            <dt>ARCHIVE</dt>
+            <dd>READY</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="system-footer-line">
+        <span>INTERNAL PERSONNEL DATABASE</span>
+        <span>RECORD_012</span>
+      </div>
+    </section>
+
+    <section class="section">
       <div class="section-heading"><h2>PERSONNEL FILE</h2><span>2 DOCUMENTS / 1 RESTRICTED</span></div>
 
       <div class="file-switcher" role="tablist" aria-label="결 인사기록 선택">
@@ -1430,75 +1469,5 @@
     applyUnlockedState();
     updateSlide();
   </script>
-
-  <script>
-    (() => {
-      const startIntro = () => {
-        const overlay = document.getElementById('introOverlay');
-        const status = document.getElementById('introCoverStatus');
-
-        if (!overlay || !status) {
-          document.body.classList.remove('intro-lock');
-          document.body.classList.add('intro-revealed');
-          return;
-        }
-
-        const mobile = window.matchMedia('(max-width: 680px)').matches;
-        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        const totalTime = mobile ? 1500 : 2000;
-        const grantTime = mobile ? 1000 : 1500;
-        let ended = false;
-        let grantTimer = null;
-        let finishTimer = null;
-
-        const showGranted = () => {
-          if (ended) return;
-          status.innerHTML = 'ACCESS GRANTED<span class="intro-cover-cursor">_</span>';
-          status.classList.add('intro-granted');
-        };
-
-        const finish = () => {
-          if (ended) return;
-          ended = true;
-
-          window.clearTimeout(grantTimer);
-          window.clearTimeout(finishTimer);
-
-          showGranted();
-          overlay.classList.add('intro-closing');
-          document.body.classList.remove('intro-lock');
-          document.body.classList.add('intro-revealed');
-
-          window.setTimeout(() => {
-            overlay.remove();
-          }, 520);
-        };
-
-        overlay.addEventListener('click', finish, { once: true });
-        overlay.addEventListener('keydown', (event) => {
-          if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault();
-            finish();
-          }
-        });
-
-        if (reducedMotion) {
-          finish();
-          return;
-        }
-
-        grantTimer = window.setTimeout(showGranted, grantTime);
-        finishTimer = window.setTimeout(finish, totalTime);
-      };
-
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', startIntro, { once: true });
-      } else {
-        startIntro();
-      }
-    })();
-  </script>
-
 </body>
 </html>
