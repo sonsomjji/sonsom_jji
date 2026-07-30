@@ -96,18 +96,23 @@
       border-radius:50%;
       background:#c68cff;
       box-shadow:0 0 4px rgba(198,140,255,.62),0 0 10px rgba(198,140,255,.32);
-      animation:nodeBlink 1.75s steps(1,end) infinite;
+      animation:nodeBlink 1.45s steps(1,end) infinite;
     }
     @keyframes nodeBlink{
-      0%,16%,45%,100%{
-        opacity:.28;
-        transform:scale(.88);
-        box-shadow:0 0 2px rgba(198,140,255,.18),0 0 5px rgba(198,140,255,.08);
+      0%,18%,42%,100%{
+        opacity:.12;
+        transform:scale(.72);
+        background:#7d4b91;
+        box-shadow:none;
       }
-      7%,11%,28%,32%,70%,75%{
+      7%,11%,28%,32%,68%,74%{
         opacity:1;
-        transform:scale(1);
-        box-shadow:0 0 5px rgba(198,140,255,.82),0 0 13px rgba(198,140,255,.46);
+        transform:scale(1.12);
+        background:#d99cff;
+        box-shadow:
+          0 0 5px rgba(217,156,255,.95),
+          0 0 13px rgba(198,108,244,.72),
+          0 0 22px rgba(154,62,209,.32);
       }
     }
     .back-link{justify-self:end;color:var(--dim);font-size:11px;letter-spacing:.7px;transition:color .2s ease,text-shadow .2s ease}
@@ -1003,14 +1008,18 @@
 
     @keyframes statusPulse{
       0%,100%{
-        opacity:.34;
-        transform:scale(.9);
-        box-shadow:0 0 3px rgba(175,114,198,.24),0 0 6px rgba(175,114,198,.12);
+        opacity:.18;
+        transform:scale(.78);
+        background:#754888;
+        box-shadow:none;
       }
       50%{
         opacity:1;
-        transform:scale(1);
-        box-shadow:0 0 5px rgba(175,114,198,.7),0 0 11px rgba(175,114,198,.34);
+        transform:scale(1.08);
+        background:#c985e4;
+        box-shadow:
+          0 0 5px rgba(201,133,228,.82),
+          0 0 11px rgba(175,92,207,.48);
       }
     }
 
@@ -1110,32 +1119,38 @@
         font-size:6px;
       }
     }
+    }
+      .feed-text{
+        padding-left:0;
+      }
+    }
 
     @media(prefers-reduced-motion:reduce){
       .system-route,
       .system-rule,
       .system-identity,
       .system-meta,
-      .system-footer-line,
-      .status-dot{
+      .system-footer-line{
         opacity:1;
         transform:none;
         animation:none !important;
       }
-    }
 
-    @media(prefers-reduced-motion:reduce){
-      .feed-text,
-      .node-dot,
-      .status-dot{
-        animation:none !important;
-        transform:none !important;
-        opacity:1 !important;
-      }
       .feed-text{
         padding-left:0;
+        animation:none !important;
+      }
+
+      /* NODE / STATUS LED는 상태 표시이므로 점멸 유지 */
+      .node-dot{
+        animation:nodeBlink 1.45s steps(1,end) infinite !important;
+      }
+
+      .status-dot{
+        animation:statusPulse 2.6s ease-in-out infinite !important;
       }
     }
+
   </style>
 </head>
 <body>
