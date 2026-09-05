@@ -1052,20 +1052,59 @@
       }
       .page-status{display:none;}
     }
+    /* FULL IMAGE MODAL / NO CROPPING */
+    .record-modal{
+      overflow:auto;
+    }
 
+    .record-modal-panel{
+      width:min(96vw,1200px);
+      height:min(94vh,920px);
+      max-height:94vh;
+      grid-template-rows:auto minmax(0,1fr) auto;
+    }
 
-    /* DESKTOP MODAL STABILITY */
-    @media(min-width:681px){
+    .record-viewer{
+      min-width:0;
+      min-height:0;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px;
+    }
+
+    .modal-image{
+      display:block;
+      width:auto;
+      height:auto;
+      max-width:100%;
+      max-height:100%;
+      object-fit:contain;
+      object-position:center;
+      margin:auto;
+    }
+
+    @media(max-width:680px){
+      .record-modal{
+        padding:8px;
+      }
+
       .record-modal-panel{
-        height:min(92vh,900px);
-      }
-      .record-viewer{
-        min-height:520px;
-      }
-      .modal-image{
         width:100%;
-        height:100%;
-        max-height:none;
+        height:94vh;
+        max-height:94vh;
+      }
+
+      .record-viewer{
+        padding:8px;
+      }
+
+      .modal-image{
+        width:auto;
+        height:auto;
+        max-width:100%;
+        max-height:100%;
         object-fit:contain;
       }
     }
@@ -1502,7 +1541,7 @@
     let archivePage = 1;
 
     function cardsPerPage(){
-      return 5;
+      return 8;
     }
 
     function totalArchivePages(){
@@ -1511,15 +1550,17 @@
 
     function renderArchivePagination(scrollToGallery = false){
       const perPage = cardsPerPage();
-      const totalPages = totalArchivePages();
+      const totalRecords = allPackageCards.length;
+      const totalPages = Math.max(1, Math.ceil(totalRecords / perPage));
 
       if(archivePage > totalPages) archivePage = totalPages;
+      if(archivePage < 1) archivePage = 1;
 
       const start = (archivePage - 1) * perPage;
       const end = start + perPage;
 
       allPackageCards.forEach((card, index) => {
-        card.style.display = index >= start && index < end ? "" : "none";
+        card.style.display = (index >= start && index < end) ? "" : "none";
       });
 
       pageNumbers.innerHTML = "";
@@ -1542,7 +1583,7 @@
       pageNext.disabled = archivePage === totalPages;
 
       pageStatus.textContent =
-        `PAGE ${String(archivePage).padStart(2, "0")} / ${String(totalPages).padStart(2, "0")} · ${String(allPackageCards.length).padStart(2, "0")} RECORDS`;
+        `PAGE ${String(archivePage).padStart(2, "0")} / ${String(totalPages).padStart(2, "0")} · ${String(totalRecords).padStart(2, "0")} RECORDS`;
 
       if(scrollToGallery){
         document.getElementById("commissionGallery")
