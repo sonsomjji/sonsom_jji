@@ -101,13 +101,21 @@ button{font:inherit}
     #050406;
   box-shadow:0 0 0 1px #24182a,0 18px 50px rgba(0,0,0,.5);
 }
-.disc.playing{animation:spin 12s linear infinite}
 .cover{
   width:100%;
   height:100%;
   object-fit:cover;
   border-radius:50%;
   filter:saturate(.78) brightness(.82);
+  transform-origin:50% 50%;
+  will-change:transform;
+}
+.cover.spinning{
+  animation:recordSpin 10s linear infinite;
+}
+@keyframes recordSpin{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
 }
 .center-hole{
   position:absolute;
@@ -120,7 +128,6 @@ button{font:inherit}
   background:#08060a;
   border:2px solid #9d6cb0;
 }
-@keyframes spin{to{transform:rotate(360deg)}}
 .now{
   width:100%;
   margin-top:28px;
@@ -278,7 +285,8 @@ button{font:inherit}
   .right{padding:20px 14px 24px}
 }
 @media(prefers-reduced-motion:reduce){
-  .disc.playing,.bar{animation:none}
+  .cover.spinning{animation-duration:24s}
+  .bar{animation:none}
 }
 </style>
 </head>
@@ -343,15 +351,15 @@ button{font:inherit}
 <script>
 const tracks = [
   {
-    title: "「ある男」",
-    artist: "エイハブ",
-    youtube: "https://youtu.be/WJUQx1NEFrM?si=3RV-lgCs2jGl_Qro",
+    title: "TRACK 01",
+    artist: "ARTIST NAME",
+    youtube: "https://www.youtube.com/watch?v=VIDEO_ID_01",
     cover: "gyeol-playlist-cover.png"
   },
   {
-    title: "허수아비(Scarecrow)",
-    artist: "여유와 설빈(Yeoyu and Seolbin)",
-    youtube: "https://youtu.be/HwJfEIenlC0?si=yTVO9akHHj9uHqwM",
+    title: "TRACK 02",
+    artist: "ARTIST NAME",
+    youtube: "https://youtu.be/VIDEO_ID_02",
     cover: "gyeol-playlist-cover2.png"
   },
   {
@@ -447,6 +455,7 @@ function loadTrack(index, autoplay=false){
   const track = tracks[current];
 
   cover.src = track.cover;
+  cover.alt = `${track.title} cover`;
   nowTitle.textContent = track.title;
   nowArtist.textContent = track.artist;
   progress.value = 0;
@@ -473,6 +482,7 @@ function updatePlayingState(){
     playing = player.getPlayerState() === YT.PlayerState.PLAYING;
   }
 
+  cover.classList.toggle("spinning",playing);
   disc.classList.toggle("playing",playing);
   playBtn.textContent = playing ? "Ⅱ" : "▶";
   playBtn.setAttribute("aria-label",playing ? "일시정지" : "재생");
