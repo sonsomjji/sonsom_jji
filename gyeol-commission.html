@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Hahmlet:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -23,7 +23,8 @@
       --sub:#8d7d93;
       --dim:#55485a;
       --system:"Share Tech Mono",Consolas,monospace;
-      --ko:"Hahmlet","Noto Serif KR",serif;
+      --ko:"Noto Sans KR","Malgun Gothic",sans-serif;
+      --cjk:"Noto Sans KR","Malgun Gothic",sans-serif;
     }
 
     *{
@@ -895,6 +896,166 @@
       }
     }
 
+  
+    /* TYPOGRAPHY UNIFICATION */
+    body,
+    button,
+    a,
+    input,
+    .feed,
+    .node,
+    .back,
+    .route,
+    .title-block h1,
+    .archive-meta dt,
+    .commission-code,
+    .commission-index,
+    .package-count,
+    .package-meta,
+    .package-open,
+    .modal-route,
+    .modal-file-label,
+    .modal-counter,
+    .modal-status,
+    .page-button,
+    .page-status,
+    footer,
+    .archive-note{
+      font-family:var(--system);
+    }
+
+    /* Korean / Hanja only: clean CJK sans */
+    .title-block p,
+    .archive-meta dd,
+    .commission-title,
+    .commission-note{
+      font-family:var(--cjk);
+    }
+
+    .archive-meta dd{
+      font-weight:400;
+    }
+
+    .commission-title{
+      font-weight:400;
+      letter-spacing:0;
+    }
+
+    /* Mixed English + Hanja route/code should retain the terminal font
+       for Latin, while unsupported CJK glyphs naturally fall back cleanly. */
+    .feed,
+    .route,
+    .commission-code,
+    .modal-route{
+      font-family:var(--system),var(--cjk);
+    }
+
+    /* ARCHIVE WARNING */
+    .archive-note{
+      position:relative;
+      overflow:hidden;
+      margin-top:34px;
+      padding:17px 20px 17px 22px;
+      display:grid;
+      grid-template-columns:auto 1fr;
+      align-items:center;
+      gap:16px;
+      border:1px solid rgba(116,58,132,.42);
+      border-left:3px solid #9c5caf;
+      background:
+        linear-gradient(90deg,rgba(86,35,102,.12),transparent 52%),
+        rgba(6,3,8,.88);
+      color:#6e5c74;
+      font-size:8px;
+      line-height:1.7;
+      letter-spacing:.7px;
+    }
+
+    .archive-note::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent 4px,
+          rgba(255,255,255,.012) 5px
+        );
+    }
+
+    .archive-note::after{
+      content:"";
+      position:absolute;
+      top:0;
+      left:-34%;
+      width:30%;
+      height:100%;
+      pointer-events:none;
+      background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(203,132,230,.055),
+        transparent
+      );
+      animation:warningSweep 5.8s linear infinite;
+    }
+
+    @keyframes warningSweep{
+      0%{left:-34%}
+      70%,100%{left:118%}
+    }
+
+    .warning-label{
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      color:#b77cc9;
+      white-space:nowrap;
+      letter-spacing:1.4px;
+      font-family:var(--system);
+    }
+
+    .warning-dot{
+      width:6px;
+      height:6px;
+      flex:0 0 auto;
+      background:#b86bcf;
+      box-shadow:0 0 8px rgba(184,107,207,.65);
+      animation:warningBlink 1.5s steps(1,end) infinite;
+    }
+
+    @keyframes warningBlink{
+      0%,42%{opacity:1}
+      43%,66%{opacity:.18}
+      67%,100%{opacity:1}
+    }
+
+    .warning-text{
+      position:relative;
+      z-index:1;
+      color:#75647a;
+      font-family:var(--system);
+    }
+
+    .warning-text strong{
+      color:#a47eaf;
+      font-weight:400;
+      font-family:var(--system);
+    }
+
+    @media(max-width:620px){
+      .archive-note{
+        grid-template-columns:1fr;
+        gap:8px;
+        padding:14px 15px;
+        font-size:7px;
+      }
+    }
+
   </style>
 </head>
 
@@ -1333,12 +1494,14 @@
     </nav>
 
     <div class="archive-note">
-      <strong>ARCHIVE NOTE</strong>
-      <span>
-        한 카드가 하나의 커미션 묶음입니다. 대표 이미지는 첫 번째 파일을 사용하며,
-        카드의 <code>data-images</code> 안에 이미지 파일명을 <code>|</code>로 이어 적으면
-        클릭했을 때 같은 묶음으로 열람됩니다.
-      </span>
+      <div class="warning-label">
+        <span class="warning-dot"></span>
+        ARCHIVE WARNING
+      </div>
+      <div class="warning-text">
+        <strong>External visual records may contain multiple files within a single archive entry.</strong>
+        Access is limited to indexed materials associated with 結(決). Unauthorized redistribution or extraction of archived files is not permitted.
+      </div>
     </div>
 
 
@@ -1347,7 +1510,7 @@
 
         <div class="record-modal-header">
           <div>
-            <p class="modal-route" id="modalRoute">SUBJECT_012 / RECORD PACKAGE</p>
+            <p class="modal-route" id="modalRoute">結(決) / RECORD PACKAGE</p>
             <h2 class="modal-title" id="modalTitle">COMMISSION RECORD</h2>
           </div>
 
@@ -1375,7 +1538,7 @@
 
     <footer>
       <span>STAR RAIN PRIVATE NETWORK</span>
-      <span>SUBJECT_012 / COMMISSION ARCHIVE</span>
+      <span>結(決) / COMMISSION ARCHIVE</span>
     </footer>
 
   </main>
@@ -1454,7 +1617,7 @@
 
       modalTitle.textContent = card.dataset.title || "COMMISSION RECORD";
       modalRoute.textContent =
-        `SUBJECT_012 / ${card.dataset.record || "RECORD PACKAGE"}`;
+        `結(決) / ${card.dataset.record || "RECORD PACKAGE"}`;
 
       buildDots();
       renderModalImage();
