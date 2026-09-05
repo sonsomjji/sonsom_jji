@@ -19,6 +19,7 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      font-family: "Share Tech Mono", Consolas, monospace !important;
     }
 
     html,
@@ -29,14 +30,8 @@
     body {
       min-height: 100vh;
       overflow-x: hidden;
-
       background: #000000;
       color: #ffffff;
-
-      font-family:
-        "Share Tech Mono",
-        Consolas,
-        monospace;
     }
 
     a {
@@ -45,71 +40,204 @@
     }
 
     .page {
+      position: relative;
       width: 100%;
       min-height: 100vh;
+      overflow: hidden;
+
       background:
         radial-gradient(
-          circle at 50% 35%,
-          rgba(102, 29, 153, 0.11),
-          transparent 35%
+          circle at 50% 42%,
+          rgba(102, 29, 153, 0.13),
+          transparent 36%
         ),
         #000000;
     }
 
-    /* 상단 이미지 */
-    .hero {
-      position: relative;
-      width: 100%;
+    /* 배경 데이터 */
+    .background-data {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
       overflow: hidden;
-      background: #000000;
+      pointer-events: none;
+      user-select: none;
     }
 
-    .hero-image {
-      display: block;
-      width: 100%;
-      height: auto;
-      max-height: 430px;
-
-      object-fit: cover;
-      object-position: center;
-
-      image-rendering: pixelated;
-    }
-
-    .hero::after {
+    .background-data::before {
       content: "";
       position: absolute;
-      right: 0;
-      bottom: 0;
-      left: 0;
-
-      height: 110px;
-
-      pointer-events: none;
+      inset: 0;
 
       background:
         linear-gradient(
-          to bottom,
-          transparent,
-          rgba(0, 0, 0, 0.7),
-          #000000
+          rgba(155, 90, 190, 0.018) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(155, 90, 190, 0.018) 1px,
+          transparent 1px
+        );
+
+      background-size: 52px 52px;
+    }
+
+    .data-line {
+      position: absolute;
+
+      color: rgba(204, 145, 255, 0.08);
+
+      font-size: 10px;
+      letter-spacing: 1.4px;
+      white-space: nowrap;
+
+      animation:
+        drift 36s linear infinite,
+        signal 11s steps(1) infinite;
+    }
+
+    .data-line:nth-child(1) {
+      top: 7%;
+      left: -4%;
+      animation-duration: 38s, 13s;
+    }
+
+    .data-line:nth-child(2) {
+      top: 15%;
+      left: 60%;
+      animation-duration: 47s, 9s;
+    }
+
+    .data-line:nth-child(3) {
+      top: 26%;
+      left: 16%;
+      animation-duration: 42s, 16s;
+    }
+
+    .data-line:nth-child(4) {
+      top: 36%;
+      left: 73%;
+      animation-duration: 53s, 12s;
+    }
+
+    .data-line:nth-child(5) {
+      top: 47%;
+      left: 4%;
+      animation-duration: 45s, 18s;
+    }
+
+    .data-line:nth-child(6) {
+      top: 57%;
+      left: 48%;
+      animation-duration: 39s, 10s;
+    }
+
+    .data-line:nth-child(7) {
+      top: 68%;
+      left: 10%;
+      animation-duration: 51s, 14s;
+    }
+
+    .data-line:nth-child(8) {
+      top: 77%;
+      left: 66%;
+      animation-duration: 43s, 8s;
+    }
+
+    .data-line:nth-child(9) {
+      top: 88%;
+      left: 26%;
+      animation-duration: 57s, 17s;
+    }
+
+    @keyframes drift {
+      from {
+        transform: translateX(-30px);
+      }
+
+      to {
+        transform: translateX(150px);
+      }
+    }
+
+    @keyframes signal {
+      0%,
+      19%,
+      21%,
+      55%,
+      57%,
+      100% {
+        opacity: 0.42;
+      }
+
+      20% {
+        opacity: 0.9;
+      }
+
+      56% {
+        opacity: 0.15;
+      }
+    }
+
+    .vignette {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+
+      background:
+        radial-gradient(
+          circle at center,
+          transparent 35%,
+          rgba(0, 0, 0, 0.78) 100%
         );
     }
 
-    /* 접속 화면 */
+    .scanlines {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      pointer-events: none;
+
+      opacity: 0.18;
+
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent 3px,
+          rgba(175, 115, 210, 0.035) 4px
+        );
+    }
+
+    /* 중앙 */
     .access-section {
-      min-height: 520px;
-      padding: 95px 24px 110px;
+      position: relative;
+      z-index: 2;
+
+      min-height: 100vh;
+      padding: 80px 24px;
 
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
 
       text-align: center;
     }
 
+    .route-code {
+      margin-bottom: 34px;
+
+      color: #3f3047;
+
+      font-size: 9px;
+      letter-spacing: 2.5px;
+    }
+
     .system-label {
-      margin-bottom: 25px;
+      margin-bottom: 34px;
 
       color: #715783;
 
@@ -117,31 +245,107 @@
       letter-spacing: 2px;
     }
 
-    .terminal-message {
-      color: #cc91ff;
+    /* 인증 과정 */
+    .auth-sequence {
+      width: min(100%, 460px);
 
-      font-size: 18px;
-      line-height: 1.9;
-      letter-spacing: 1px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
 
-      text-shadow:
-        0 0 5px rgba(180, 106, 255, 0.75),
-        0 0 15px rgba(117, 36, 185, 0.4);
+      text-align: left;
     }
 
-    .terminal-message .dim {
+    .auth-line {
+      min-height: 25px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+
+      opacity: 0;
+
+      color: #cc91ff;
+
+      font-size: 16px;
+      letter-spacing: 0.7px;
+
+      text-shadow:
+        0 0 5px rgba(180, 106, 255, 0.55);
+
+      transform: translateY(4px);
+    }
+
+    .auth-line.visible {
+      animation: lineAppear 0.35s ease forwards;
+    }
+
+    .auth-state {
+      min-width: 72px;
+
+      color: #70567d;
+
+      font-size: 11px;
+      text-align: right;
+      letter-spacing: 1px;
+    }
+
+    .auth-line.approved .auth-state {
+      color: #c596ea;
+
+      text-shadow:
+        0 0 5px rgba(175, 102, 222, 0.6);
+    }
+
+    @keyframes lineAppear {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 하단 안내 */
+    .secure-message {
+      margin-top: 34px;
+
       color: #826496;
 
-      text-shadow: none;
+      font-size: 13px;
+      line-height: 1.7;
+
+      opacity: 0;
+    }
+
+    .secure-message.visible {
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
     }
 
     .status-box {
       width: min(100%, 420px);
+
       margin-top: 42px;
       padding: 17px 20px;
 
       border-top: 1px solid #2d1b36;
       border-bottom: 1px solid #2d1b36;
+
+      background: rgba(5, 3, 7, 0.3);
 
       color: #75637e;
 
@@ -154,9 +358,9 @@
       color: #b27cdb;
     }
 
-    /* 접속 버튼 */
     .enter-button {
       min-width: 245px;
+
       margin-top: 55px;
       padding: 18px 30px;
 
@@ -169,11 +373,6 @@
 
       background: rgba(13, 9, 17, 0.96);
       color: #d39cff;
-
-      font-family:
-        "Share Tech Mono",
-        Consolas,
-        monospace;
 
       font-size: 18px;
       letter-spacing: 1px;
@@ -210,7 +409,6 @@
       transform: translateY(0);
     }
 
-    /* 깜빡이는 커서 */
     .cursor {
       display: inline-block;
       margin-left: 2px;
@@ -239,42 +437,37 @@
       letter-spacing: 0.5px;
     }
 
-    /* 모바일 */
     @media (max-width: 700px) {
-      .hero-image {
-        min-height: 240px;
-        max-height: 320px;
-      }
-
       .access-section {
-        min-height: 500px;
-        padding: 80px 20px 90px;
+        padding: 70px 20px;
       }
 
-      .terminal-message {
-        font-size: 16px;
+      .auth-line {
+        font-size: 14px;
       }
 
       .enter-button {
         min-width: 220px;
         font-size: 17px;
       }
+
+      .data-line {
+        font-size: 8px;
+      }
     }
 
     @media (max-width: 480px) {
-      .hero-image {
-        min-height: 195px;
-        max-height: 230px;
-      }
-
       .access-section {
-        min-height: 470px;
-        padding: 70px 18px 80px;
+        padding: 60px 18px;
       }
 
-      .terminal-message {
-        font-size: 14px;
-        line-height: 1.85;
+      .auth-line {
+        font-size: 12px;
+      }
+
+      .auth-state {
+        min-width: 58px;
+        font-size: 9px;
       }
 
       .status-box {
@@ -283,6 +476,7 @@
 
       .enter-button {
         min-width: 205px;
+
         margin-top: 48px;
         padding: 16px 22px;
 
@@ -293,37 +487,92 @@
 </head>
 
 <body>
+
   <main class="page">
 
-    <!-- 상단 다크웹 이미지 -->
-    <header class="hero">
-      <img
-        class="hero-image"
-        src="darkweb-main.png"
-        alt="Star Rain secure access"
-      >
-    </header>
+    <div class="background-data" aria-hidden="true">
 
-    <!-- 숨겨진 사이트 접속 화면 -->
+      <span class="data-line">
+        SR://NODE_07 / SESSION_0xA91 / ██████
+      </span>
+
+      <span class="data-line">
+        7F 19 02 A8 41 0C 91 ██ 00 13
+      </span>
+
+      <span class="data-line">
+        TRACE_SOURCE::NULL / ROUTE_UNKNOWN
+      </span>
+
+      <span class="data-line">
+        ARCHIVE_FRAGMENT_00193 / CORRUPTED
+      </span>
+
+      <span class="data-line">
+        01010011 01010010 00101111 00110000
+      </span>
+
+      <span class="data-line">
+        IDENTITY::████████ / MASK_ACTIVE
+      </span>
+
+      <span class="data-line">
+        PKT_04A9 / LOST / RECONNECTING...
+      </span>
+
+      <span class="data-line">
+        0x91:AF:07:22 / SOURCE UNRESOLVED
+      </span>
+
+      <span class="data-line">
+        ENTITY_███ / RECORD DOES NOT EXIST
+      </span>
+
+    </div>
+
+    <div class="vignette" aria-hidden="true"></div>
+
     <section class="access-section">
+
+      <p class="route-code">
+        ROUTE://UNKNOWN/EXTERNAL/0x03
+      </p>
 
       <p class="system-label">
         STAR RAIN / PRIVATE NETWORK
       </p>
 
-      <p class="terminal-message">
-        Anonymous Route Established.<br><br>
+      <!-- 하나씩 승인되는 영역 -->
+      <div class="auth-sequence">
 
-        Connection encrypted.<br>
-        Identity masked.<br>
-        Authentication bypassed.<br><br>
+        <div class="auth-line">
+          <span>Anonymous Route Established.</span>
+          <span class="auth-state">...</span>
+        </div>
 
-        <span class="dim">
-          Secure archive access is now available.
-        </span>
+        <div class="auth-line">
+          <span>Connection encrypted.</span>
+          <span class="auth-state">...</span>
+        </div>
+
+        <div class="auth-line">
+          <span>Identity masked.</span>
+          <span class="auth-state">...</span>
+        </div>
+
+        <div class="auth-line">
+          <span>Authentication bypassed.</span>
+          <span class="auth-state">...</span>
+        </div>
+
+      </div>
+
+      <p class="secure-message">
+        Secure archive access is now available.
       </p>
 
       <div class="status-box">
+
         <p>
           [01] Anonymous route
           <span class="status-success">ESTABLISHED</span>
@@ -338,9 +587,9 @@
           [03] Archive gateway
           <span class="status-success">READY</span>
         </p>
+
       </div>
 
-      <!-- 버튼을 누르면 main.html로 이동 -->
       <a class="enter-button" href="main.html">
         &gt; ENTER NODE<span class="cursor">_</span>
       </a>
@@ -352,5 +601,35 @@
     </section>
 
   </main>
+
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <script>
+    const authLines = document.querySelectorAll(".auth-line");
+    const secureMessage = document.querySelector(".secure-message");
+
+    authLines.forEach((line, index) => {
+
+      setTimeout(() => {
+        line.classList.add("visible");
+
+        const state = line.querySelector(".auth-state");
+
+        state.textContent = "CHECKING";
+
+        setTimeout(() => {
+          state.textContent = "[ OK ]";
+          line.classList.add("approved");
+        }, 700);
+
+      }, 500 + index * 1200);
+
+    });
+
+    setTimeout(() => {
+      secureMessage.classList.add("visible");
+    }, 500 + authLines.length * 1200 + 300);
+  </script>
+
 </body>
 </html>
