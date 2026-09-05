@@ -792,6 +792,109 @@
       }
     }
 
+  
+    /* COMPACT PACKAGE GRID */
+    .gallery{
+      width:100%;
+      margin:0 auto;
+      padding-top:30px;
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:14px;
+    }
+    .commission-card{min-width:0;}
+    .commission-card:hover{transform:translateY(-3px);}
+    .commission-image{width:100%;aspect-ratio:4 / 5;overflow:hidden;}
+    .commission-image img{
+      width:100%;height:100%;object-fit:cover;object-position:center;
+    }
+    .commission-index{top:8px;left:8px;padding:4px 5px;font-size:7px;}
+    .package-count{right:8px;bottom:8px;padding:4px 5px;font-size:7px;}
+    .commission-info{padding:11px 11px 12px;}
+    .commission-code{font-size:7px;letter-spacing:.7px;}
+    .commission-title{margin-top:5px;font-size:11px;}
+    .commission-note{display:none;}
+    .package-meta{margin-top:9px;padding-top:8px;gap:6px;font-size:7px;}
+    .package-open{white-space:nowrap;}
+
+    @media(max-width:900px){
+      .gallery{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
+    }
+
+    @media(max-width:620px){
+      .gallery{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:9px;
+        padding-top:22px;
+      }
+      .commission-info{padding:9px 8px 10px;}
+      .commission-code{font-size:6px;letter-spacing:.35px;}
+      .commission-title{font-size:9px;}
+      .package-meta{margin-top:7px;padding-top:7px;font-size:6px;}
+      .package-meta > span:first-child{display:none;}
+      .package-open{width:100%;text-align:right;}
+      .commission-index,.package-count{font-size:6px;}
+    }
+
+  
+    /* PAGINATION */
+    .archive-pagination{
+      margin-top:28px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:7px;
+    }
+
+    .page-button{
+      min-width:34px;
+      height:32px;
+      padding:0 10px;
+      border:1px solid #3c2545;
+      background:rgba(7,4,9,.88);
+      color:#72547d;
+      font-size:8px;
+      letter-spacing:.8px;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+
+    .page-button:hover,
+    .page-button.active{
+      color:#d8a9ff;
+      border-color:#79478b;
+      box-shadow:0 0 10px rgba(176,91,229,.10);
+    }
+
+    .page-button:disabled{
+      opacity:.28;
+      cursor:default;
+      box-shadow:none;
+    }
+
+    .page-status{
+      margin-left:8px;
+      color:#4e4053;
+      font-size:8px;
+      letter-spacing:1px;
+    }
+
+    @media(max-width:620px){
+      .archive-pagination{
+        margin-top:20px;
+        gap:5px;
+      }
+      .page-button{
+        min-width:30px;
+        height:30px;
+        padding:0 8px;
+        font-size:7px;
+      }
+      .page-status{
+        display:none;
+      }
+    }
+
   </style>
 </head>
 
@@ -951,7 +1054,7 @@
         <div class="commission-image">
           <img src="gyeol-commission-04-01.png" alt="결 커미션 004 대표 이미지">
           <span class="commission-index">REC_004</span>
-          <span class="package-count">02 FILE</span>
+          <span class="package-count">02 FILES</span>
         </div>
 
         <div class="commission-info">
@@ -962,6 +1065,173 @@
           </p>
 
           <div class="package-meta">
+            <span>FILES: 02</span>
+            <span class="package-open">&gt; OPEN RECORD PACKAGE_</span>
+          </div>
+        </div>
+      </article>
+
+      <article
+        class="commission-card"
+        tabindex="0"
+        role="button"
+        aria-label="COMMISSION_005 기록 묶음 열기"
+        data-record="REC_005"
+        data-title="COMMISSION_005"
+        data-images="gyeol-commission-05-01.png"
+      >
+        <div class="commission-image">
+          <img src="gyeol-commission-05-01.png" alt="결 커미션 005 대표 이미지">
+          <span class="commission-index">REC_005</span>
+          <span class="package-count">01 FILE</span>
+        </div>
+
+        <div class="commission-info">
+          <p class="commission-code">SUBJECT_012 / RECORD PACKAGE</p>
+          <h2 class="commission-title">COMMISSION_005</h2>
+          <p class="commission-note">추가 커미션 기록 슬롯입니다.</p>
+
+          <div class="package-meta">
+            <span>FILES: 01</span>
+            <span class="package-open">&gt; OPEN RECORD PACKAGE_</span>
+          </div>
+        </div>
+      </article>
+
+
+      <article
+        class="commission-card"
+        tabindex="0"
+        role="button"
+        aria-label="COMMISSION_006 기록 묶음 열기"
+        data-record="REC_006"
+        data-title="COMMISSION_006"
+        data-images="gyeol-commission-06-01.png"
+      >
+        <div class="commission-image">
+          <img src="gyeol-commission-06-01.png" alt="결 커미션 006 대표 이미지">
+          <span class="commission-index">REC_006</span>
+          <span class="package-count">01 FILE</span>
+        </div>
+
+        <div class="commission-info">
+          <p class="commission-code">SUBJECT_012 / RECORD PACKAGE</p>
+          <h2 class="commission-title">COMMISSION_006</h2>
+          <p class="commission-note">추가 커미션 기록 슬롯입니다.</p>
+
+          <div class="package-meta">
+            <span>FILES: 01</span>
+            <span class="package-open">&gt; OPEN RECORD PACKAGE_</span>
+          </div>
+        </div>
+      </article>
+
+
+      <article
+        class="commission-card"
+        tabindex="0"
+        role="button"
+        aria-label="COMMISSION_007 기록 묶음 열기"
+        data-record="REC_007"
+        data-title="COMMISSION_007"
+        data-images="gyeol-commission-07-01.png"
+      >
+        <div class="commission-image">
+          <img src="gyeol-commission-07-01.png" alt="결 커미션 007 대표 이미지">
+          <span class="commission-index">REC_007</span>
+          <span class="package-count">01 FILE</span>
+        </div>
+
+        <div class="commission-info">
+          <p class="commission-code">SUBJECT_012 / RECORD PACKAGE</p>
+          <h2 class="commission-title">COMMISSION_007</h2>
+          <p class="commission-note">추가 커미션 기록 슬롯입니다.</p>
+
+          <div class="package-meta">
+            <span>FILES: 01</span>
+            <span class="package-open">&gt; OPEN RECORD PACKAGE_</span>
+          </div>
+        </div>
+      </article>
+
+
+      <article
+        class="commission-card"
+        tabindex="0"
+        role="button"
+        aria-label="COMMISSION_008 기록 묶음 열기"
+        data-record="REC_008"
+        data-title="COMMISSION_008"
+        data-images="gyeol-commission-08-01.png"
+      >
+        <div class="commission-image">
+          <img src="gyeol-commission-08-01.png" alt="결 커미션 008 대표 이미지">
+          <span class="commission-index">REC_008</span>
+          <span class="package-count">01 FILE</span>
+        </div>
+
+        <div class="commission-info">
+          <p class="commission-code">SUBJECT_012 / RECORD PACKAGE</p>
+          <h2 class="commission-title">COMMISSION_008</h2>
+          <p class="commission-note">추가 커미션 기록 슬롯입니다.</p>
+
+          <div class="package-meta">
+            <span>FILES: 01</span>
+            <span class="package-open">&gt; OPEN RECORD PACKAGE_</span>
+          </div>
+        </div>
+      </article>
+
+
+      <article
+        class="commission-card"
+        tabindex="0"
+        role="button"
+        aria-label="COMMISSION_009 기록 묶음 열기"
+        data-record="REC_009"
+        data-title="COMMISSION_009"
+        data-images="gyeol-commission-09-01.png"
+      >
+        <div class="commission-image">
+          <img src="gyeol-commission-09-01.png" alt="결 커미션 009 대표 이미지">
+          <span class="commission-index">REC_009</span>
+          <span class="package-count">01 FILE</span>
+        </div>
+
+        <div class="commission-info">
+          <p class="commission-code">SUBJECT_012 / RECORD PACKAGE</p>
+          <h2 class="commission-title">COMMISSION_009</h2>
+          <p class="commission-note">추가 커미션 기록 슬롯입니다.</p>
+
+          <div class="package-meta">
+            <span>FILES: 01</span>
+            <span class="package-open">&gt; OPEN RECORD PACKAGE_</span>
+          </div>
+        </div>
+      </article>
+
+
+      <article
+        class="commission-card"
+        tabindex="0"
+        role="button"
+        aria-label="COMMISSION_010 기록 묶음 열기"
+        data-record="REC_010"
+        data-title="COMMISSION_010"
+        data-images="gyeol-commission-10-01.png"
+      >
+        <div class="commission-image">
+          <img src="gyeol-commission-10-01.png" alt="결 커미션 010 대표 이미지">
+          <span class="commission-index">REC_010</span>
+          <span class="package-count">01 FILE</span>
+        </div>
+
+        <div class="commission-info">
+          <p class="commission-code">SUBJECT_012 / RECORD PACKAGE</p>
+          <h2 class="commission-title">COMMISSION_010</h2>
+          <p class="commission-note">추가 커미션 기록 슬롯입니다.</p>
+
+          <div class="package-meta">
             <span>FILES: 01</span>
             <span class="package-open">&gt; OPEN RECORD PACKAGE_</span>
           </div>
@@ -969,6 +1239,13 @@
       </article>
 
     </section>
+
+    <nav class="archive-pagination" id="archivePagination" aria-label="커미션 페이지">
+      <button class="page-button" id="pagePrev" type="button">&lt; PREV</button>
+      <div id="pageNumbers"></div>
+      <button class="page-button" id="pageNext" type="button">NEXT &gt;</button>
+      <span class="page-status" id="pageStatus"></span>
+    </nav>
 
     <div class="archive-note">
       <strong>ARCHIVE NOTE</strong>
@@ -1165,6 +1442,87 @@
         prevImage();
       }
     });
+  
+    /* archive pagination */
+    const allPackageCards = Array.from(document.querySelectorAll(".commission-card"));
+    const pagePrev = document.getElementById("pagePrev");
+    const pageNext = document.getElementById("pageNext");
+    const pageNumbers = document.getElementById("pageNumbers");
+    const pageStatus = document.getElementById("pageStatus");
+
+    let archivePage = 1;
+
+    function cardsPerPage(){
+      return window.matchMedia("(max-width: 620px)").matches ? 6 : 8;
+    }
+
+    function totalArchivePages(){
+      return Math.ceil(allPackageCards.length / cardsPerPage());
+    }
+
+    function renderArchivePagination(scrollToGallery = false){
+      const perPage = cardsPerPage();
+      const totalPages = totalArchivePages();
+
+      if(archivePage > totalPages) archivePage = totalPages;
+
+      const start = (archivePage - 1) * perPage;
+      const end = start + perPage;
+
+      allPackageCards.forEach((card, index) => {
+        card.style.display = index >= start && index < end ? "" : "none";
+      });
+
+      pageNumbers.innerHTML = "";
+
+      for(let page = 1; page <= totalPages; page++){
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "page-button" + (page === archivePage ? " active" : "");
+        button.textContent = String(page).padStart(2, "0");
+
+        button.addEventListener("click", () => {
+          archivePage = page;
+          renderArchivePagination(true);
+        });
+
+        pageNumbers.appendChild(button);
+      }
+
+      pagePrev.disabled = archivePage === 1;
+      pageNext.disabled = archivePage === totalPages;
+
+      pageStatus.textContent =
+        `PAGE ${String(archivePage).padStart(2, "0")} / ${String(totalPages).padStart(2, "0")} · ${String(allPackageCards.length).padStart(2, "0")} RECORDS`;
+
+      if(scrollToGallery){
+        document.getElementById("commissionGallery")
+          .scrollIntoView({behavior:"smooth", block:"start"});
+      }
+    }
+
+    pagePrev.addEventListener("click", () => {
+      if(archivePage <= 1) return;
+      archivePage--;
+      renderArchivePagination(true);
+    });
+
+    pageNext.addEventListener("click", () => {
+      if(archivePage >= totalArchivePages()) return;
+      archivePage++;
+      renderArchivePagination(true);
+    });
+
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        renderArchivePagination(false);
+      }, 120);
+    });
+
+    renderArchivePagination(false);
+
   </script>
 
 </body>
