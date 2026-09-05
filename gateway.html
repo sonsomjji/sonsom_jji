@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Star Rain | Archive Gateway</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#000;--panel:rgba(10,6,13,.9);--line:#2b1933;--purple:#cc91ff;--purple2:#a86fc5;--sub:#786981;--dim:#4a3b50;--system:"Share Tech Mono",Consolas,monospace;--ko:"Noto Sans KR","Malgun Gothic",sans-serif}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{min-height:100%}
+    body{min-height:100vh;background:radial-gradient(circle at 50% 18%,rgba(100,25,145,.13),transparent 30%),#000;color:#eee;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    .scan{position:fixed;inset:0;pointer-events:none;z-index:20;opacity:.17;background:repeating-linear-gradient(to bottom,transparent 0,transparent 3px,rgba(184,119,218,.035) 4px)}
+    .grid-bg{position:fixed;inset:0;pointer-events:none;background:linear-gradient(rgba(164,84,207,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(164,84,207,.015) 1px,transparent 1px);background-size:52px 52px}
+    .page{position:relative;z-index:2;width:min(calc(100% - 36px),1120px);margin:0 auto;padding:28px 0 80px}
+    .top{min-height:58px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);font-family:var(--system);font-size:9px;letter-spacing:1.2px;color:#67526f}
+    .status{display:flex;align-items:center;gap:8px}.dot{width:5px;height:5px;background:#c98be8;box-shadow:0 0 9px rgba(201,139,232,.65);animation:blink 1.4s steps(1) infinite}@keyframes blink{50%{opacity:.2}}
+    .back:hover{color:var(--purple)}
+    .hero{padding:82px 0 50px;border-bottom:1px solid var(--line)}
+    .route{font:9px var(--system);letter-spacing:1.4px;color:#5c4863}
+    h1{margin-top:16px;font:400 clamp(38px,7vw,68px)/1 var(--system);letter-spacing:3px;color:#e1b8ff;text-shadow:0 0 18px rgba(156,78,205,.18)}
+    .hero p:last-child{margin-top:18px;max-width:670px;font:300 12px/1.9 var(--ko);color:#88798f;word-break:keep-all}
+    .menu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding-top:34px}
+    .card{position:relative;min-height:250px;padding:24px;border:1px solid var(--line);background:linear-gradient(145deg,rgba(16,10,20,.92),rgba(4,2,5,.98));transition:.22s ease;overflow:hidden}
+    .card::after{content:"";position:absolute;inset:auto 0 0;height:1px;background:linear-gradient(90deg,transparent,#6c3f7a,transparent);opacity:.5}
+    .card.active:hover{transform:translateY(-4px);border-color:#6f4080;box-shadow:0 20px 45px rgba(0,0,0,.35),0 0 24px rgba(145,67,190,.08)}
+    .num{font:8px var(--system);letter-spacing:1.3px;color:#5a4461}
+    .card h2{margin-top:34px;font:400 22px var(--system);letter-spacing:1.3px;color:#d8c2df}
+    .card p{margin-top:12px;max-width:380px;font:300 11px/1.8 var(--ko);color:#76697b;word-break:keep-all}
+    .open{position:absolute;left:24px;bottom:22px;font:9px var(--system);letter-spacing:1px;color:#9165a0}.active:hover .open{color:#d39cff;text-shadow:0 0 8px rgba(176,91,229,.35)}
+    .locked{opacity:.5}.locked h2{color:#817487}.lock{position:absolute;right:20px;top:20px;padding:5px 7px;border:1px solid #3a2a3f;font:7px var(--system);letter-spacing:1px;color:#67586d}
+    footer{margin-top:58px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;font:8px var(--system);letter-spacing:.9px;color:#433748}
+    @media(max-width:720px){.page{width:min(calc(100% - 24px),1120px)}.hero{padding:58px 0 38px}.menu{grid-template-columns:1fr}.card{min-height:210px}.top{font-size:7px}.hero p:last-child{font-size:11px}}
+  </style>
+</head>
+<body>
+  <div class="grid-bg"></div><div class="scan"></div>
+  <main class="page">
+    <header class="top"><span class="status"><span class="dot"></span>ARCHIVE GATEWAY ONLINE</span><a class="back" href="index.html">&lt; DISCONNECT</a></header>
+    <section class="hero"><p class="route">ROOT / PRIVATE NETWORK / ARCHIVE GATEWAY</p><h1>ARCHIVE DIRECTORY</h1><p>Authorized routes have been indexed below. Select a database node to continue archive access.</p></section>
+    <section class="menu">
+      <a class="card active" href="main.html"><span class="num">NODE_01</span><h2>SUBJECT ARCHIVE</h2><p>Classified personnel records, subject profiles and archived visual data.</p><span class="open">&gt; ACCESS DATABASE_</span></a>
+      <a class="card active" href="prompt.html"><span class="num">NODE_02</span><h2>VISUAL RECONSTRUCTION</h2><p>Indexed appearance parameters and subject reconstruction prompt data.</p><span class="open">&gt; ACCESS VISUAL DATA_</span></a>
+      <div class="card locked"><span class="num">NODE_03</span><span class="lock">LOCKED</span><h2>WORLD ARCHIVE</h2><p>Organizations, incidents and regional records. Access route is currently unavailable.</p><span class="open">ACCESS RESTRICTED</span></div>
+      <div class="card locked"><span class="num">NODE_04</span><span class="lock">LOCKED</span><h2>SYSTEM LOG</h2><p>Internal network activity and archived system events. Clearance required.</p><span class="open">ACCESS RESTRICTED</span></div>
+    </section>
+    <footer><span>STAR RAIN PRIVATE NETWORK</span><span>GATEWAY STATUS: STABLE</span></footer>
+  </main>
+</body>
+</html>
