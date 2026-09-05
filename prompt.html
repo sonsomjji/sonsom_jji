@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Star Rain | Visual Reconstruction</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#000;--panel:#0b0710;--line:#2d1b36;--purple:#cc91ff;--soft:#a878ba;--sub:#7d6d84;--dim:#4d4052;--system:"Share Tech Mono",Consolas,monospace;--ko:"Noto Sans KR","Malgun Gothic",sans-serif}
+    *{box-sizing:border-box;margin:0;padding:0}body{min-height:100vh;background:radial-gradient(circle at 50% 0%,rgba(101,28,149,.13),transparent 34%),#000;color:#eee}a{color:inherit;text-decoration:none}button{font:inherit}
+    .scan{position:fixed;inset:0;pointer-events:none;opacity:.16;background:repeating-linear-gradient(to bottom,transparent 0,transparent 3px,rgba(175,115,210,.035) 4px)}
+    .page{position:relative;width:min(calc(100% - 36px),1180px);margin:0 auto;padding:28px 0 80px}
+    .top{min-height:58px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);font:9px var(--system);letter-spacing:1px;color:#65506d}.top a:hover{color:var(--purple)}
+    .hero{padding:64px 0 42px;border-bottom:1px solid var(--line)}.route{font:9px var(--system);letter-spacing:1.3px;color:#5d4865}h1{margin-top:16px;font:400 clamp(34px,6vw,62px)/1 var(--system);letter-spacing:3px;color:#e2bcff}.desc{margin-top:16px;font:300 11px/1.8 var(--ko);color:#817386}
+
+    .subject-list{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
+      padding-top:32px;
+    }
+
+    .subject{
+      min-width:0;
+      border:1px solid #25182b;
+      background:
+        linear-gradient(180deg,rgba(13,8,16,.98),rgba(5,3,7,.99));
+      overflow:hidden;
+      transition:
+        transform .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease;
+    }
+
+    .subject:hover{
+      transform:translateY(-2px);
+      border-color:#593368;
+      box-shadow:0 12px 26px rgba(0,0,0,.34);
+    }
+
+    .subject.open{
+      grid-column:1 / -1;
+      transform:none;
+      border-color:#684077;
+    }
+
+    .subject-head{
+      width:100%;
+      padding:0;
+      border:0;
+      background:transparent;
+      color:inherit;
+      text-align:left;
+      cursor:pointer;
+    }
+
+    .eye-strip{
+      position:relative;
+      width:100%;
+      aspect-ratio:6 / 1;
+      overflow:hidden;
+      background:
+        linear-gradient(90deg,rgba(78,35,93,.20),transparent 34%,rgba(78,35,93,.16)),
+        #050307;
+      border-bottom:1px solid #24172a;
+    }
+
+    .eye-strip img{
+      display:block;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center 42%;
+      filter:saturate(.64) brightness(.62) contrast(1.08);
+      transform:scale(1.015);
+      transition:
+        filter .25s ease,
+        transform .25s ease;
+    }
+
+    .subject:hover .eye-strip img{
+      filter:saturate(.88) brightness(.78) contrast(1.05);
+      transform:scale(1.03);
+    }
+
+    .eye-strip::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent 3px,
+          rgba(180,120,210,.035) 4px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(0,0,0,.38),
+          transparent 14%,
+          transparent 86%,
+          rgba(0,0,0,.42)
+        );
+    }
+
+    .subject-index{
+      position:absolute;
+      z-index:2;
+      top:7px;
+      left:8px;
+      padding:3px 5px;
+      border:1px solid rgba(83,53,92,.58);
+      background:rgba(0,0,0,.62);
+      color:#785884;
+      font:7px var(--system);
+      letter-spacing:.9px;
+    }
+
+    .subject-card-info{
+      min-height:88px;
+      padding:13px 14px 12px;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:12px;
+      align-items:end;
+    }
+
+    .subject-name{
+      display:block;
+      color:#ddcce3;
+      font:500 18px/1.25 var(--ko);
+      letter-spacing:-.2px;
+    }
+
+    .subject-meta{
+      display:block;
+      margin-top:6px;
+      color:#6f5976;
+      font:7px var(--system);
+      letter-spacing:1px;
+    }
+
+    .subject-count{
+      display:block;
+      margin-top:4px;
+      color:#9774a3;
+      font:7px var(--system);
+      letter-spacing:.9px;
+    }
+
+    .toggle{
+      padding-bottom:2px;
+      color:#916aa0;
+      font:7px var(--system);
+      white-space:nowrap;
+    }
+
+    .prompt-body{
+      display:none;
+      padding:18px;
+      border-top:1px solid #2b1b32;
+      background:
+        linear-gradient(90deg,rgba(63,25,75,.06),transparent 45%),
+        rgba(2,1,3,.55);
+    }
+
+    .subject.open .prompt-body{display:block}
+
+    .prompt-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .prompt-block{
+      padding:14px;
+      border:1px solid #211627;
+      background:#050307;
+    }
+
+    .prompt-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+    }
+
+    .prompt-name{
+      color:#8d679c;
+      font:8px var(--system);
+      letter-spacing:1.1px;
+    }
+
+    .actions{
+      display:flex;
+      gap:6px;
+    }
+
+    .action{
+      padding:6px 8px;
+      border:1px solid #402849;
+      background:#08050a;
+      color:#8b6796;
+      font:7px var(--system);
+      letter-spacing:.7px;
+      cursor:pointer;
+    }
+
+    .action:hover{
+      color:#d5a1ff;
+      border-color:#744487;
+    }
+
+    .prompt-text{
+      min-height:92px;
+      margin-top:10px;
+      padding:12px;
+      border:1px solid #24172a;
+      background:#030204;
+      color:#aa9caf;
+      font:10px/1.65 var(--system);
+      white-space:pre-wrap;
+      word-break:break-word;
+    }
+
+    .copy-msg{
+      height:16px;
+      margin-top:6px;
+      color:#b682ca;
+      font:7px var(--system);
+      letter-spacing:.8px;
+      opacity:0;
+    }
+
+    .copy-msg.show{opacity:1}
+
+    /* 비어 있는 캐릭터 슬롯 */
+    .subject.vacant{
+      min-height:132px;
+      border-style:dashed;
+      border-color:#1d1421;
+      background:
+        linear-gradient(180deg,rgba(8,5,10,.58),rgba(3,2,4,.75));
+      opacity:.56;
+    }
+
+    .subject.vacant:hover{
+      transform:none;
+      border-color:#271a2d;
+      box-shadow:none;
+    }
+
+    .subject.vacant .eye-strip{
+      background:
+        repeating-linear-gradient(
+          135deg,
+          rgba(103,63,116,.025) 0,
+          rgba(103,63,116,.025) 8px,
+          transparent 8px,
+          transparent 16px
+        ),
+        #030204;
+    }
+
+    .subject.vacant .eye-strip::before{
+      content:"NO SUBJECT ASSIGNED";
+      position:absolute;
+      z-index:2;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      color:#4f3d55;
+      font:7px var(--system);
+      letter-spacing:1.3px;
+      white-space:nowrap;
+    }
+
+    .subject.vacant .subject-card-info{
+      min-height:74px;
+    }
+
+    .subject.vacant .subject-name{
+      color:#514254;
+      font-size:15px;
+    }
+
+    .subject.vacant .subject-meta{
+      color:#413545;
+    }
+
+    @media(max-width:900px){
+      .subject-list{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+    }
+
+    @media(max-width:560px){
+      .subject-list{
+        grid-template-columns:1fr;
+        gap:10px;
+      }
+
+      .eye-strip{
+        aspect-ratio:5.4 / 1;
+      }
+
+      .subject-card-info{
+        min-height:80px;
+        padding:11px 12px;
+      }
+
+      .subject-name{
+        font-size:16px;
+      }
+
+      .prompt-grid{
+        grid-template-columns:1fr;
+      }
+
+      .prompt-body{
+        padding:12px;
+      }
+
+      .prompt-text{
+        font-size:9px;
+      }
+    }
+
+    .hidden-slot{display:none!important}.note{margin-top:32px;padding:14px 16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font:8px/1.7 var(--system);letter-spacing:.5px;color:#594b60}.note strong{color:#8f69a0;font-weight:400}
+    footer{margin-top:55px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;font:8px var(--system);letter-spacing:.8px;color:#493d4e}
+    @media(max-width:720px){.subject-list{grid-template-columns:1fr}.page{width:min(calc(100% - 24px),1180px)}.hero{padding:52px 0 34px}.subject-head{padding:15px}.hanja{font-size:26px}.prompt-text{font-size:9px}.top{font-size:7px}}
+  </style>
+</head>
+<body>
+<div class="scan"></div>
+<main class="page">
+<header class="top"><span>VISUAL RECONSTRUCTION NODE / ONLINE</span><a href="gateway.html">&lt; RETURN TO GATEWAY</a></header>
+<section class="hero"><p class="route">ROOT / ARCHIVE GATEWAY / VISUAL RECONSTRUCTION</p><h1>VISUAL RECONSTRUCTION</h1><p class="desc">Indexed subject appearance parameters and reconstruction prompt records.</p></section>
+
+<section class="subject-list">
+
+  <article class="subject">
+    <button class="subject-head" type="button">
+      <div class="eye-strip">
+        <img src="bihong-eye.jpg" alt="비홍 eye strip">
+        <span class="subject-index">001</span>
+      </div>
+      <div class="subject-card-info">
+        <span>
+          <span class="subject-name">비홍</span>
+          <span class="subject-meta">VISUAL RECONSTRUCTION</span>
+          <span class="subject-count">02 DATA SETS</span>
+        </span>
+        <span class="toggle">[ OPEN ]</span>
+      </div>
+    </button>
+    <div class="prompt-body">
+      
+      <div class="prompt-grid">
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">NAI / BASE APPEARANCE</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">[ BASE APPEARANCE PROMPT ]</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">SECONDARY DATA</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">[ SECONDARY / NIJI / FULL BODY PROMPT ]</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <article class="subject">
+    <button class="subject-head" type="button">
+      <div class="eye-strip">
+        <img src="oil-eye.jpg" alt="OIL eye strip">
+        <span class="subject-index">002</span>
+      </div>
+      <div class="subject-card-info">
+        <span>
+          <span class="subject-name">OIL</span>
+          <span class="subject-meta">VISUAL RECONSTRUCTION</span>
+          <span class="subject-count">02 DATA SETS</span>
+        </span>
+        <span class="toggle">[ OPEN ]</span>
+      </div>
+    </button>
+    <div class="prompt-body">
+      
+      <div class="prompt-grid">
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">NAI / BASE APPEARANCE</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">[ BASE APPEARANCE PROMPT ]</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">SECONDARY DATA</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">[ SECONDARY / NIJI / FULL BODY PROMPT ]</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <article class="subject">
+    <button class="subject-head" type="button">
+      <div class="eye-strip">
+        <img src="bina-eye.jpg" alt="BINA eye strip">
+        <span class="subject-index">003</span>
+      </div>
+      <div class="subject-card-info">
+        <span>
+          <span class="subject-name">BINA</span>
+          <span class="subject-meta">VISUAL RECONSTRUCTION</span>
+          <span class="subject-count">02 DATA SETS</span>
+        </span>
+        <span class="toggle">[ OPEN ]</span>
+      </div>
+    </button>
+    <div class="prompt-body">
+      
+      <div class="prompt-grid">
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">NAI / BASE APPEARANCE</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">[ BASE APPEARANCE PROMPT ]</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">SECONDARY DATA</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">[ SECONDARY / NIJI / FULL BODY PROMPT ]</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <article class="subject">
+    <button class="subject-head" type="button">
+      <div class="eye-strip">
+        <img src="astra-eye.jpg" alt="ASTRA eye strip">
+        <span class="subject-index">004</span>
+      </div>
+      <div class="subject-card-info">
+        <span>
+          <span class="subject-name">ASTRA</span>
+          <span class="subject-meta">VISUAL RECONSTRUCTION</span>
+          <span class="subject-count">02 DATA SETS</span>
+        </span>
+        <span class="toggle">[ OPEN ]</span>
+      </div>
+    </button>
+    <div class="prompt-body">
+      
+      <div class="prompt-grid">
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">NAI / BASE APPEARANCE</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">[ BASE APPEARANCE PROMPT ]</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">SECONDARY DATA</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">[ SECONDARY / NIJI / FULL BODY PROMPT ]</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <article class="subject">
+    <button class="subject-head" type="button">
+      <div class="eye-strip">
+        <img src="delta-eye.jpg" alt="DELTA eye strip">
+        <span class="subject-index">005</span>
+      </div>
+      <div class="subject-card-info">
+        <span>
+          <span class="subject-name">DELTA</span>
+          <span class="subject-meta">VISUAL RECONSTRUCTION</span>
+          <span class="subject-count">02 DATA SETS</span>
+        </span>
+        <span class="toggle">[ OPEN ]</span>
+      </div>
+    </button>
+    <div class="prompt-body">
+      
+      <div class="prompt-grid">
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">NAI / BASE APPEARANCE</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">[ BASE APPEARANCE PROMPT ]</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">SECONDARY DATA</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">[ SECONDARY / NIJI / FULL BODY PROMPT ]</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <article class="subject">
+    <button class="subject-head" type="button">
+      <div class="eye-strip">
+        <img src="hwa-eye.jpg" alt="HWA eye strip">
+        <span class="subject-index">006</span>
+      </div>
+      <div class="subject-card-info">
+        <span>
+          <span class="subject-name">HWA</span>
+          <span class="subject-meta">VISUAL RECONSTRUCTION</span>
+          <span class="subject-count">02 DATA SETS</span>
+        </span>
+        <span class="toggle">[ OPEN ]</span>
+      </div>
+    </button>
+    <div class="prompt-body">
+      
+      <div class="prompt-grid">
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">NAI / BASE APPEARANCE</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">[ BASE APPEARANCE PROMPT ]</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">SECONDARY DATA</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">[ SECONDARY / NIJI / FULL BODY PROMPT ]</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <article class="subject vacant" aria-label="VACANT SLOT 007">
+    <div class="eye-strip">
+      <span class="subject-index">SLOT_007</span>
+    </div>
+    <div class="subject-card-info">
+      <span>
+        <span class="subject-name">VACANT</span>
+        <span class="subject-meta">UNASSIGNED VISUAL SLOT</span>
+      </span>
+    </div>
+  </article>
+
+  <article class="subject vacant" aria-label="VACANT SLOT 008">
+    <div class="eye-strip">
+      <span class="subject-index">SLOT_008</span>
+    </div>
+    <div class="subject-card-info">
+      <span>
+        <span class="subject-name">VACANT</span>
+        <span class="subject-meta">UNASSIGNED VISUAL SLOT</span>
+      </span>
+    </div>
+  </article>
+
+  <article class="subject">
+    <button class="subject-head" type="button">
+      <div class="eye-strip">
+        <img src="yeon-eye.jpg" alt="YEON eye strip">
+        <span class="subject-index">009</span>
+      </div>
+      <div class="subject-card-info">
+        <span>
+          <span class="subject-name">YEON</span>
+          <span class="subject-meta">VISUAL RECONSTRUCTION</span>
+          <span class="subject-count">02 DATA SETS</span>
+        </span>
+        <span class="toggle">[ OPEN ]</span>
+      </div>
+    </button>
+    <div class="prompt-body">
+      
+      <div class="prompt-grid">
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">NAI / BASE APPEARANCE</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">[ BASE APPEARANCE PROMPT ]</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">SECONDARY DATA</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">[ SECONDARY / NIJI / FULL BODY PROMPT ]</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <article class="subject">
+    <button class="subject-head" type="button">
+      <div class="eye-strip">
+        <img src="yeonri-eye.jpg" alt="緣離 eye strip">
+        <span class="subject-index">010</span>
+      </div>
+      <div class="subject-card-info">
+        <span>
+          <span class="subject-name">緣離</span>
+          <span class="subject-meta">VISUAL RECONSTRUCTION</span>
+          <span class="subject-count">02 DATA SETS</span>
+        </span>
+        <span class="toggle">[ OPEN ]</span>
+      </div>
+    </button>
+    <div class="prompt-body">
+      
+      <div class="prompt-grid">
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">NAI / BASE APPEARANCE</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">young woman, lavender long braided hair, blue eyes with vertical pupils, eastern dragon horns, fluffy dragon ears...</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">SECONDARY DATA</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">small cute eastern dragon, long slender serpentine body, white fur, lavender accents, blue eyes...</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <article class="subject">
+    <button class="subject-head" type="button">
+      <div class="eye-strip">
+        <img src="baekmu-eye.jpg" alt="BAEKMU eye strip">
+        <span class="subject-index">011</span>
+      </div>
+      <div class="subject-card-info">
+        <span>
+          <span class="subject-name">BAEKMU</span>
+          <span class="subject-meta">VISUAL RECONSTRUCTION</span>
+          <span class="subject-count">02 DATA SETS</span>
+        </span>
+        <span class="toggle">[ OPEN ]</span>
+      </div>
+    </button>
+    <div class="prompt-body">
+      
+      <div class="prompt-grid">
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">NAI / BASE APPEARANCE</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">[ BASE APPEARANCE PROMPT ]</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">SECONDARY DATA</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">[ SECONDARY / NIJI / FULL BODY PROMPT ]</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <article class="subject">
+    <button class="subject-head" type="button">
+      <div class="eye-strip">
+        <img src="gyeol-eye.jpg" alt="結(決) eye strip">
+        <span class="subject-index">012</span>
+      </div>
+      <div class="subject-card-info">
+        <span>
+          <span class="subject-name">結(決)</span>
+          <span class="subject-meta">VISUAL RECONSTRUCTION</span>
+          <span class="subject-count">02 DATA SETS</span>
+        </span>
+        <span class="toggle">[ OPEN ]</span>
+      </div>
+    </button>
+    <div class="prompt-body">
+      
+      <div class="prompt-grid">
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">NAI / BASE APPEARANCE</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">1 male, 28 years old, long black hair, empty black eyes, pale skin, gloomy and decadent atmosphere...</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">SECONDARY DATA</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">androgynous handsome man, long black hair, half-lidded black eyes, pale skin, dark streetwear...</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <article class="subject">
+    <button class="subject-head" type="button">
+      <div class="eye-strip">
+        <img src="an-eye.jpg" alt="AN eye strip">
+        <span class="subject-index">013</span>
+      </div>
+      <div class="subject-card-info">
+        <span>
+          <span class="subject-name">AN</span>
+          <span class="subject-meta">VISUAL RECONSTRUCTION</span>
+          <span class="subject-count">02 DATA SETS</span>
+        </span>
+        <span class="toggle">[ OPEN ]</span>
+      </div>
+    </button>
+    <div class="prompt-body">
+      
+      <div class="prompt-grid">
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">NAI / BASE APPEARANCE</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">[ BASE APPEARANCE PROMPT ]</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">SECONDARY DATA</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">[ SECONDARY / NIJI / FULL BODY PROMPT ]</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <article class="subject">
+    <button class="subject-head" type="button">
+      <div class="eye-strip">
+        <img src="lumi-eye.jpg" alt="LUMI eye strip">
+        <span class="subject-index">014</span>
+      </div>
+      <div class="subject-card-info">
+        <span>
+          <span class="subject-name">LUMI</span>
+          <span class="subject-meta">VISUAL RECONSTRUCTION</span>
+          <span class="subject-count">02 DATA SETS</span>
+        </span>
+        <span class="toggle">[ OPEN ]</span>
+      </div>
+    </button>
+    <div class="prompt-body">
+      
+      <div class="prompt-grid">
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">NAI / BASE APPEARANCE</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">[ BASE APPEARANCE PROMPT ]</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">SECONDARY DATA</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">[ SECONDARY / NIJI / FULL BODY PROMPT ]</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <article class="subject">
+    <button class="subject-head" type="button">
+      <div class="eye-strip">
+        <img src="reve-eye.jpg" alt="REVE eye strip">
+        <span class="subject-index">015</span>
+      </div>
+      <div class="subject-card-info">
+        <span>
+          <span class="subject-name">REVE</span>
+          <span class="subject-meta">VISUAL RECONSTRUCTION</span>
+          <span class="subject-count">02 DATA SETS</span>
+        </span>
+        <span class="toggle">[ OPEN ]</span>
+      </div>
+    </button>
+    <div class="prompt-body">
+      
+      <div class="prompt-grid">
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">NAI / BASE APPEARANCE</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">[ BASE APPEARANCE PROMPT ]</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+
+        <div class="prompt-block">
+          <div class="prompt-top">
+            <span class="prompt-name">SECONDARY DATA</span>
+            <div class="actions">
+              <button class="action copy" type="button">COPY</button>
+              <button class="action download" type="button">TXT</button>
+            </div>
+          </div>
+          <pre class="prompt-text">[ SECONDARY / NIJI / FULL BODY PROMPT ]</pre>
+          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+        </div>
+      </div>
+
+    </div>
+  </article>
+</section>
+
+<div class="note"><strong>ARCHIVE NOTE</strong><br>Eye-strip images are used only for subject identification. Two unassigned slots remain intentionally vacant.</div>
+<footer><span>STAR RAIN PRIVATE NETWORK</span><span>VISUAL RECONSTRUCTION / TOTAL SLOTS: 15 / ACTIVE SUBJECTS: 13 / VACANT: 02</span></footer>
+</main>
+<script>
+  document.querySelectorAll('button.subject-head').forEach(btn=>btn.addEventListener('click',()=>{const card=btn.closest('.subject');if(!card.querySelector('.prompt-body'))return;card.classList.toggle('open');btn.querySelector('.toggle').textContent=card.classList.contains('open')?'[ CLOSE ]':'[ OPEN ]';}));
+  document.querySelectorAll('.copy').forEach(btn=>btn.addEventListener('click',async()=>{const block=btn.closest('.prompt-block');const text=block.querySelector('.prompt-text').innerText;try{await navigator.clipboard.writeText(text);const msg=block.querySelector('.copy-msg');msg.classList.add('show');setTimeout(()=>msg.classList.remove('show'),1400);}catch(e){alert('Clipboard access failed.');}}));
+  document.querySelectorAll('.download').forEach(btn=>btn.addEventListener('click',()=>{const block=btn.closest('.prompt-block');const text=block.querySelector('.prompt-text').innerText;const name=block.querySelector('.prompt-name').textContent.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'prompt';const blob=new Blob([text],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name+'.txt';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);}));
+</script>
+</body>
+</html>
