@@ -619,6 +619,136 @@
         gap:7px;
       }
     }
+  
+    /* INTERACTION LOG */
+    .interaction-log{
+      margin-top:58px;
+      padding-top:28px;
+      border-top:1px solid var(--line);
+    }
+
+    .interaction-kicker{
+      color:#8f7898;
+      font-size:8px;
+      letter-spacing:2px;
+      margin-bottom:8px;
+    }
+
+    .interaction-title{
+      color:#dcb7e8;
+      font-family:var(--system);
+      font-size:clamp(20px,4vw,30px);
+      font-weight:400;
+      letter-spacing:.08em;
+    }
+
+    .interaction-date{
+      margin-top:7px;
+      color:#65566b;
+      font-size:8px;
+      letter-spacing:1.2px;
+    }
+
+    .message-screen{
+      margin-top:22px;
+      min-height:180px;
+      padding:20px 18px 17px;
+      border:1px solid #2c1e32;
+      background:
+        linear-gradient(180deg,rgba(106,62,121,.035),transparent 34%),
+        #070508;
+      cursor:pointer;
+    }
+
+    .message-screen.started{cursor:default}
+
+    .message-start{
+      min-height:140px;
+      display:grid;
+      place-items:center;
+      color:#8e7796;
+      font-size:8px;
+      letter-spacing:1.4px;
+      text-align:center;
+      transition:opacity .25s ease;
+    }
+
+    .message-start.hidden{display:none}
+
+    .messages{
+      display:flex;
+      flex-direction:column;
+      gap:15px;
+    }
+
+    .msg{
+      width:min(74%,560px);
+      opacity:0;
+      transform:translateY(5px);
+      animation:messageIn .35s ease forwards;
+      font-family:var(--ko);
+    }
+
+    .msg.other{align-self:flex-start}
+    .msg.gyeol{align-self:flex-end;text-align:right}
+
+    .sender{
+      display:block;
+      margin-bottom:5px;
+      color:#79677f;
+      font-size:9px;
+      font-weight:400;
+    }
+
+    .bubble{
+      display:inline-block;
+      max-width:100%;
+      padding:9px 12px 10px;
+      color:#c8bdcc;
+      background:#0b080d;
+      border:1px solid #2d2032;
+      font-size:11px;
+      line-height:1.75;
+      text-align:left;
+      word-break:keep-all;
+    }
+
+    .other .bubble{
+      border-left-color:#85678f;
+    }
+
+    .gyeol .bubble{
+      border-right-color:#b18cbd;
+      color:#d5cad8;
+    }
+
+    .message-end{
+      display:none;
+      margin-top:24px;
+      padding-top:13px;
+      border-top:1px solid #211725;
+      color:#55475a;
+      font-size:7px;
+      letter-spacing:1.1px;
+      text-align:center;
+    }
+
+    .message-end.show{
+      display:block;
+      animation:messageIn .45s ease forwards;
+    }
+
+    @keyframes messageIn{
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    @media(max-width:720px){
+      .interaction-log{margin-top:46px}
+      .message-screen{padding:17px 13px 15px}
+      .msg{width:min(88%,520px)}
+      .bubble{font-size:10.5px}
+    }
+
   </style>
 </head>
 <body>
@@ -790,6 +920,23 @@
 
     </main>
 
+    <section class="interaction-log">
+      <div class="interaction-kicker">INTERCEPTED MESSAGE RECORD / SUBJECT_012</div>
+      <h2 class="interaction-title">MESSAGE LOG</h2>
+      <div class="interaction-date">03.07 / PRIVATE CHANNEL</div>
+
+      <div class="message-screen" id="messageScreen">
+        <div class="message-start" id="messageStart">
+          [ CLICK TO OPEN MESSAGE ]
+        </div>
+        <div class="messages" id="messages"></div>
+        <div class="message-end" id="messageEnd">
+          03.07&nbsp;&nbsp;23:48&nbsp;&nbsp;·&nbsp;&nbsp;마지막 메시지
+        </div>
+      </div>
+    </section>
+
+
     <div class="note">
       ※ CHRONOLOGY DATA MAY CONTAIN MISSING INTERVALS, ALTERED IDENTIFIERS, OR UNVERIFIED TESTIMONY.
     </div>
@@ -831,6 +978,64 @@
         decryptArchive();
       }
     });
+
+    /* MESSAGE LOG — click once, then messages arrive automatically */
+    const messageScreen = document.getElementById("messageScreen");
+    const messageStart = document.getElementById("messageStart");
+    const messagesEl = document.getElementById("messages");
+    const messageEnd = document.getElementById("messageEnd");
+
+    const conversation = [
+      { side:"other", sender:"I", text:"넌 구원받는 법을 모르는 게 아니야. 그냥… 익숙한 절망 속에서 혼자 죽어가는 게 편한 거지." },
+      { side:"gyeol", sender:"결", text:"그게 뭐 어쨌는데. 신경 꺼." },
+      { side:"other", sender:"I", text:"포기해, 결아. 네 안식은 이제부터 나야." },
+      { side:"gyeol", sender:"결", text:"...미친새끼." }
+    ];
+
+    let messageStarted = false;
+
+    function appendMessage(item){
+      const row = document.createElement("div");
+      row.className = "msg " + item.side;
+
+      const sender = document.createElement("span");
+      sender.className = "sender";
+      sender.textContent = item.sender;
+
+      const bubble = document.createElement("div");
+      bubble.className = "bubble";
+      bubble.textContent = item.text;
+
+      row.appendChild(sender);
+      row.appendChild(bubble);
+      messagesEl.appendChild(row);
+
+      row.scrollIntoView({behavior:"smooth",block:"nearest"});
+    }
+
+    function playConversation(index = 0){
+      if(index >= conversation.length){
+        setTimeout(() => {
+          messageEnd.classList.add("show");
+        }, 900);
+        return;
+      }
+
+      appendMessage(conversation[index]);
+
+      const delay = 900 + Math.floor(Math.random() * 1000);
+      setTimeout(() => playConversation(index + 1), delay);
+    }
+
+    messageScreen.addEventListener("click", () => {
+      if(messageStarted) return;
+      messageStarted = true;
+      messageScreen.classList.add("started");
+      messageStart.classList.add("hidden");
+
+      setTimeout(() => playConversation(0), 450);
+    });
+
   </script>
 
 
@@ -845,9 +1050,7 @@
   /* ARCHIVE HERO COLOR MATCH */
   .hero h1{
     color:#e8b8ff !important;
-    text-shadow:
-      0 0 5px rgba(220,154,255,.85),
-      0 0 14px rgba(186,104,224,.35);
+    text-shadow:none;
   }
 
   /* Keep '12세, 그 뒤.' on one line */
