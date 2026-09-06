@@ -6,18 +6,18 @@
   <title>Star Rain | GYEOL STORY ARCHIVE</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     :root{
       --bg:#050306;
       --panel:#09060b;
       --panel-2:#0d0910;
-      --text:#b7aeb9;
-      --muted:#6f6573;
-      --dim:#3a303e;
-      --purple:#765582;
-      --purple-2:#4e3559;
-      --line:#24172a;
+      --text:#cfc4d5;
+      --muted:#8b7d91;
+      --dim:#4a3b50;
+      --purple:#b79ac3;
+      --purple-2:#76567f;
+      --line:#35243d;
       --red:#8f263d;
       --system:"Share Tech Mono",monospace;
       --ko:"Noto Sans KR","Malgun Gothic",sans-serif;
@@ -63,19 +63,19 @@
     }
 
     .route{
-      color:#55495a;
+      color:#7d6b84;
       font-size:9px;
       letter-spacing:1.5px;
     }
 
     .return{
-      color:#5d4d63;
+      color:#8b7692;
       font-size:9px;
       letter-spacing:1.2px;
       transition:.2s ease;
     }
 
-    .return:hover{color:#9672a2}
+    .return:hover{color:#cfb4d9}
 
     .hero{
       padding:44px 0 34px;
@@ -83,7 +83,7 @@
     }
 
     .eyebrow{
-      color:#705c77;
+      color:#a58cad;
       font-size:9px;
       letter-spacing:2.2px;
       margin-bottom:10px;
@@ -93,13 +93,13 @@
       font-size:clamp(28px,6vw,56px);
       font-weight:400;
       letter-spacing:.06em;
-      color:#c8becb;
+      color:#e5dbea;
       line-height:1;
     }
 
     .subtitle{
       margin-top:13px;
-      color:#5f5363;
+      color:#948799;
       font-family:var(--ko);
       font-size:12px;
       font-weight:300;
@@ -116,9 +116,9 @@
 
     .tag{
       padding:6px 8px 5px;
-      border:1px solid #291d2e;
+      border:1px solid #3d2a45;
       background:#09060b;
-      color:#6f5e75;
+      color:#a18ba9;
       font-size:8px;
       letter-spacing:1px;
     }
@@ -136,7 +136,7 @@
       top:8px;
       bottom:10px;
       width:1px;
-      background:linear-gradient(to bottom,#4c3654,#211627 88%,transparent);
+      background:linear-gradient(to bottom,#92709d,#2d1d33 88%,transparent);
     }
 
     .year-block{
@@ -152,7 +152,7 @@
       top:-3px;
       width:92px;
       text-align:right;
-      color:#82688a;
+      color:#b79ac3;
       font-size:18px;
       letter-spacing:1px;
     }
@@ -160,7 +160,7 @@
     .year-label small{
       display:block;
       margin-top:3px;
-      color:#493c4d;
+      color:#6b5b70;
       font-size:7px;
       letter-spacing:1.4px;
     }
@@ -171,19 +171,19 @@
       top:5px;
       width:9px;
       height:9px;
-      border:1px solid #72577b;
+      border:1px solid #ab8db5;
       background:var(--bg);
       transform:rotate(45deg);
       box-shadow:0 0 12px rgba(112,75,126,.12);
     }
 
     .year-block.major .node{
-      background:#52365d;
-      border-color:#90709b;
+      background:#80608b;
+      border-color:#c0a4ca;
     }
 
     .year-block.major .year-label{
-      color:#aa8bb4;
+      color:#d0b7d9;
     }
 
     .events{
@@ -202,7 +202,7 @@
     }
 
     .event:hover{
-      border-color:#3b2942;
+      border-color:#5e4466;
       background:
         linear-gradient(90deg,rgba(92,51,106,.09),transparent 55%),
         #0a070c;
@@ -218,7 +218,7 @@
     }
 
     .date{
-      color:#69566f;
+      color:#a78db0;
       font-size:8px;
       letter-spacing:1.3px;
       white-space:nowrap;
@@ -226,13 +226,13 @@
 
     .status{
       flex:none;
-      color:#4f4253;
+      color:#76657c;
       font-size:7px;
       letter-spacing:1px;
     }
 
     .event h2{
-      color:#b8adb9;
+      color:#e0d6e3;
       font-family:var(--ko);
       font-size:14px;
       font-weight:400;
@@ -242,7 +242,7 @@
     }
 
     .event p{
-      color:#766d79;
+      color:#aaa0ad;
       font-family:var(--ko);
       font-size:11px;
       font-weight:300;
@@ -304,7 +304,7 @@
     }
 
     .locked-preview .cipher{
-      color:#56465c;
+      color:#846f8b;
       font-size:10px;
       letter-spacing:1.5px;
       line-height:1.8;
@@ -335,7 +335,7 @@
     }
 
     .unlock-input:focus{
-      border-color:#5d4566;
+      border-color:#9876a3;
       box-shadow:0 0 0 1px rgba(93,69,102,.12);
     }
 
@@ -344,7 +344,7 @@
       padding:0 11px;
       border:1px solid #35243b;
       background:#0b070d;
-      color:#725c79;
+      color:#aa90b2;
       font:8px var(--system);
       letter-spacing:1px;
       cursor:pointer;
@@ -352,14 +352,14 @@
     }
 
     .unlock-button:hover{
-      color:#a58baa;
-      border-color:#5b4164;
+      color:#d4bddb;
+      border-color:#916b9d;
     }
 
     .unlock-state{
       width:100%;
       margin-top:5px;
-      color:#55475a;
+      color:#85718c;
       font-size:7px;
       letter-spacing:.8px;
       min-height:1em;
@@ -370,7 +370,7 @@
     }
 
     .event.unlocked{
-      border-color:#3a2941;
+      border-color:#604667;
       background:
         linear-gradient(90deg,rgba(91,50,105,.08),transparent 54%),
         #09060b;
@@ -430,7 +430,7 @@
       top:9px;
       width:7px;
       height:7px;
-      border:1px solid #765982;
+      border:1px solid #b090bb;
       background:#09060b;
       transform:rotate(45deg);
     }
@@ -445,7 +445,7 @@
 
     .subage strong{
       display:block;
-      color:#9a7ca3;
+      color:#c8afd1;
       font-size:13px;
       font-weight:400;
       letter-spacing:.5px;
@@ -454,7 +454,7 @@
     .subage small{
       display:block;
       margin-top:3px;
-      color:#504354;
+      color:#78677e;
       font-size:6px;
       line-height:1.4;
       letter-spacing:.8px;
@@ -466,6 +466,32 @@
       background:#070509;
     }
 
+
+
+    /* KOREAN / HANJA TYPOGRAPHY */
+    .subtitle,
+    .year-label,
+    .event h2,
+    .event p,
+    .subage strong,
+    .subrecord h2,
+    .subrecord p{
+      font-family:var(--ko);
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+
+    .event h2,
+    .subrecord h2{
+      font-weight:500;
+      letter-spacing:.01em;
+    }
+
+    .event p,
+    .subrecord p{
+      font-weight:300;
+      letter-spacing:-.01em;
+    }
 
     /* SINGLE PROTECTED RANGE */
     #protectedArchive .locked-content{
@@ -488,7 +514,7 @@
       padding-bottom:12px;
       margin-bottom:15px;
       border-bottom:1px solid #2a1c30;
-      color:#705c77;
+      color:#a58cad;
       font-size:7px;
       letter-spacing:1.1px;
     }
@@ -606,15 +632,6 @@
     <section class="hero">
       <div class="eyebrow">CHRONOLOGICAL RECORD / SUBJECT_012</div>
       <h1>STORY</h1>
-      <p class="subtitle">
-        대상의 행적을 연령과 현재로부터의 경과 시간을 기준으로 정리한 기록. 일부 구간은 암호화되어 접근이 제한되어 있다.
-      </p>
-
-      <div class="meta">
-        <span class="tag">SUBJECT : 結(決)</span>
-        <span class="tag">FORMAT : AGE TIMELINE</span>
-        <span class="tag">STATUS : PARTIALLY RECOVERED</span>
-      </div>
     </section>
 
     <main class="timeline">
@@ -630,15 +647,15 @@
               <span class="status">VERIFIED</span>
             </div>
             <h2>賣却</h2>
-            <p>채무 불이행 상태의 부모가 사채업자에게 아이를 상환 대용으로 양도. 공식 기록상 '한 결'이라는 이름의 출생 신고서는 존재하나, 이후 행정 기록 일체 소실하고 주민등록 말소.
-               당시 채권자 측 장부에 '소모품 #0032'로 등재되었다. 인간이 아닌 '자산'으로 분류.</p>
+            <p>채무를 갚지 못한 부모는 아이를 사채업자에게 넘겼다. 공식 기록에는 '한 결'이라는 이름의 출생 신고서가 남아 있지만, 그 뒤의 행정 기록은 모두 사라졌고 주민등록도 말소되었다.
+               채권자 측 장부에 남은 이름은 '소모품 #0032'. 그날부터 아이는 사람이 아니라 하나의 자산으로 취급되었다.</p>
           </article>
         </div>
       </section>
 
       <!-- 12세, 그 뒤. / 공개 -->
       <section class="year-block">
-        <div class="year-label">12세<small>16 YEARS AGO</small></div>
+        <div class="year-label">12세, 그 뒤.<small>16 YEARS AGO</small></div>
         <span class="node" aria-hidden="true"></span>
         <div class="events">
           <article class="event">
@@ -647,8 +664,8 @@
               <span class="status">VERIFIED</span>
             </div>
             <h2>殺人</h2>
-            <p>지속적 학대와 폭력 안에서 생존을 위한 기술을 강제로 학습하고 12살, 타인에 의한 첫 살인을 저지르다.
-               이후 더는 희망이라는 꿈을 꾸지 않았다.</p>
+            <p>폭력 속에서 살아남기 위해 필요한 것들을 하나씩 배웠다. 제대로 배우고 싶어서 익힌 것은 하나도 없었다.
+               열두 살이 되던 해, 타인의 명령으로 처음 사람을 죽였다. 그 뒤로는 희망 같은 것을 꿈꾸지 않았다. 빛이 죽었다.</p>
           </article>
         </div>
       </section>
@@ -710,8 +727,8 @@
                       <span class="status">DECRYPTED</span>
                     </div>
                     <h2>Death Scythe</h2>
-                    <p>아수라장 속에서 각성. 그리고 자신의 목줄을 쥔 자의 허리를 찌르고 도망쳐 붉은 목도리를 따라 갔다.
-                       그러나 3개월 뒤 양지에서 음지로 스스로 발을 돌린다.</p>
+                    <p>아수라장 속에서 처음 능력이 깨어났다. 자신의 목줄을 쥐고 있던 자의 허리를 찌른 뒤 그대로 도망쳤고, 눈앞에 보이던 붉은 목도리를 따라갔다.
+                        그렇게 양지에 발을 들였지만 오래 머물지는 못했다. 세 달 뒤, 그는 제 발로 다시 음지로 돌아갔다.</p>
                   </div>
                 </section>
 
@@ -726,8 +743,8 @@
                       <span class="status">DECRYPTED</span>
                     </div>
                     <h2>RoN, 解放.</h2>
-                    <p>탈주한 그를 되찾으러 붉은목도리를 두른, 상냥하고 쾌활한 미소를 가진 붉은 머리의 존재가 나타난다.
-                       낡아도 떨어지지 않던 줄이 그 사람에 의해 끊어졌다. 해방...일까.</p>
+                    <p>도망쳐 나온 그를 찾아 붉은 목도리를 두른 남자가 나타났다. 붉은 머리에 연두색 눈동자, 이런 곳에는 어울리지 않을 만큼 상냥하고 쾌활하게 웃는 사람이었다.
+                        오래되어 낡고 닳았는데도 좀처럼 끊어지지 않던 줄이 그 사람에 의해 끊어졌다. 막힌 숨이 풀리고 해방을 느꼈지만 그건 잠깐이었다.</p>
                   </div>
                 </section>
 
@@ -743,7 +760,7 @@
                     </div>
                     <h2>1 2 / 2 7</h2>
                     <p>그 사람이 죽었다.
-                       이전부터 먹어오던 약의 복용량을 늘리게 된다. 언제 그랬는지 모를 손목 흉터의 수가 늘어가고 기억에서 점점 희미해져간다.</p>
+                        그 뒤로 이전부터 먹던 약의 양이 조금씩 늘었다. 손목에는 언제 생긴 것인지 기억나지 않는 흉터가 하나둘 남기 시작했다. 잊고 싶었던 것인지, 잊고 싶지 않았던 것인지조차 알 수 없다. 분명했던 얼굴만 조금씩 흐려져 갔다.</p>
                   </div>
                 </section>
 
@@ -765,8 +782,8 @@
               <span class="status">ACTIVE</span>
             </div>
             <h2>현재</h2>
-            <p>흉터의 수는 셀 수 없었고, 약은 더이상 역할을 하지 못해 부작용만 남았다. 스스로 목줄을 꺼내 쓰지만 누구에게도 줄을 내어주지 않았다. 쥐려 하면 누구도 감당하지 못하도록 그 이상의 대가를 치르게했다.
-               금발의 연두색 눈동자, 쎄하지만 쾌활한 미소에 붉은 목도리를 두른 미친놈을 만나게 된다. 왜 낯이 익은거야.</p>
+            <p>흉터는 이제 굳이 세어 보지 않는다. 약도 오래전에 제 역할을 잃었고 남은 것은 부작용뿐이다. 목줄은 여전히 스스로 꺼내 쓰지만, 그 끝을 다른 사람의 손에 쥐여 주지는 않는다. 억지로 잡으려는 사람이 있다면 그만한 대가는 치르게 한다.
+               3월의 어느날, 금발에 연두색 눈을 가진 미친놈을 만났다. 쾌활하게 웃고, 목에는 붉은 목도리를 두르고 있었다. 처음 보는 얼굴이어야 하는데 이상하게 낯이 익었다. 이유는 아직 모르겠다.</p>
           </article>
         </div>
       </section>
@@ -818,3 +835,10 @@
 
 </body>
 </html>
+
+<style>
+  /* STORY HERO — title only */
+  .hero{padding:38px 0 28px;}
+  .hero .eyebrow{margin-bottom:12px;}
+  .hero h1{margin:0;}
+</style>
