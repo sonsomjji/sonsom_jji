@@ -172,7 +172,7 @@
 
     // 일반 대사
     const messages = [
-      "아직 보고 있어?",
+      "아직도 보고 있어?",
       "여긴 아무것도 없어.",
       "돌아가는 게 나을 텐데.",
       "이 정도면 충분하지 않나.",
@@ -189,13 +189,14 @@
       "네가 찾는 건 없어. 그게 뭐든.",
       "...겨울만 되면 머리가 아파.",
       "1227"
+      "약속은 못지켰어. 미안."
     ];
 
     // 극극희귀 대사 — 1%
     const ultraRareMessages = [
       {
         type: "ron",
-        text: "론, 미안해."
+        text: "론, 나 아직 살아있어."
       },
       {
         type: "leave",
@@ -238,7 +239,7 @@
 
     function showRonMessage(){
       resetMessageStyle();
-      el.innerHTML = '<span class="ron-red">론</span>, 미안해.';
+      el.innerHTML = '<span class="ron-red">론, 나 아직 살아있어.</span>';
     }
 
     function showLeaveMessage(){
