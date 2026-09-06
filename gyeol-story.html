@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Star Rain | GYEOL STORY ARCHIVE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#050306;
+      --panel:#09060b;
+      --panel-2:#0d0910;
+      --text:#b7aeb9;
+      --muted:#6f6573;
+      --dim:#3a303e;
+      --purple:#765582;
+      --purple-2:#4e3559;
+      --line:#24172a;
+      --red:#8f263d;
+      --system:"Share Tech Mono",monospace;
+      --ko:"Noto Sans KR","Malgun Gothic",sans-serif;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    html{
+      background:var(--bg);
+      scroll-behavior:smooth;
+    }
+
+    body{
+      min-height:100vh;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 50% -10%,rgba(91,44,109,.10),transparent 28%),
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent 4px,
+          rgba(255,255,255,.007) 5px
+        ),
+        var(--bg);
+      font-family:var(--system);
+    }
+
+    a{color:inherit;text-decoration:none}
+
+    .page{
+      width:min(1120px,calc(100% - 40px));
+      margin:0 auto;
+      padding:34px 0 72px;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      padding-bottom:16px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .route{
+      color:#55495a;
+      font-size:9px;
+      letter-spacing:1.5px;
+    }
+
+    .return{
+      color:#5d4d63;
+      font-size:9px;
+      letter-spacing:1.2px;
+      transition:.2s ease;
+    }
+
+    .return:hover{color:#9672a2}
+
+    .hero{
+      padding:44px 0 34px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .eyebrow{
+      color:#705c77;
+      font-size:9px;
+      letter-spacing:2.2px;
+      margin-bottom:10px;
+    }
+
+    h1{
+      font-size:clamp(28px,6vw,56px);
+      font-weight:400;
+      letter-spacing:.06em;
+      color:#c8becb;
+      line-height:1;
+    }
+
+    .subtitle{
+      margin-top:13px;
+      color:#5f5363;
+      font-family:var(--ko);
+      font-size:12px;
+      font-weight:300;
+      line-height:1.8;
+      word-break:keep-all;
+    }
+
+    .meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:19px;
+    }
+
+    .tag{
+      padding:6px 8px 5px;
+      border:1px solid #291d2e;
+      background:#09060b;
+      color:#6f5e75;
+      font-size:8px;
+      letter-spacing:1px;
+    }
+
+    .timeline{
+      position:relative;
+      margin-top:40px;
+      padding-left:142px;
+    }
+
+    .timeline::before{
+      content:"";
+      position:absolute;
+      left:111px;
+      top:8px;
+      bottom:10px;
+      width:1px;
+      background:linear-gradient(to bottom,#4c3654,#211627 88%,transparent);
+    }
+
+    .year-block{
+      position:relative;
+      padding:0 0 42px 0;
+    }
+
+    .year-block:last-child{padding-bottom:0}
+
+    .year-label{
+      position:absolute;
+      left:-142px;
+      top:-3px;
+      width:92px;
+      text-align:right;
+      color:#82688a;
+      font-size:18px;
+      letter-spacing:1px;
+    }
+
+    .year-label small{
+      display:block;
+      margin-top:3px;
+      color:#493c4d;
+      font-size:7px;
+      letter-spacing:1.4px;
+    }
+
+    .node{
+      position:absolute;
+      left:-36px;
+      top:5px;
+      width:9px;
+      height:9px;
+      border:1px solid #72577b;
+      background:var(--bg);
+      transform:rotate(45deg);
+      box-shadow:0 0 12px rgba(112,75,126,.12);
+    }
+
+    .year-block.major .node{
+      background:#52365d;
+      border-color:#90709b;
+    }
+
+    .year-block.major .year-label{
+      color:#aa8bb4;
+    }
+
+    .events{
+      display:grid;
+      gap:10px;
+    }
+
+    .event{
+      position:relative;
+      padding:16px 18px 15px;
+      border:1px solid #211626;
+      background:
+        linear-gradient(90deg,rgba(80,44,92,.055),transparent 48%),
+        #08050a;
+      transition:border-color .2s ease, transform .2s ease, background .2s ease;
+    }
+
+    .event:hover{
+      border-color:#3b2942;
+      background:
+        linear-gradient(90deg,rgba(92,51,106,.09),transparent 55%),
+        #0a070c;
+      transform:translateX(2px);
+    }
+
+    .event-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:8px;
+    }
+
+    .date{
+      color:#69566f;
+      font-size:8px;
+      letter-spacing:1.3px;
+      white-space:nowrap;
+    }
+
+    .status{
+      flex:none;
+      color:#4f4253;
+      font-size:7px;
+      letter-spacing:1px;
+    }
+
+    .event h2{
+      color:#b8adb9;
+      font-family:var(--ko);
+      font-size:14px;
+      font-weight:400;
+      line-height:1.5;
+      margin-bottom:7px;
+      word-break:keep-all;
+    }
+
+    .event p{
+      color:#766d79;
+      font-family:var(--ko);
+      font-size:11px;
+      font-weight:300;
+      line-height:1.9;
+      word-break:keep-all;
+    }
+
+    .event.redacted{
+      border-color:#25191e;
+      background:
+        linear-gradient(90deg,rgba(115,31,51,.055),transparent 54%),
+        #080507;
+    }
+
+    .event.redacted .date,
+    .event.redacted h2{color:#80515d}
+
+    .redact{
+      display:inline-block;
+      min-width:68px;
+      height:.9em;
+      vertical-align:-.05em;
+      background:#2b202d;
+      border-radius:1px;
+    }
+
+    .note{
+      margin-top:46px;
+      padding:14px 16px;
+      border-top:1px solid #211626;
+      border-bottom:1px solid #211626;
+      color:#4e424f;
+      font-size:8px;
+      line-height:1.7;
+      letter-spacing:.8px;
+    }
+
+    footer{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      margin-top:28px;
+      color:#342b37;
+      font-size:7px;
+      letter-spacing:1.1px;
+    }
+
+
+    .event.locked{
+      border-color:#261a2b;
+      background:
+        linear-gradient(90deg,rgba(74,42,84,.045),transparent 55%),
+        #070508;
+      overflow:hidden;
+    }
+
+    .locked-preview{
+      display:block;
+    }
+
+    .locked-preview .cipher{
+      color:#56465c;
+      font-size:10px;
+      letter-spacing:1.5px;
+      line-height:1.8;
+      word-break:break-all;
+      opacity:.7;
+      user-select:none;
+    }
+
+    .unlock-box{
+      margin-top:13px;
+      display:flex;
+      gap:7px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .unlock-input{
+      flex:1 1 160px;
+      min-width:0;
+      height:31px;
+      border:1px solid #2c2031;
+      background:#050306;
+      color:#9a899f;
+      padding:0 10px;
+      outline:none;
+      font:9px var(--system);
+      letter-spacing:1.2px;
+    }
+
+    .unlock-input:focus{
+      border-color:#5d4566;
+      box-shadow:0 0 0 1px rgba(93,69,102,.12);
+    }
+
+    .unlock-button{
+      height:31px;
+      padding:0 11px;
+      border:1px solid #35243b;
+      background:#0b070d;
+      color:#725c79;
+      font:8px var(--system);
+      letter-spacing:1px;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+
+    .unlock-button:hover{
+      color:#a58baa;
+      border-color:#5b4164;
+    }
+
+    .unlock-state{
+      width:100%;
+      margin-top:5px;
+      color:#55475a;
+      font-size:7px;
+      letter-spacing:.8px;
+      min-height:1em;
+    }
+
+    .locked-content{
+      display:none;
+    }
+
+    .event.unlocked{
+      border-color:#3a2941;
+      background:
+        linear-gradient(90deg,rgba(91,50,105,.08),transparent 54%),
+        #09060b;
+    }
+
+    .event.unlocked .locked-preview{
+      display:none;
+    }
+
+    .event.unlocked .locked-content{
+      display:block;
+      animation:unlockReveal .45s ease both;
+    }
+
+    @keyframes unlockReveal{
+      from{opacity:0;filter:blur(2px);transform:translateY(3px)}
+      to{opacity:1;filter:blur(0);transform:translateY(0)}
+    }
+
+
+    .range-content{
+      padding-top:2px;
+    }
+
+    .subtimeline{
+      position:relative;
+      margin-top:15px;
+      padding-left:104px;
+    }
+
+    .subtimeline::before{
+      content:"";
+      position:absolute;
+      left:75px;
+      top:7px;
+      bottom:7px;
+      width:1px;
+      background:linear-gradient(to bottom,#4b3654,#24182a);
+    }
+
+    .subevent{
+      position:relative;
+      display:grid;
+      grid-template-columns:1fr;
+      gap:0;
+      padding-bottom:18px;
+    }
+
+    .subevent:last-child{
+      padding-bottom:0;
+    }
+
+    .subevent::before{
+      content:"";
+      position:absolute;
+      left:-33px;
+      top:9px;
+      width:7px;
+      height:7px;
+      border:1px solid #765982;
+      background:#09060b;
+      transform:rotate(45deg);
+    }
+
+    .subage{
+      position:absolute;
+      left:-104px;
+      top:0;
+      width:58px;
+      text-align:right;
+    }
+
+    .subage strong{
+      display:block;
+      color:#9a7ca3;
+      font-size:13px;
+      font-weight:400;
+      letter-spacing:.5px;
+    }
+
+    .subage small{
+      display:block;
+      margin-top:3px;
+      color:#504354;
+      font-size:6px;
+      line-height:1.4;
+      letter-spacing:.8px;
+    }
+
+    .subrecord{
+      padding:13px 15px 12px;
+      border:1px solid #24182a;
+      background:#070509;
+    }
+
+
+    /* SINGLE PROTECTED RANGE */
+    #protectedArchive .locked-content{
+      display:none !important;
+    }
+
+    #protectedArchive.unlocked .locked-preview{
+      display:none !important;
+    }
+
+    #protectedArchive.unlocked .locked-content{
+      display:block !important;
+      animation:unlockReveal .45s ease both;
+    }
+
+    .decrypt-head{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      padding-bottom:12px;
+      margin-bottom:15px;
+      border-bottom:1px solid #2a1c30;
+      color:#705c77;
+      font-size:7px;
+      letter-spacing:1.1px;
+    }
+
+    @media(max-width:720px){
+      .decrypt-head{
+        flex-direction:column;
+        gap:4px;
+      }
+    }
+
+    @media(max-width:720px){
+      .subtimeline{
+        padding-left:24px;
+      }
+
+      .subtimeline::before{
+        left:4px;
+      }
+
+      .subevent::before{
+        left:-23px;
+      }
+
+      .subage{
+        position:relative;
+        left:auto;
+        top:auto;
+        width:auto;
+        text-align:left;
+        margin-bottom:8px;
+      }
+
+      .subage strong,
+      .subage small{
+        display:inline;
+      }
+
+      .subage small{
+        margin-left:6px;
+      }
+    }
+
+    @media(max-width:720px){
+      .page{
+        width:min(100% - 28px,680px);
+        padding-top:24px;
+      }
+
+      .topbar{align-items:flex-start}
+      .route{max-width:68%;line-height:1.6}
+
+      .hero{padding:34px 0 28px}
+
+      .timeline{
+        margin-top:34px;
+        padding-left:28px;
+      }
+
+      .timeline::before{
+        left:5px;
+        top:8px;
+      }
+
+      .year-block{
+        padding-bottom:36px;
+      }
+
+      .year-label{
+        position:relative;
+        left:auto;
+        top:auto;
+        width:auto;
+        text-align:left;
+        margin-bottom:12px;
+        font-size:16px;
+      }
+
+      .year-label small{
+        display:inline;
+        margin-left:7px;
+      }
+
+      .node{
+        left:-27px;
+        top:8px;
+      }
+
+      .event{
+        padding:14px 14px 13px;
+      }
+
+      .event-head{
+        gap:8px;
+      }
+
+      .event h2{font-size:13px}
+      .event p{font-size:10.5px;line-height:1.85}
+
+      footer{
+        flex-direction:column;
+        gap:7px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <header class="topbar">
+      <div class="route">ROOT / DATABASE / 結(決) / STORY</div>
+      <a class="return" href="gyeol.html">&lt; RETURN TO SUBJECT</a>
+    </header>
+
+    <section class="hero">
+      <div class="eyebrow">CHRONOLOGICAL RECORD / SUBJECT_012</div>
+      <h1>STORY</h1>
+      <p class="subtitle">
+        대상의 행적을 연령과 현재로부터의 경과 시간을 기준으로 정리한 기록. 일부 구간은 암호화되어 접근이 제한되어 있다.
+      </p>
+
+      <div class="meta">
+        <span class="tag">SUBJECT : 結(決)</span>
+        <span class="tag">FORMAT : AGE TIMELINE</span>
+        <span class="tag">STATUS : PARTIALLY RECOVERED</span>
+      </div>
+    </section>
+
+    <main class="timeline">
+
+      <!-- 07세 / 공개 -->
+      <section class="year-block">
+        <div class="year-label">07세<small>21 YEARS AGO</small></div>
+        <span class="node" aria-hidden="true"></span>
+        <div class="events">
+          <article class="event">
+            <div class="event-head">
+              <span class="date">AGE 07</span>
+              <span class="status">VERIFIED</span>
+            </div>
+            <h2>기록 제목</h2>
+            <p>7세 시기의 사건을 입력합니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 12세 / 공개 -->
+      <section class="year-block">
+        <div class="year-label">12세<small>16 YEARS AGO</small></div>
+        <span class="node" aria-hidden="true"></span>
+        <div class="events">
+          <article class="event">
+            <div class="event-head">
+              <span class="date">AGE 12</span>
+              <span class="status">VERIFIED</span>
+            </div>
+            <h2>기록 제목</h2>
+            <p>12세 시기의 사건을 입력합니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 23~26세 / 단일 암호화 구간 -->
+      <section class="year-block major protected-range">
+        <div class="year-label">23–26세<small>5–2 YEARS AGO</small></div>
+        <span class="node" aria-hidden="true"></span>
+
+        <div class="events">
+          <article class="event locked range-lock" id="protectedArchive">
+
+            <!-- 잠금 상태에서는 이것만 보임 -->
+            <div class="locked-preview">
+              <div class="event-head">
+                <span class="date">AGE 23–26 / ENCRYPTED</span>
+                <span class="status">ACCESS RESTRICTED</span>
+              </div>
+
+              <h2>보호 기록</h2>
+              <p class="cipher">
+                ████ ██████ ███ / MEMORY SEGMENT 23–26 / ENCRYPTED
+              </p>
+
+              <div class="unlock-box">
+                <input
+                  id="archiveKey"
+                  class="unlock-input"
+                  type="password"
+                  inputmode="numeric"
+                  maxlength="4"
+                  autocomplete="off"
+                  placeholder="ACCESS KEY"
+                  aria-label="Access key"
+                >
+                <button id="decryptButton" class="unlock-button" type="button">DECRYPT</button>
+                <div id="unlockState" class="unlock-state" aria-live="polite"></div>
+              </div>
+            </div>
+
+            <!-- 1227 입력 전에는 CSS상 display:none -->
+            <div class="locked-content" id="protectedContent">
+
+              <div class="decrypt-head">
+                <span>DECRYPTION COMPLETE</span>
+                <span>3 RECORDS RECOVERED</span>
+              </div>
+
+              <div class="subtimeline">
+
+                <section class="subevent">
+                  <div class="subage">
+                    <strong>23세</strong>
+                    <small>5 YEARS AGO</small>
+                  </div>
+                  <div class="subrecord">
+                    <div class="event-head">
+                      <span class="date">AGE 23</span>
+                      <span class="status">DECRYPTED</span>
+                    </div>
+                    <h2>각성</h2>
+                    <p>각성.</p>
+                  </div>
+                </section>
+
+                <section class="subevent">
+                  <div class="subage">
+                    <strong>24세</strong>
+                    <small>4 YEARS AGO</small>
+                  </div>
+                  <div class="subrecord">
+                    <div class="event-head">
+                      <span class="date">AGE 24</span>
+                      <span class="status">DECRYPTED</span>
+                    </div>
+                    <h2>24세 기록</h2>
+                    <p>24세 시기의 사건을 입력합니다.</p>
+                  </div>
+                </section>
+
+                <section class="subevent">
+                  <div class="subage">
+                    <strong>26세</strong>
+                    <small>2 YEARS AGO</small>
+                  </div>
+                  <div class="subrecord">
+                    <div class="event-head">
+                      <span class="date">AGE 26</span>
+                      <span class="status">DECRYPTED</span>
+                    </div>
+                    <h2>26세 기록</h2>
+                    <p>26세 시기의 사건을 입력합니다.</p>
+                  </div>
+                </section>
+
+              </div>
+            </div>
+
+          </article>
+        </div>
+      </section>
+
+      <!-- 현재 / 공개 -->
+      <section class="year-block">
+        <div class="year-label">28세<small>CURRENT</small></div>
+        <span class="node" aria-hidden="true"></span>
+        <div class="events">
+          <article class="event">
+            <div class="event-head">
+              <span class="date">PRESENT</span>
+              <span class="status">ACTIVE</span>
+            </div>
+            <h2>현재</h2>
+            <p>현재 시점의 사건과 상태를 입력합니다.</p>
+          </article>
+        </div>
+      </section>
+
+    </main>
+
+    <div class="note">
+      ※ CHRONOLOGY DATA MAY CONTAIN MISSING INTERVALS, ALTERED IDENTIFIERS, OR UNVERIFIED TESTIMONY.
+    </div>
+
+    <footer>
+      <span>STAR RAIN / INTERNAL DATABASE</span>
+      <span>結(決) / STORY</span>
+    </footer>
+
+  </div>
+
+  <script>
+    const ACCESS_KEY = "1227";
+
+    const archive = document.getElementById("protectedArchive");
+    const input = document.getElementById("archiveKey");
+    const button = document.getElementById("decryptButton");
+    const state = document.getElementById("unlockState");
+
+    function decryptArchive(){
+      if(input.value.trim() !== ACCESS_KEY){
+        state.textContent = "> ACCESS DENIED";
+        input.value = "";
+        input.focus();
+        return;
+      }
+
+      state.textContent = "> ACCESS GRANTED / DECRYPTING...";
+
+      setTimeout(() => {
+        archive.classList.add("unlocked");
+      }, 550);
+    }
+
+    button.addEventListener("click", decryptArchive);
+
+    input.addEventListener("keydown", event => {
+      if(event.key === "Enter"){
+        decryptArchive();
+      }
+    });
+  </script>
+
+</body>
+</html>
