@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Star Rain | 404</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#000;
+      --text:#8b828f;
+      --dim:#4b404f;
+      --purple:#765582;
+      --line:#211527;
+      --system:"Share Tech Mono",Consolas,monospace;
+      --ko:"Noto Sans KR","Malgun Gothic",sans-serif;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    html,body{
+      width:100%;
+      min-height:100%;
+      background:#000;
+    }
+
+    body{
+      min-height:100vh;
+      overflow:hidden;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 50% 44%,rgba(83,35,102,.075),transparent 34%),
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent 4px,
+          rgba(255,255,255,.008) 5px
+        ),
+        var(--bg);
+      font-family:var(--system);
+    }
+
+    .screen{
+      position:relative;
+      width:100%;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      padding:32px 24px;
+      isolation:isolate;
+    }
+
+    .screen::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(to right,rgba(0,0,0,.9),transparent 16%,transparent 84%,rgba(0,0,0,.9)),
+        linear-gradient(to bottom,rgba(0,0,0,.65),transparent 16%,transparent 82%,rgba(0,0,0,.72));
+      z-index:-1;
+    }
+
+    .error-block{
+      width:min(90vw,560px);
+      text-align:center;
+      transform:translateY(-2vh);
+    }
+
+    .code{
+      color:#302734;
+      font-size:10px;
+      letter-spacing:2.4px;
+      margin-bottom:18px;
+      user-select:none;
+    }
+
+    .message{
+      min-height:2.2em;
+      color:#8b828f;
+      font-family:var(--ko);
+      font-size:clamp(13px,1.7vw,16px);
+      font-weight:300;
+      line-height:1.8;
+      letter-spacing:.05em;
+      opacity:1;
+      transition:opacity .9s ease, filter .9s ease, color .25s ease;
+      text-shadow:0 0 10px rgba(139,92,158,.06);
+      word-break:keep-all;
+    }
+
+    .message.fade{
+      opacity:0;
+      filter:blur(.5px);
+    }
+
+    .message.red{
+      color:#8f263d;
+      text-shadow:0 0 12px rgba(143,38,61,.18);
+    }
+
+    .ron-red{
+      color:#8f263d;
+      text-shadow:0 0 10px rgba(143,38,61,.18);
+    }
+
+    .return{
+      display:inline-block;
+      margin-top:34px;
+      color:#342b38;
+      font-size:8px;
+      letter-spacing:1.25px;
+      transition:color .25s ease,text-shadow .25s ease;
+    }
+
+    .return:hover{
+      color:#725380;
+      text-shadow:0 0 8px rgba(144,82,173,.18);
+    }
+
+    .corner{
+      position:fixed;
+      right:18px;
+      bottom:14px;
+      color:#171119;
+      font-size:6px;
+      letter-spacing:1px;
+      user-select:none;
+      pointer-events:none;
+    }
+
+    @media(max-width:600px){
+      .screen{padding:22px 18px}
+      .error-block{width:min(92vw,430px)}
+      .code{font-size:8px;letter-spacing:1.8px;margin-bottom:15px}
+      .message{
+        min-height:2.5em;
+        font-size:13px;
+        line-height:1.75;
+      }
+      .return{
+        margin-top:28px;
+        font-size:7px;
+      }
+      .corner{
+        right:10px;
+        bottom:9px;
+        font-size:5px;
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      .message{transition:opacity .2s linear,color .2s linear}
+    }
+  </style>
+</head>
+<body>
+  <main class="screen">
+    <section class="error-block" aria-live="polite">
+      <p class="code">404 / UNRESOLVED NODE</p>
+      <p class="message" id="message">그래도 여기까지 왔네.</p>
+      <a class="return" href="gateway.html">&lt; RETURN</a>
+    </section>
+
+    <span class="corner" aria-hidden="true">NO RECORD</span>
+  </main>
+
+  <script>
+    const el = document.getElementById("message");
+
+    // 일반 대사
+    const messages = [
+      "아직 보고 있어?",
+      "여긴 아무것도 없어.",
+      "돌아가는 게 나을 텐데.",
+      "이 정도면 충분하지 않나.",
+      "뭘 찾는 건데.",
+      "…….",
+      "계속 볼 거냐.",
+      "잘못 들어온 거 아니야.",
+      "봤으면 됐어.",
+      "이건 기록에 안 남으니까."
+    ];
+
+    // 희귀 대사 — 10%
+    const rareMessages = [
+      "네가 찾는 건 없어. 그게 뭐든.",
+      "...겨울만 되면 머리가 아파.",
+      "1227"
+    ];
+
+    // 극극희귀 대사 — 1%
+    const ultraRareMessages = [
+      {
+        type: "ron",
+        text: "론, 미안해."
+      },
+      {
+        type: "leave",
+        text: "이제 꺼져."
+      }
+    ];
+
+    const RARE_CHANCE = 0.10;
+    const ULTRA_RARE_CHANCE = 0.01;
+
+    let lastText = "";
+    let redirecting = false;
+
+    function randomBetween(min,max){
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function pickRandom(list){
+      let item;
+      let text;
+
+      do{
+        item = list[Math.floor(Math.random() * list.length)];
+        text = typeof item === "string" ? item : item.text;
+      }while(text === lastText && list.length > 1);
+
+      lastText = text;
+      return item;
+    }
+
+    function resetMessageStyle(){
+      el.classList.remove("red");
+      el.innerHTML = "";
+    }
+
+    function showNormalMessage(text){
+      resetMessageStyle();
+      el.textContent = text;
+    }
+
+    function showRonMessage(){
+      resetMessageStyle();
+      el.innerHTML = '<span class="ron-red">론</span>, 미안해.';
+    }
+
+    function showLeaveMessage(){
+      resetMessageStyle();
+      el.textContent = "이제 꺼져.";
+      el.classList.add("red");
+      redirecting = true;
+
+      // 대사를 잠깐 보여준 뒤 결 페이지로 강제 이동
+      setTimeout(() => {
+        window.location.href = "gyeol.html";
+      }, 2200);
+    }
+
+    function nextMessage(){
+      if(redirecting) return;
+
+      // 약 15% 확률로 아무 말도 하지 않고 공백 유지
+      if(Math.random() < 0.15){
+        el.classList.add("fade");
+        setTimeout(nextMessage, randomBetween(3500, 8500));
+        return;
+      }
+
+      el.classList.add("fade");
+
+      setTimeout(() => {
+        if(redirecting) return;
+
+        const roll = Math.random();
+
+        // 1% 극극희귀
+        if(roll < ULTRA_RARE_CHANCE){
+          const ultra = pickRandom(ultraRareMessages);
+
+          if(ultra.type === "ron"){
+            showRonMessage();
+          }else if(ultra.type === "leave"){
+            showLeaveMessage();
+          }
+        }
+
+        // 10% 희귀
+        else if(roll < ULTRA_RARE_CHANCE + RARE_CHANCE){
+          showNormalMessage(pickRandom(rareMessages));
+        }
+
+        // 89% 일반
+        else{
+          showNormalMessage(pickRandom(messages));
+        }
+
+        el.classList.remove("fade");
+
+        if(!redirecting){
+          setTimeout(nextMessage, randomBetween(3200, 10500));
+        }
+      }, randomBetween(650, 1450));
+    }
+
+    // 첫 문장 "그래도 여기까지 왔네."를 잠시 유지
+    setTimeout(nextMessage, randomBetween(5000, 8500));
+  </script>
+
+  <!-- 그래도 여기까지 왔네. -->
+</body>
+</html>
