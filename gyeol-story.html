@@ -833,8 +833,6 @@
     });
   </script>
 
-</body>
-</html>
 
 <style>
   /* STORY HERO — title only */
@@ -842,3 +840,29 @@
   .hero .eyebrow{margin-bottom:12px;}
   .hero h1{margin:0;}
 </style>
+
+<style>
+  /* ARCHIVE HERO COLOR MATCH */
+  .hero h1{
+    color:#e8b8ff !important;
+    text-shadow:
+      0 0 5px rgba(220,154,255,.85),
+      0 0 14px rgba(186,104,224,.35);
+  }
+
+  /* Keep '12세, 그 뒤.' on one line */
+  .year-label{
+    white-space:nowrap;
+  }
+
+  @media(max-width:720px){
+    .year-label{
+      white-space:nowrap;
+      width:max-content;
+      max-width:100%;
+    }
+  }
+</style>
+
+</body>
+</html>
