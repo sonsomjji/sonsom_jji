@@ -768,6 +768,32 @@
         left:13px !important;
       }
     }
+  
+    /* YEONRI MISCHIEF EASTER EGG */
+    .dragon-footprint-trigger{position:absolute;right:28px;bottom:38px;z-index:8;width:194px;padding:0;border:0;background:transparent;cursor:default;transform:rotate(-11deg) scaleX(.97);transform-origin:center}
+    .dragon-footprint-trigger .dragon-footprint{position:static !important;right:auto !important;bottom:auto !important;width:100% !important;opacity:.76 !important;transform:none !important;pointer-events:none !important}
+    .dragon-footprint-trigger.bump{animation:pawBump .22s ease}
+    @keyframes pawBump{50%{transform:rotate(-11deg) scaleX(.97) scale(.965)}}
+    .yeonri-egg-layer{position:fixed;inset:0;z-index:999;pointer-events:none;overflow:hidden}
+    .paw-trail{position:absolute;inset:0}
+    .egg-paw{position:absolute;width:58px;opacity:0;filter:saturate(.9) brightness(.78);mix-blend-mode:screen;transform:rotate(var(--r,0deg)) scale(.78);animation:pawAppear .5s ease forwards}
+    @keyframes pawAppear{to{opacity:.22;transform:rotate(var(--r,0deg)) scale(1)}}
+    .mischief-note{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(8px);color:#8e7d96;font-family:var(--font-system);font-size:8px;letter-spacing:1.1px;opacity:0;transition:opacity .3s ease,transform .3s ease;white-space:nowrap}
+    .mischief-note.show{opacity:.82;transform:translateX(-50%) translateY(0)}
+    .baby-dragon-card{position:fixed;right:clamp(16px,5vw,72px);bottom:clamp(58px,8vh,92px);width:min(300px,78vw);padding:10px;border:1px solid #34243a;background:#0a070c;box-shadow:0 18px 50px rgba(0,0,0,.58);opacity:0;transform:translate(28px,24px) rotate(4deg) scale(.94);transition:opacity .45s ease,transform .55s cubic-bezier(.2,.8,.2,1);pointer-events:none;cursor:pointer;text-align:left}
+    .baby-dragon-card.show{opacity:1;transform:translate(0,0) rotate(-2deg) scale(1);pointer-events:auto}
+    .baby-dragon-card.escape{transform:translate(130%,35%) rotate(12deg) scale(.9);opacity:0}
+    .baby-dragon-photo{position:relative;aspect-ratio:4/3;overflow:hidden;border:1px solid #231928;background:radial-gradient(circle at 50% 46%,rgba(137,94,150,.13),transparent 44%),#050406}
+    .baby-dragon-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.72) brightness(.8)}
+    .baby-dragon-fallback{position:absolute;inset:0;display:none;place-items:center;font-size:72px;filter:grayscale(.25) saturate(.65) brightness(.82)}
+    .baby-dragon-meta{padding:9px 3px 2px;font-family:var(--font-system)}
+    .baby-dragon-meta span{display:block;color:#8a7291;font-size:7px;letter-spacing:1.2px}
+    .baby-dragon-meta strong{display:block;margin-top:4px;color:#cbb6d1;font-size:9px;font-weight:400;letter-spacing:.7px}
+    .baby-dragon-meta small{display:block;margin-top:7px;color:#6e5c73;font-family:var(--font-korean);font-size:9px}
+    body.yeonri-mischief .personnel-file{animation:paperNudge .42s ease}
+    @keyframes paperNudge{0%,100%{transform:translateX(0)}30%{transform:translateX(-3px) rotate(-.08deg)}68%{transform:translateX(2px) rotate(.06deg)}}
+    @media(max-width:680px){.dragon-footprint-trigger{right:6px;bottom:20px;width:136px;transform:rotate(-10deg) scaleX(.97)}.egg-paw{width:44px}.baby-dragon-card{right:14px;bottom:54px;width:min(270px,82vw)}}
+
   </style>
 
 </head>
@@ -825,7 +851,7 @@
       <div class="section-heading"><h2>PERSONNEL FILE</h2><span>CURRENT PERSONNEL RECORD</span></div>
       <div class="document-stage">
         <article class="personnel-file">
-          <img class="dragon-footprint" src="dragon-paw.png" alt="" aria-hidden="true">
+          <button class="dragon-footprint-trigger" id="dragonFootprintTrigger" type="button" aria-label="알 수 없는 흔적"><img class="dragon-footprint" src="dragon-paw.png" alt="" aria-hidden="true"></button>
           <div class="paper-top">
             <div class="agency">
               <p class="agency-code">STAR RAIN / INTERNAL SECURITY BUREAU</p>
@@ -942,6 +968,24 @@
     </nav>
 
     <footer class="footer"><p>STAR RAIN PRIVATE NETWORK</p><p>SUBJECT_YEONRI / SESSION ENCRYPTED</p></footer>
+
+    <!-- YEONRI MISCHIEF EASTER EGG -->
+    <div class="yeonri-egg-layer" id="yeonriEggLayer" aria-hidden="true">
+      <div class="paw-trail" id="pawTrail"></div>
+      <button class="baby-dragon-card" id="babyDragonCard" type="button" aria-label="발견된 미등록 이미지">
+        <div class="baby-dragon-photo">
+          <img id="babyDragonImage" src="yeonri-baby-dragon.png" alt="연리의 어린 시절 용 형태">
+          <span class="baby-dragon-fallback" id="babyDragonFallback" aria-hidden="true">🐉</span>
+        </div>
+        <div class="baby-dragon-meta">
+          <span>UNREGISTERED IMAGE</span>
+          <strong>SUBJECT_YEONRI / AGE UNKNOWN</strong>
+          <small>왜 이 사진이 여기 있지?</small>
+        </div>
+      </button>
+      <div class="mischief-note" id="mischiefNote" aria-live="polite"></div>
+    </div>
+
   </main>
 
   <script>
@@ -1003,6 +1047,23 @@
     });
 
     updateSlide();
+  
+    /* YEONRI MISCHIEF EASTER EGG */
+    const dragonFootprintTrigger=document.getElementById('dragonFootprintTrigger');
+    const yeonriEggLayer=document.getElementById('yeonriEggLayer');
+    const pawTrail=document.getElementById('pawTrail');
+    const babyDragonCard=document.getElementById('babyDragonCard');
+    const babyDragonImage=document.getElementById('babyDragonImage');
+    const babyDragonFallback=document.getElementById('babyDragonFallback');
+    const mischiefNote=document.getElementById('mischiefNote');
+    let pawClicks=0;let eggTriggered=false;
+    babyDragonImage?.addEventListener('error',()=>{babyDragonImage.style.display='none';babyDragonFallback.style.display='grid';});
+    function showMischiefNote(text,duration=1600){if(!mischiefNote)return;mischiefNote.textContent=text;mischiefNote.classList.add('show');setTimeout(()=>mischiefNote.classList.remove('show'),duration);}
+    function addPaw(x,y,r,delay){setTimeout(()=>{const img=document.createElement('img');img.className='egg-paw';img.src='dragon-paw.png';img.alt='';img.style.left=x+'%';img.style.top=y+'%';img.style.setProperty('--r',r+'deg');pawTrail.appendChild(img);},delay);}
+    function triggerYeonriMischief(){if(eggTriggered)return;eggTriggered=true;document.body.classList.add('yeonri-mischief');yeonriEggLayer?.setAttribute('aria-hidden','false');[[9,76,-24],[20,67,13],[32,73,-8],[45,61,18],[58,69,-17],[70,57,12],[82,64,-9]].forEach((p,i)=>addPaw(p[0],p[1],p[2],i*145));showMischiefNote('...또 뭘 건드린 거야.',2200);setTimeout(()=>babyDragonCard?.classList.add('show'),1250);}
+    dragonFootprintTrigger?.addEventListener('click',()=>{if(eggTriggered)return;pawClicks++;dragonFootprintTrigger.classList.remove('bump');void dragonFootprintTrigger.offsetWidth;dragonFootprintTrigger.classList.add('bump');if(pawClicks===3)showMischiefNote('......',850);else if(pawClicks===4)showMischiefNote('방금 움직였나?',1100);else if(pawClicks>=5)triggerYeonriMischief();});
+    babyDragonCard?.addEventListener('click',()=>{if(babyDragonCard.classList.contains('escape'))return;showMischiefNote('잡으려니까 도망갔다.',1500);babyDragonCard.classList.add('escape');setTimeout(()=>{if(pawTrail)pawTrail.innerHTML='';},900);});
+
   </script>
 </body>
 </html>
