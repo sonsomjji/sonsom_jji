@@ -3,51 +3,255 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>╾━[0x00::∅::7F]━╼ | Archive Gateway</title>
+  <title>Archive Gateway</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
   <style>
-    :root{--bg:#000;--panel:rgba(10,6,13,.9);--line:#2b1933;--purple:#cc91ff;--purple2:#a86fc5;--sub:#786981;--dim:#4a3b50;--system:"Share Tech Mono",Consolas,monospace;--ko:"Noto Sans KR","Malgun Gothic",sans-serif}
+    :root{
+      --bg:#000;
+      --panel:#08050a;
+      --panel2:#0d0810;
+      --line:#26172c;
+      --line2:#402149;
+      --purple:#d79aff;
+      --purple2:#9d60ba;
+      --sub:#73637a;
+      --dim:#47384d;
+      --dark:#130b17;
+      --system:"Share Tech Mono",Consolas,monospace;
+      --ko:"Noto Sans KR","Malgun Gothic",sans-serif;
+    }
+
     *{box-sizing:border-box;margin:0;padding:0}
-    html,body{min-height:100%}
-    body{min-height:100vh;background:radial-gradient(circle at 50% 18%,rgba(100,25,145,.13),transparent 30%),#000;color:#eee;overflow-x:hidden}
+    html,body{min-height:100%;background:#000}
+
+    body{
+      min-height:100vh;
+      color:#eee;
+      overflow-x:hidden;
+      background:
+        radial-gradient(circle at 52% -5%,rgba(117,32,153,.13),transparent 29%),
+        radial-gradient(circle at 0 50%,rgba(73,18,91,.05),transparent 32%),
+        #000;
+    }
+
     a{color:inherit;text-decoration:none}
-    .scan{position:fixed;inset:0;pointer-events:none;z-index:20;opacity:.17;background:repeating-linear-gradient(to bottom,transparent 0,transparent 3px,rgba(184,119,218,.035) 4px)}
-    .grid-bg{position:fixed;inset:0;pointer-events:none;background:linear-gradient(rgba(164,84,207,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(164,84,207,.015) 1px,transparent 1px);background-size:52px 52px}
-    .page{position:relative;z-index:2;width:min(calc(100% - 36px),1120px);margin:0 auto;padding:28px 0 80px}
-    .top{min-height:58px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);font-family:var(--system);font-size:9px;letter-spacing:1.2px;color:#67526f}
-    .status{display:flex;align-items:center;gap:8px}.dot{width:5px;height:5px;background:#c98be8;box-shadow:0 0 9px rgba(201,139,232,.65);animation:blink 1.4s steps(1) infinite}@keyframes blink{50%{opacity:.2}}
-    .back:hover{color:var(--purple)}
-    .hero{padding:82px 0 50px;border-bottom:1px solid var(--line)}
-    .route{font:9px var(--system);letter-spacing:1.4px;color:#5c4863}
-    h1{margin-top:16px;font:400 clamp(38px,7vw,68px)/1 var(--system);letter-spacing:3px;color:#e1b8ff;text-shadow:0 0 18px rgba(156,78,205,.18)}
-    .hero p:last-child{margin-top:18px;max-width:670px;font:300 12px/1.9 var(--ko);color:#88798f;word-break:keep-all}
-    .menu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding-top:34px}
-    .card{position:relative;min-height:250px;padding:24px;border:1px solid var(--line);background:linear-gradient(145deg,rgba(16,10,20,.92),rgba(4,2,5,.98));transition:.22s ease;overflow:hidden}
-    .card::after{content:"";position:absolute;inset:auto 0 0;height:1px;background:linear-gradient(90deg,transparent,#6c3f7a,transparent);opacity:.5}
-    .card.active:hover{transform:translateY(-4px);border-color:#6f4080;box-shadow:0 20px 45px rgba(0,0,0,.35),0 0 24px rgba(145,67,190,.08)}
-    .num{font:8px var(--system);letter-spacing:1.3px;color:#5a4461}
-    .card h2{margin-top:34px;font:400 22px var(--system);letter-spacing:1.3px;color:#d8c2df}
-    .card p{margin-top:12px;max-width:380px;font:300 11px/1.8 var(--ko);color:#76697b;word-break:keep-all}
-    .open{position:absolute;left:24px;bottom:22px;font:9px var(--system);letter-spacing:1px;color:#9165a0}.active:hover .open{color:#d39cff;text-shadow:0 0 8px rgba(176,91,229,.35)}
-    .locked{opacity:.5}.locked h2{color:#817487}.lock{position:absolute;right:20px;top:20px;padding:5px 7px;border:1px solid #3a2a3f;font:7px var(--system);letter-spacing:1px;color:#67586d}
-    footer{margin-top:58px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;font:8px var(--system);letter-spacing:.9px;color:#433748}
-    @media(max-width:720px){.page{width:min(calc(100% - 24px),1120px)}.hero{padding:58px 0 38px}.menu{grid-template-columns:1fr}.card{min-height:210px}.top{font-size:7px}.hero p:last-child{font-size:11px}}
+    ::selection{background:#7d3e96;color:#fff}
+
+    .grid-bg{
+      position:fixed;inset:0;pointer-events:none;z-index:0;
+      background:
+        linear-gradient(rgba(185,111,218,.018) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(185,111,218,.018) 1px,transparent 1px);
+      background-size:48px 48px;
+      mask-image:linear-gradient(to bottom,rgba(0,0,0,.9),rgba(0,0,0,.3));
+    }
+
+    .noise{
+      position:fixed;inset:0;z-index:30;pointer-events:none;opacity:.035;
+      background-image:repeating-radial-gradient(circle at 20% 30%,#fff 0 1px,transparent 1px 3px);
+      background-size:5px 5px;mix-blend-mode:screen;
+    }
+
+    .scanlines{
+      position:fixed;inset:0;pointer-events:none;z-index:25;opacity:.18;
+      background:repeating-linear-gradient(to bottom,transparent 0,transparent 3px,rgba(211,151,255,.035) 4px);
+    }
+
+    .sweep{
+      position:fixed;left:0;right:0;top:-16vh;height:14vh;z-index:24;pointer-events:none;
+      background:linear-gradient(to bottom,transparent,rgba(204,145,255,.035),transparent);
+      animation:sweep 8s linear infinite;
+    }
+    @keyframes sweep{to{transform:translateY(130vh)}}
+
+    .page{
+      position:relative;z-index:2;width:min(calc(100% - 40px),1160px);margin:0 auto;padding:24px 0 64px;
+    }
+
+    .top{
+      min-height:54px;display:flex;justify-content:space-between;align-items:center;
+      border-top:1px solid #160d19;border-bottom:1px solid var(--line);
+      font:8px var(--system);letter-spacing:1.3px;color:#624c69;text-transform:uppercase;
+    }
+
+    .status{display:flex;align-items:center;gap:9px}
+    .dot{
+      width:5px;height:5px;background:#d99bff;
+      box-shadow:0 0 7px rgba(217,155,255,.75),0 0 17px rgba(170,86,210,.25);
+      animation:blink 1.25s steps(1) infinite;
+    }
+    @keyframes blink{45%{opacity:.25}}
+
+    .back{transition:.2s ease}
+    .back:hover{color:var(--purple);text-shadow:0 0 10px rgba(204,145,255,.25)}
+
+    .terminal-strip{
+      margin-top:18px;border-left:1px solid #3a2042;padding:4px 0 4px 12px;
+      font:7px/1.75 var(--system);letter-spacing:1px;color:#4e3f53;white-space:nowrap;overflow:hidden;
+    }
+    .terminal-strip .live{color:#896294}
+
+    .hero{position:relative;padding:30px 0 28px;border-bottom:1px solid var(--line)}
+    .hero::after{
+      content:"";position:absolute;left:0;bottom:-1px;width:135px;height:1px;
+      background:linear-gradient(90deg,#8e4fa3,transparent);box-shadow:0 0 8px rgba(155,81,184,.28);
+    }
+
+    .route{font:8px var(--system);letter-spacing:1.8px;color:#5e4666}
+    .hero-copy{margin-top:12px;max-width:660px;font:300 10.5px/1.85 var(--ko);color:#786a7e;word-break:keep-all}
+
+    .micro{margin-top:15px;display:flex;flex-wrap:wrap;gap:14px;font:7px var(--system);letter-spacing:1px;color:#493a4e}
+    .micro span::before{content:"//";margin-right:5px;color:#694675}
+
+    .menu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding-top:24px}
+
+    .card{
+      position:relative;min-height:226px;padding:20px 20px 21px;border:1px solid #221428;
+      background:linear-gradient(180deg,rgba(15,9,18,.82),rgba(4,2,5,.97));overflow:hidden;
+      transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease,background .2s ease;
+    }
+
+    .card::before{
+      content:"";position:absolute;inset:0;opacity:.18;
+      background:
+        linear-gradient(90deg,transparent 0 49.85%,rgba(202,137,235,.08) 50%,transparent 50.15%),
+        linear-gradient(transparent 0 49.85%,rgba(202,137,235,.05) 50%,transparent 50.15%);
+      background-size:32px 32px;pointer-events:none;
+    }
+
+    .card::after{
+      content:"";position:absolute;left:0;right:0;bottom:0;height:1px;
+      background:linear-gradient(90deg,transparent,#7a3d8c,transparent);opacity:.42;
+    }
+
+    .card.active:hover{
+      transform:translateY(-2px);border-color:#5f346d;
+      background:linear-gradient(180deg,rgba(20,11,24,.93),rgba(5,3,7,.99));
+      box-shadow:0 0 0 1px rgba(146,73,170,.04),0 12px 35px rgba(0,0,0,.38),inset 0 0 34px rgba(120,50,148,.035);
+    }
+
+    .card.active:hover .glitchline{opacity:1;transform:translateX(0)}
+    .num{position:relative;z-index:2;font:7px var(--system);letter-spacing:1.35px;color:#59415f}
+    .checksum{position:absolute;right:18px;top:19px;z-index:2;font:6px var(--system);letter-spacing:.9px;color:#392d3d}
+
+    .card h2{position:relative;z-index:2;margin-top:31px;font:400 19px var(--system);letter-spacing:1.15px;color:#d6c1dd;text-shadow:0 0 12px rgba(191,116,225,.06)}
+    .card p{position:relative;z-index:2;margin-top:10px;max-width:390px;font:300 10px/1.8 var(--ko);color:#6f6274;word-break:keep-all}
+
+    .open{position:absolute;z-index:2;left:20px;bottom:18px;font:8px var(--system);letter-spacing:1px;color:#7f548c}
+    .active:hover .open{color:#d59cff;text-shadow:0 0 10px rgba(213,156,255,.25)}
+
+    .cursor{display:inline-block;margin-left:2px;animation:cursor 1s steps(1) infinite}
+    @keyframes cursor{50%{opacity:0}}
+
+    .glitchline{
+      position:absolute;z-index:1;left:0;right:0;top:52px;height:1px;opacity:0;transform:translateX(-25%);transition:.25s ease;
+      background:linear-gradient(90deg,transparent,rgba(211,147,241,.45),transparent);box-shadow:0 0 10px rgba(211,147,241,.14);
+    }
+
+    .locked{opacity:.42;filter:saturate(.7)}
+    .locked h2{color:#766a7a}
+    .lock{
+      position:absolute;right:18px;top:18px;z-index:2;padding:4px 6px;border:1px solid #322137;
+      font:6px var(--system);letter-spacing:1px;color:#65536a;background:#09060a;
+    }
+
+    .side-code{
+      position:fixed;right:12px;top:50%;transform:translateY(-50%);z-index:3;writing-mode:vertical-rl;
+      font:6px var(--system);letter-spacing:1.4px;color:#2c2230;user-select:none;
+    }
+
+    footer{
+      margin-top:38px;padding-top:14px;border-top:1px solid #211425;display:flex;justify-content:space-between;align-items:center;gap:20px;
+      font:7px var(--system);letter-spacing:.9px;color:#403444;
+    }
+
+    .sig{color:#4e3e54}.sig b{font-weight:400;color:#72547b}
+
+    @media(max-width:720px){
+      .page{width:min(calc(100% - 24px),1160px);padding-top:16px}
+      .top{font-size:7px}.terminal-strip{font-size:6px}.hero{padding:25px 0 24px}
+      .menu{grid-template-columns:1fr}.card{min-height:194px}.hero-copy{font-size:10px}.side-code{display:none}
+      footer{flex-direction:column;align-items:flex-start;gap:7px}
+    }
   </style>
 </head>
 <body>
-  <div class="grid-bg"></div><div class="scan"></div>
+  <div class="grid-bg"></div>
+  <div class="noise"></div>
+  <div class="scanlines"></div>
+  <div class="sweep"></div>
+  <div class="side-code">0x00::7F / ROUTE_UNRESOLVED / TRACE_NULL / NODE_GATE</div>
+
   <main class="page">
-    <header class="top"><span class="status"><span class="dot"></span>ARCHIVE GATEWAY ONLINE</span><a class="back" href="index.html">&lt; DISCONNECT</a></header>
-    <section class="hero"><p class="route">ROOT / PRIVATE NETWORK / ARCHIVE GATEWAY</p><h1>ARCHIVE DIRECTORY</h1><p>Authorized routes have been indexed below. Select a database node to continue archive access.</p></section>
-    <section class="menu">
-      <a class="card active" href="main.html"><span class="num">NODE_01</span><h2>IDENTITY DATABASE</h2><p>Classified personnel records, subject profiles and archived visual data.</p><span class="open">&gt; ACCESS DATABASE_</span></a>
-      <a class="card active" href="prompt.html"><span class="num">NODE_02</span><h2>PROMPT</h2><p>Indexed appearance parameters and subject reconstruction prompt data.</p><span class="open">&gt; ACCESS VISUAL DATA_</span></a>
-      <div class="card locked"><span class="num">NODE_03</span><span class="lock">LOCKED</span><h2>WORLD ARCHIVE</h2><p>Organizations, incidents and regional records. Access route is currently unavailable.</p><span class="open">ACCESS RESTRICTED</span></div>
-      <div class="card locked"><span class="num">NODE_04</span><span class="lock">LOCKED</span><h2>SYSTEM LOG</h2><p>Internal network activity and archived system events. Clearance required.</p><span class="open">ACCESS RESTRICTED</span></div>
+    <header class="top">
+      <span class="status"><span class="dot"></span>ARCHIVE GATEWAY ONLINE</span>
+      <a class="back" href="index.html">&lt; DISCONNECT</a>
+    </header>
+
+    <div class="terminal-strip">
+      <span class="live">&gt; SESSION ESTABLISHED</span>
+      &nbsp;&nbsp; / &nbsp;&nbsp; IDENTITY MASKED
+      &nbsp;&nbsp; / &nbsp;&nbsp; TRACE ROUTE NULL
+      &nbsp;&nbsp; / &nbsp;&nbsp; ACCESS CHANNEL 0x7F
+    </div>
+
+    <section class="hero">
+      <p class="route">ROOT / PRIVATE NETWORK / ARCHIVE GATEWAY</p>
+      <p class="hero-copy">Authorized archive routes indexed below. Select a database node to continue.</p>
+      <div class="micro">
+        <span>USER: ANONYMOUS</span>
+        <span>ACCESS: GRANTED</span>
+        <span>TRACE: BLOCKED</span>
+        <span>PACKET LOSS: 00.0%</span>
+      </div>
     </section>
-    <footer><span>╾━[0x00::∅::7F]━╼ PRIVATE NETWORK</span><span>GATEWAY STATUS: STABLE</span></footer>
+
+    <section class="menu">
+      <a class="card active" href="main.html">
+        <span class="num">NODE_01</span>
+        <span class="checksum">CHK: 7F-01-A9</span>
+        <span class="glitchline"></span>
+        <h2>IDENTITY DATABASE</h2>
+        <p>Classified personnel records, subject profiles and archived visual data.</p>
+        <span class="open">&gt; ACCESS DATABASE<span class="cursor">_</span></span>
+      </a>
+
+      <a class="card active" href="prompt.html">
+        <span class="num">NODE_02</span>
+        <span class="checksum">CHK: 7F-02-C4</span>
+        <span class="glitchline"></span>
+        <h2>PROMPT</h2>
+        <p>Indexed appearance parameters and subject reconstruction prompt data.</p>
+        <span class="open">&gt; ACCESS VISUAL DATA<span class="cursor">_</span></span>
+      </a>
+
+      <div class="card locked">
+        <span class="num">NODE_03</span>
+        <span class="lock">LOCKED</span>
+        <span class="checksum">CHK: -- -- --</span>
+        <h2>REFERENCE ARCHIVE</h2>
+        <p>Supplementary character records, visual references and miscellaneous subject data.</p>
+        <span class="open">ACCESS RESTRICTED</span>
+      </div>
+
+      <div class="card locked">
+        <span class="num">NODE_04</span>
+        <span class="lock">LOCKED</span>
+        <span class="checksum">CHK: -- -- --</span>
+        <h2>PERSONAL LOG</h2>
+        <p>Private notes, selected records and subject-specific auxiliary data.</p>
+        <span class="open">ACCESS RESTRICTED</span>
+      </div>
+    </section>
+
+    <footer>
+      <span class="sig">╾━[<b>0x00::∅::7F</b>]━╼ PRIVATE NETWORK</span>
+      <span>GATEWAY STATUS: STABLE / SESSION: ACTIVE</span>
+    </footer>
   </main>
 </body>
 </html>
