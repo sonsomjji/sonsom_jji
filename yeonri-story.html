@@ -722,6 +722,17 @@
       color:#d5cad8;
     }
 
+    .read-status{
+      align-self:flex-end;
+      margin-top:-9px;
+      margin-right:2px;
+      color:#65566b;
+      font-size:7px;
+      letter-spacing:1px;
+      font-family:var(--system);
+      opacity:.9;
+    }
+
     .message-end{
       display:none;
       margin-top:24px;
@@ -886,17 +897,26 @@
       { side:"other", sender:"D", text:`…이제야? 한참을 기다렸단다.` },
       { side:"other", sender:"D", text:`<span style="font-size:15px;font-weight:600;">어디에 있었니.</span>` },
       { side:"yeonri", sender:"연리", text:`으음... 그... 저잣거리에 있었노라! 이 몸은 강하다! 걱정마시라! (๑•̀ •́)و✧` },
-      { side:"other", sender:"D", text:`읽음` },
+      { type:"read", text:`READ · 19:04` },
       { side:"yeonri", sender:"연리", text:`서방아아...화났느냐? 화 풀어주면 안돼? (｡•́︿•̀｡)` },
       { side:"other", sender:"D", text:`<s>화난 거 아니란다. 조금 속상했을 뿐이야.</s>` },
       { side:"other", sender:"D", text:`네가 무사히 돌아왔으니 그걸로 됐단다. 하지만 다음부터는 나와 함께 가자꾸나. 약속.` },
-      { side:"yeonri", sender:"연리", text:`꼭!!!! 꼭꼭 약조하겠노라!!!!` },
+      { side:"yeonri", sender:"연리", text:`꼭!!!! 꼭꼭 약조하느니라!!!!` },
       { side:"other", sender:"D", text:`착하구나, 내 각시.` }
     ];
 
     let messageStarted = false;
 
     function appendMessage(item){
+      if(item.type === "read"){
+        const status = document.createElement("div");
+        status.className = "read-status";
+        status.textContent = item.text;
+        messagesEl.appendChild(status);
+        status.scrollIntoView({behavior:"smooth", block:"nearest"});
+        return;
+      }
+
       const row = document.createElement("div");
       row.className = "msg " + item.side;
 
