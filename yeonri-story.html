@@ -849,6 +849,7 @@
       </section>
 
     </main>
+
       <div class="message-screen" id="messageScreen">
         <div class="message-start" id="messageStart">
           [ CLICK TO OPEN MESSAGE ]
@@ -881,16 +882,16 @@
     const messageEnd = document.getElementById("messageEnd");
 
     const conversation = [
-      { side:"yeonri", sender:"연리", text:"서방님 나 다녀왔느니라!!!" },
-      { side:"other", sender:"D", text:"…이제야? 한참을 기다렸단다." },
-      { side:"other", sender:"D", text:"<font size="4"><b>어디에 있었니.</b></font>" },
-      { side:"yeonri", sender:"연리", text:" 으음... 그... 저잣거리에 있었노라! 이 몸은 강하다! 걱정마시라! (๑•̀ •́)و✧ " },
-      { side:"other", sender:"D", text:"읽음" },
-      { side:"yeonri", sender:"연리", text:"서방아아...화났느냐? 화 풀어주면 안돼? (｡•́︿•̀｡)" },
-      { side:"other", sender:"D", text:"<strike>화난 거 아니란다. 조금 속상했을 뿐이야.</strike> " },
-      { side:"other", sender:"D", text:"네가 무사히 돌아왔으니 그걸로 됐단다. 하지만 다음부터는 나와 함께 가자꾸나. 약속." },
-      { side:"yeonri", sender:"연리", text:"꼭!!!! 꼭꼭 약조하느니라!!!!" },
-      { side:"other", sender:"D", text:"착하구나, 내 각시. " }
+      { side:"yeonri", sender:"연리", text:`서방님 나 다녀왔느니라!!!` },
+      { side:"other", sender:"D", text:`…이제야? 한참을 기다렸단다.` },
+      { side:"other", sender:"D", text:`<span style="font-size:15px;font-weight:600;">어디에 있었니.</span>` },
+      { side:"yeonri", sender:"연리", text:`으음... 그... 저잣거리에 있었노라! 이 몸은 강하다! 걱정마시라! (๑•̀ •́)و✧` },
+      { side:"other", sender:"D", text:`읽음` },
+      { side:"yeonri", sender:"연리", text:`서방아아...화났느냐? 화 풀어주면 안돼? (｡•́︿•̀｡)` },
+      { side:"other", sender:"D", text:`<s>화난 거 아니란다. 조금 속상했을 뿐이야.</s>` },
+      { side:"other", sender:"D", text:`네가 무사히 돌아왔으니 그걸로 됐단다. 하지만 다음부터는 나와 함께 가자꾸나. 약속.` },
+      { side:"yeonri", sender:"연리", text:`꼭!!!! 꼭꼭 약조하겠노라!!!!` },
+      { side:"other", sender:"D", text:`착하구나, 내 각시.` }
     ];
 
     let messageStarted = false;
@@ -905,7 +906,7 @@
 
       const bubble = document.createElement("div");
       bubble.className = "bubble";
-      bubble.textContent = item.text;
+      bubble.innerHTML = item.text;
 
       row.appendChild(sender);
       row.appendChild(bubble);
