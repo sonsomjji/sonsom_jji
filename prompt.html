@@ -175,6 +175,41 @@
       gap:12px;
     }
 
+    .variant-stack{
+      display:grid;
+      gap:18px;
+    }
+
+    .variant-section{
+      padding-top:2px;
+    }
+
+    .variant-section + .variant-section{
+      padding-top:18px;
+      border-top:1px solid #24172a;
+    }
+
+    .variant-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:10px;
+    }
+
+    .variant-title{
+      color:#c49ad5;
+      font:8px var(--system);
+      letter-spacing:1.4px;
+    }
+
+    .variant-id{
+      color:#5f4b66;
+      font:7px var(--system);
+      letter-spacing:1px;
+      white-space:nowrap;
+    }
+
     .prompt-block{
       padding:14px;
       border:1px solid #211627;
@@ -350,7 +385,7 @@
       </div>
       <div class="subject-card-info">
         <span>
-          <span class="subject-name">비홍</span>
+          <span class="subject-name">비홍(飛紅)</span>
           <span class="subject-meta">VISUAL RECONSTRUCTION</span>
           <span class="subject-count">02 DATA SETS</span>
         </span>
@@ -368,19 +403,19 @@
               <button class="action download" type="button">TXT</button>
             </div>
           </div>
-          <pre class="prompt-text">[ BASE APPEARANCE PROMPT ]</pre>
+          <pre class="prompt-text">boy,pale skin,very long red hair, blunt bangs,androgynous,beautiful face,white eyes, tareme, slit pupils, slim, tall, feminine body, flat chest,mole under mouth,sharp fingernails, pointed red fingertips,{red cheongsam}, {butterfly print}, {high side slit}, modified qipao, sleeveless, mandarin collar, {detached red sheer sleeves}, translucent bell sleeves, puff sleeves, wrist cuffs, {red long chiffon underlayer}, asymmetrical hem, red ribbon tassel, tight fit, red high heels</pre>
           <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
         </div>
 
         <div class="prompt-block">
           <div class="prompt-top">
-            <span class="prompt-name">SECONDARY DATA</span>
+            <span class="prompt-name">NIJI / UPPER BODY PROMPT</span>
             <div class="actions">
               <button class="action copy" type="button">COPY</button>
               <button class="action download" type="button">TXT</button>
             </div>
           </div>
-          <pre class="prompt-text">[ SECONDARY / NIJI / FULL BODY PROMPT ]</pre>
+          <pre class="prompt-text">adult man, androgynous beautiful man, pale skin, very long vivid red hair, blunt bangs, white eyes with clearly visible vertical slit pupils, narrow droopy eyes, long eyelashes, delicate beautiful face, mole below lower lip, slender feminine appearance, flat chest, fitted red modified cheongsam, sleeveless mandarin collar, delicate butterfly embroidery, detached sheer red bell sleeves, red ribbon tassels, upper body, waist up, face focus, elegant alluring atmosphere, subtle eerie smile, polished anime illustration, delicate lineart, soft detailed shading, soft cinematic lighting, masterpiece, best quality, highly detailed</pre>
           <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
         </div>
       </div>
@@ -698,39 +733,74 @@
         <span>
           <span class="subject-name">緣離</span>
           <span class="subject-meta">VISUAL RECONSTRUCTION</span>
-          <span class="subject-count">02 DATA SETS</span>
+          <span class="subject-count">04 DATA SETS / 02 VERSIONS</span>
         </span>
         <span class="toggle">[ OPEN ]</span>
       </div>
     </button>
     <div class="prompt-body">
-      
-      <div class="prompt-grid">
-        <div class="prompt-block">
-          <div class="prompt-top">
-            <span class="prompt-name">NAI / BASE APPEARANCE</span>
-            <div class="actions">
-              <button class="action copy" type="button">COPY</button>
-              <button class="action download" type="button">TXT</button>
-            </div>
+      <div class="variant-stack">
+        <section class="variant-section">
+          <div class="variant-head">
+            <span class="variant-title">VERSION 01 / 기본</span>
+            <span class="variant-id">BASE</span>
           </div>
-          <pre class="prompt-text">young woman, lavender long braided hair, blue eyes with vertical pupils, eastern dragon horns, fluffy dragon ears...</pre>
-          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
-        </div>
-
-        <div class="prompt-block">
-          <div class="prompt-top">
-            <span class="prompt-name">SECONDARY DATA</span>
-            <div class="actions">
-              <button class="action copy" type="button">COPY</button>
-              <button class="action download" type="button">TXT</button>
+          <div class="prompt-grid">
+          <div class="prompt-block">
+            <div class="prompt-top">
+              <span class="prompt-name">NAI / APPEARANCE</span>
+              <div class="actions">
+                <button class="action copy" type="button">COPY</button>
+                <button class="action download" type="button">TXT</button>
+              </div>
             </div>
+            <pre class="prompt-text">young woman, lavender long braided hair, blue eyes with vertical pupils, eastern dragon horns, fluffy dragon ears...</pre>
+            <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
           </div>
-          <pre class="prompt-text">small cute eastern dragon, long slender serpentine body, white fur, lavender accents, blue eyes...</pre>
-          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
-        </div>
+          <div class="prompt-block">
+            <div class="prompt-top">
+              <span class="prompt-name">NIJI / APPEARANCE</span>
+              <div class="actions">
+                <button class="action copy" type="button">COPY</button>
+                <button class="action download" type="button">TXT</button>
+              </div>
+            </div>
+            <pre class="prompt-text">[ NIJI / BASE APPEARANCE PROMPT ]</pre>
+            <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+          </div>
+          </div>
+        </section>
+        <section class="variant-section">
+          <div class="variant-head">
+            <span class="variant-title">VERSION 02 / 원피스</span>
+            <span class="variant-id">ONE-PIECE</span>
+          </div>
+          <div class="prompt-grid">
+          <div class="prompt-block">
+            <div class="prompt-top">
+              <span class="prompt-name">NAI / APPEARANCE</span>
+              <div class="actions">
+                <button class="action copy" type="button">COPY</button>
+                <button class="action download" type="button">TXT</button>
+              </div>
+            </div>
+            <pre class="prompt-text">[ NAI / ONE-PIECE VERSION PROMPT ]</pre>
+            <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+          </div>
+          <div class="prompt-block">
+            <div class="prompt-top">
+              <span class="prompt-name">NIJI / APPEARANCE</span>
+              <div class="actions">
+                <button class="action copy" type="button">COPY</button>
+                <button class="action download" type="button">TXT</button>
+              </div>
+            </div>
+            <pre class="prompt-text">[ NIJI / ONE-PIECE VERSION PROMPT ]</pre>
+            <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+          </div>
+          </div>
+        </section>
       </div>
-
     </div>
   </article>
 
@@ -790,39 +860,104 @@
         <span>
           <span class="subject-name">結(決)</span>
           <span class="subject-meta">VISUAL RECONSTRUCTION</span>
-          <span class="subject-count">02 DATA SETS</span>
+          <span class="subject-count">06 DATA SETS / 03 VERSIONS</span>
         </span>
         <span class="toggle">[ OPEN ]</span>
       </div>
     </button>
     <div class="prompt-body">
-      
-      <div class="prompt-grid">
-        <div class="prompt-block">
-          <div class="prompt-top">
-            <span class="prompt-name">NAI / BASE APPEARANCE</span>
-            <div class="actions">
-              <button class="action copy" type="button">COPY</button>
-              <button class="action download" type="button">TXT</button>
-            </div>
+      <div class="variant-stack">
+        <section class="variant-section">
+          <div class="variant-head">
+            <span class="variant-title">VERSION 01 / 기본</span>
+            <span class="variant-id">CURRENT</span>
           </div>
-          <pre class="prompt-text">1 male, 28 years old, long black hair, empty black eyes, pale skin, gloomy and decadent atmosphere...</pre>
-          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
-        </div>
-
-        <div class="prompt-block">
-          <div class="prompt-top">
-            <span class="prompt-name">SECONDARY DATA</span>
-            <div class="actions">
-              <button class="action copy" type="button">COPY</button>
-              <button class="action download" type="button">TXT</button>
+          <div class="prompt-grid">
+          <div class="prompt-block">
+            <div class="prompt-top">
+              <span class="prompt-name">NAI / APPEARANCE</span>
+              <div class="actions">
+                <button class="action copy" type="button">COPY</button>
+                <button class="action download" type="button">TXT</button>
+              </div>
             </div>
+            <pre class="prompt-text">1 male, 28 years old, long black hair, empty black eyes, pale skin, gloomy and decadent atmosphere...</pre>
+            <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
           </div>
-          <pre class="prompt-text">androgynous handsome man, long black hair, half-lidded black eyes, pale skin, dark streetwear...</pre>
-          <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
-        </div>
+          <div class="prompt-block">
+            <div class="prompt-top">
+              <span class="prompt-name">NIJI / APPEARANCE</span>
+              <div class="actions">
+                <button class="action copy" type="button">COPY</button>
+                <button class="action download" type="button">TXT</button>
+              </div>
+            </div>
+            <pre class="prompt-text">androgynous handsome man, long black hair, half-lidded black eyes, pale skin, dark streetwear...</pre>
+            <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+          </div>
+          </div>
+        </section>
+        <section class="variant-section">
+          <div class="variant-head">
+            <span class="variant-title">VERSION 02 / 4년 전</span>
+            <span class="variant-id">4 YEARS AGO</span>
+          </div>
+          <div class="prompt-grid">
+          <div class="prompt-block">
+            <div class="prompt-top">
+              <span class="prompt-name">NAI / APPEARANCE</span>
+              <div class="actions">
+                <button class="action copy" type="button">COPY</button>
+                <button class="action download" type="button">TXT</button>
+              </div>
+            </div>
+            <pre class="prompt-text">[ NAI / 4 YEARS AGO VERSION PROMPT ]</pre>
+            <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+          </div>
+          <div class="prompt-block">
+            <div class="prompt-top">
+              <span class="prompt-name">NIJI / APPEARANCE</span>
+              <div class="actions">
+                <button class="action copy" type="button">COPY</button>
+                <button class="action download" type="button">TXT</button>
+              </div>
+            </div>
+            <pre class="prompt-text">[ NIJI / 4 YEARS AGO VERSION PROMPT ]</pre>
+            <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+          </div>
+          </div>
+        </section>
+        <section class="variant-section">
+          <div class="variant-head">
+            <span class="variant-title">VERSION 03 / ???</span>
+            <span class="variant-id">UNKNOWN</span>
+          </div>
+          <div class="prompt-grid">
+          <div class="prompt-block">
+            <div class="prompt-top">
+              <span class="prompt-name">NAI / APPEARANCE</span>
+              <div class="actions">
+                <button class="action copy" type="button">COPY</button>
+                <button class="action download" type="button">TXT</button>
+              </div>
+            </div>
+            <pre class="prompt-text">[ NAI / ??? VERSION PROMPT ]</pre>
+            <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+          </div>
+          <div class="prompt-block">
+            <div class="prompt-top">
+              <span class="prompt-name">NIJI / APPEARANCE</span>
+              <div class="actions">
+                <button class="action copy" type="button">COPY</button>
+                <button class="action download" type="button">TXT</button>
+              </div>
+            </div>
+            <pre class="prompt-text">[ NIJI / ??? VERSION PROMPT ]</pre>
+            <div class="copy-msg">&gt; DATA COPIED TO CLIPBOARD</div>
+          </div>
+          </div>
+        </section>
       </div>
-
     </div>
   </article>
 
