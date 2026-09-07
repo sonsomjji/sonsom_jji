@@ -817,7 +817,7 @@
 
     .hwa-flower-node.current{
       pointer-events:auto;
-      opacity:.86;
+      opacity:.96;
       transform:translate(-50%,-50%) scale(1);
       animation:hwaBudBreathe 2.8s ease-in-out infinite;
     }
@@ -856,6 +856,7 @@
 
     .camellia{
       position:relative;
+      display:block;
       width:100%;
       height:100%;
     }
@@ -1153,6 +1154,246 @@
   </style>
 
 
+
+  <style>
+    /* ===== HWA NAME-TRIGGERED DESCENDING BLOOM ===== */
+    body{position:relative}
+
+    .hwa-trigger{
+      display:inline-block;
+      cursor:pointer;
+      user-select:none;
+      -webkit-tap-highlight-color:transparent;
+      transition:
+        color .2s ease,
+        text-shadow .2s ease,
+        transform .2s ease;
+    }
+
+    .hwa-trigger:hover,
+    .hwa-trigger:focus-visible{
+      color:#ead2f5;
+      text-shadow:
+        0 0 10px rgba(205,144,238,.28),
+        0 0 24px rgba(151,65,190,.14);
+      outline:none;
+    }
+
+    .hwa-trigger:active{transform:translateY(1px)}
+
+    /* no side branches; flowers descend from directly beneath the main name */
+    .hwa-flower-layer{
+      position:absolute !important;
+      inset:0 !important;
+      width:100%;
+      height:100%;
+      min-height:1800px;
+      overflow:visible !important;
+      pointer-events:none;
+      z-index:44;
+    }
+
+    .hwa-flower-node{
+      --flower-size:68px;
+      position:absolute;
+      left:var(--hwa-x,50%) !important;
+      top:var(--hwa-y,260px) !important;
+    }
+
+    .hwa-flower-node[data-index="1"]{--flower-size:62px}
+    .hwa-flower-node[data-index="2"]{--flower-size:64px}
+    .hwa-flower-node[data-index="3"]{--flower-size:66px}
+    .hwa-flower-node[data-index="4"]{--flower-size:68px}
+    .hwa-flower-node[data-index="5"]{--flower-size:70px}
+    .hwa-flower-node[data-index="6"]{--flower-size:72px}
+    .hwa-flower-node[data-index="7"]{--flower-size:74px}
+    .hwa-flower-node[data-index="8"]{--flower-size:78px}
+    .hwa-flower-node[data-index="9"]{--flower-size:82px}
+
+    /* Before the user clicks 華, nothing appears. */
+    .hwa-flower-node.current{
+      opacity:0;
+      pointer-events:none;
+    }
+
+    body.hwa-started .hwa-flower-node.current{
+      opacity:.96;
+      pointer-events:auto;
+    }
+
+    /* Stage 6: first unmistakable red pressure */
+    body.hwa-stage-6::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:42;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at 50% 48%,transparent 46%,rgba(86,10,23,.10) 100%);
+      animation:hwaStage6Pulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes hwaStage6Pulse{
+      0%,100%{opacity:.42}
+      50%{opacity:.88}
+    }
+
+    /* Stage 7: stronger vignette + faint red scan */
+    body.hwa-stage-7::after{
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent 5px,
+          rgba(116,16,32,.035) 6px
+        ),
+        radial-gradient(circle at 50% 48%,transparent 38%,rgba(105,10,26,.17) 100%) !important;
+      animation:hwaStage7Pulse 1.45s ease-in-out infinite;
+    }
+
+    @keyframes hwaStage7Pulse{
+      0%,100%{opacity:.58}
+      50%{opacity:1}
+    }
+
+    /* Stage 8: stronger red cast, jitter and brief brightness pulses */
+    body.hwa-stage-8::after{
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(145,18,39,.018) 0,
+          rgba(145,18,39,.018) 1px,
+          transparent 1px,
+          transparent 4px
+        ),
+        radial-gradient(circle at 50% 45%,rgba(74,0,15,.025),rgba(121,9,28,.24) 72%,rgba(39,0,8,.34) 100%) !important;
+      animation:hwaStage8Flicker 2s steps(6,end) 1 forwards;
+    }
+
+    body.hwa-stage-8 .page{
+      animation:hwaStage8Shake 2s steps(12,end) 1 !important;
+    }
+
+    @keyframes hwaStage8Flicker{
+      0%{opacity:.72}
+      18%{opacity:1}
+      36%{opacity:.76}
+      54%{opacity:1}
+      72%{opacity:.82}
+      88%{opacity:.45}
+      100%{opacity:0}
+    }
+
+    @keyframes hwaStage8Shake{
+      0%{transform:translate(0,0)}
+      12%{transform:translate(-1px,0)}
+      24%{transform:translate(1px,-1px)}
+      36%{transform:translate(-1px,1px)}
+      48%{transform:translate(1px,0)}
+      60%{transform:translate(-1px,-1px)}
+      72%{transform:translate(1px,1px)}
+      84%{transform:translate(-1px,0)}
+      92%{transform:translate(1px,0)}
+      100%{transform:translate(0,0)}
+    }
+
+    @media(max-width:680px){
+      .hwa-flower-layer{height:1110px}
+      .hwa-flower-node{--flower-size:52px !important}
+      .hwa-flower-node[data-index="1"]{left:50% !important;top:220px !important}
+      .hwa-flower-node[data-index="2"]{left:45% !important;top:310px !important}
+      .hwa-flower-node[data-index="3"]{left:55% !important;top:400px !important}
+      .hwa-flower-node[data-index="4"]{left:46% !important;top:490px !important}
+      .hwa-flower-node[data-index="5"]{left:54% !important;top:580px !important}
+      .hwa-flower-node[data-index="6"]{left:45% !important;top:670px !important}
+      .hwa-flower-node[data-index="7"]{left:55% !important;top:760px !important}
+      .hwa-flower-node[data-index="8"]{left:47% !important;top:850px !important}
+      .hwa-flower-node[data-index="9"]{left:53% !important;top:940px !important}
+    }
+  </style>
+
+
+  <style>
+    /* ===== HWA SECRET RECORD UNLOCK ===== */
+    .hwa-secret-locked{
+      color:#725f79;
+      border-bottom:1px dotted rgba(92,65,99,.45);
+    }
+
+    .hwa-secret-unlocked{
+      display:inline;
+      color:#7f2638;
+      font-weight:600;
+      text-shadow:0 0 8px rgba(119,27,47,.08);
+      animation:hwaSecretReveal .65s ease both;
+    }
+
+    .hwa-secret-tag{
+      display:inline-block;
+      margin-right:7px;
+      color:#8e2439;
+      font-family:var(--font-system);
+      font-size:10px;
+      letter-spacing:.8px;
+    }
+
+    @keyframes hwaSecretReveal{
+      from{
+        opacity:0;
+        filter:blur(3px);
+      }
+      to{
+        opacity:1;
+        filter:blur(0);
+      }
+    }
+  </style>
+
+
+  <style>
+    /* ===== BLOOM DIALOGUE COLOR PROGRESSION ===== */
+    .hwa-bloom-dialogue{
+      transition:color .38s ease,text-shadow .38s ease;
+    }
+
+    .hwa-bloom-dialogue.bloom-tone-1{color:#bda8c2}
+    .hwa-bloom-dialogue.bloom-tone-2{color:#bba3bc}
+    .hwa-bloom-dialogue.bloom-tone-3{color:#b99db4}
+    .hwa-bloom-dialogue.bloom-tone-4{color:#b897a8}
+    .hwa-bloom-dialogue.bloom-tone-5{color:#b58190}
+    .hwa-bloom-dialogue.bloom-tone-6{
+      color:#b76776;
+      text-shadow:0 0 7px rgba(120,35,53,.10);
+    }
+
+    /* 7: polite lavender at the beginning, collapsing into red at the end */
+    .hwa-bloom-dialogue.bloom-tone-7{
+      color:transparent !important;
+      background:linear-gradient(
+        90deg,
+        #bda8c2 0%,
+        #b58b9e 34%,
+        #b96b7a 62%,
+        #c34a5d 82%,
+        #d13a4f 100%
+      );
+      -webkit-background-clip:text;
+      background-clip:text;
+      -webkit-text-fill-color:transparent;
+      text-shadow:none;
+    }
+
+    /* 8: the courtesy is gone */
+    .hwa-bloom-dialogue.bloom-tone-8{
+      color:#d33b50 !important;
+      -webkit-text-fill-color:#d33b50;
+      background:none;
+      text-shadow:
+        0 0 6px rgba(180,35,55,.26),
+        0 0 14px rgba(115,14,33,.13);
+    }
+  </style>
+
 </head>
 <body>
 
@@ -1280,8 +1521,8 @@
     <div class="hwa-warning-panel">
       <div class="hwa-warning-code">WARNING / BLOOM LIMIT EXCEEDED / 09 OF 09</div>
       <div class="hwa-warning-title">WARNING</div>
-      <div class="hwa-warning-line">――도망가.</div>
-      <div class="hwa-warning-jp">逃げろ。</div>
+      <div class="hwa-warning-line">――逃げろ。 (――도망가.)</div>
+      <div class="hwa-warning-jp">CONTROL LOST / EVACUATE IMMEDIATELY</div>
       <button class="hwa-warning-dismiss" id="hwaWarningDismiss" type="button">[ CLOSE ]</button>
     </div>
   </div>
@@ -1312,7 +1553,7 @@
       <div class="system-primary">
         <div class="system-identity">
           <p class="system-label">CODENAME</p>
-          <h1 class="system-codename" id="subjectCodename" lang="zh-Hant">華</h1>
+          <h1 class="system-codename hwa-trigger" id="subjectCodename" lang="zh-Hant" role="button" tabindex="0" aria-label="華">華</h1>
         </div>
 
         <dl class="system-meta">
@@ -1355,30 +1596,31 @@
               <p class="photo-caption">CURRENT IDENTIFICATION PHOTO</p>
             </div>
             <dl class="identity-table">
-              <dt>이름</dt><dd>화(華)</dd>
-              <dt>본명</dt><dd>葉月 / HAGETSUKI <span style="color:#8b798d;font-size:10px;">[ERASED]</span></dd>
+              <dt>이름</dt><dd>화 (華)</dd>
+              <dt>본명</dt><dd>키류 하즈키 (桐生 葉月)</dd>
               <dt>성별</dt><dd>남성</dd>
-              <dt>나이</dt><dd>—</dd>
-              <dt>생일</dt><dd>—</dd>
-              <dt>국적</dt><dd>—</dd>
-              <dt>소속 / 부서</dt><dd>—</dd>
+              <dt>나이</dt><dd>25세</dd>
+              <dt>생일</dt><dd>12월 10일</dd>
+              <dt>국적</dt><dd>일본섹터, 교토</dd>
+              <dt>소속 / 부서</dt><dd>Hunters</dd>
             </dl>
           </div>
           <section class="ability-section">
             <h3 class="paper-section-title">ABILITY CLASSIFICATION / 능력 분류</h3>
             <div class="ability-grid">
-              <div class="ability-cell"><span class="cell-label">능력명</span><p class="cell-value">[REDACTED]</p></div>
-              <div class="ability-cell"><span class="cell-label">등급</span><p class="cell-value">[REDACTED]</p></div>
-              <div class="ability-cell"><span class="cell-label">분류</span><p class="cell-value">[REDACTED]</p></div>
-              <div class="ability-cell full"><span class="cell-label">능력 설명</span><p class="cell-value">해당 항목은 현재 열람 권한에서 제한되어 있다. 일부 기록에는 동백의 개화 단계와 비정상 출력 상승 사이의 상관관계가 반복적으로 언급되어 있으나, 세부 조건은 말소됨.</p></div>
+              <div class="ability-cell"><span class="cell-label">능력명</span><p class="cell-value">위그드라실(Yggdrasil)</p></div>
+              <div class="ability-cell"><span class="cell-label">등급</span><p class="cell-value">S급</p></div>
+              <div class="ability-cell"><span class="cell-label">분류</span><p class="cell-value">식생 발생 / 전염형</p></div>
+              <div class="ability-cell full"><span class="cell-label">능력 설명</span><p class="cell-value">액체가 있는 곳(물·피·눈물·빗물·습도 높은 공기)에서는 어디든 즉시 식생(植生)이 발생한다. 생성되는 식물은 자연식물이 아니라 강철 같은 줄기, 독성 환각 포자, 생물처럼 움직이는 덩굴과 연동하는 뿌리를 지닌 생태병기다. 식생의 기본 발생은 자동이지만, 전투용 강화·공격·독성 전개에는 능력자의 의지가 필요하다.<br><br>능력을 사용할수록 몸에 있는 아홉 개의 꽃봉오리가 하나씩 꽃이 피어나며, 개화 수가 늘어날수록 출력과 위험도가 함께 상승한다. <span id="hwaFullBloomSecret" class="hwa-secret-locked">완전 개화에 관한 기록은 열람이 제한되어 있다.</span></p></div>
             </div>
           </section>
           <section class="notes-section">
             <h3 class="paper-section-title">PHYSICAL PROFILE / 외형 및 특이사항</h3>
-            <div class="notes-grid">
-              <div><span class="cell-label">외형</span><div class="lined-note">창백한 피부와 짧고 곧은 연한 하늘색 머리. 부드럽게 갈라진 앞머리, 옅은 하늘색 눈과 처진 눈매, 긴 속눈썹. 넓은 어깨와 단정하고 우아한 인상을 지닌 남성. 목 옆에는 가느다란 가지와 붉은 동백꽃 한 송이를 형상화한 문신이 남아 있다.</div></div>
-              <div><span class="cell-label">특이사항</span><div class="lined-note">평소 온화하고 차분한 인상. 흰 셔츠와 검은 하네스 계열의 복장을 주로 착용한 기록이 확인된다. 과거 본명으로 추정되는 ‘葉月’ 관련 데이터는 대부분 말소되어 있으며, 동백꽃과 연결된 일부 기록은 별도 경로에 격리되어 있다.</div></div>
-            </div>
+            <div class="notes-grid"><div><span class="cell-label">외형</span><div class="lined-note">187cm. 넓은 어깨와 잘록한 허리가 대비되는 역삼각형 체형. 오랜 검도 수련으로 전신에 군더더기 없이 단단한 근육이 잡혀 있으며, 팔다리가 길어 체격에 비해 둔중한 느낌은 없다. 짧게 정돈한 연하늘색 머리카락과 같은 빛깔의 눈동자, 흰 피부를 지녔다. 전체적으로 순한 강아지상에 가까운 얼굴로, 가만히 있어도 입꼬리가 자연스럽게 올라가 있어 부드럽고 다정한 인상을 준다. 큰 체격과 달리 위압감보다는 어딘가 보호해 주고 싶은 마음을 자극하는 여린 분위기가 강하다.
+평소에는 흰 셔츠와 검은 슬랙스를 단정하게 갖춰 입으며, 셔츠 위로 검은 하네스를 착용한다. 몸을 따라 떨어지는 셔츠와 하네스의 선 때문에 넓은 어깨와 탄탄한 상체가 더욱 도드라지는 편. 왼쪽 옆구리에서 시작해 목까지 길게 뻗어 올라가는 가지 문양이 있으며, 그 위로 아직 피지 않은 아홉 송이의 동백꽃 봉오리가 자리하고 있다.
+</div></div>
+              <div><span class="cell-label">특이사항</span><div class="lined-note">2세대 에스퍼. 고류 검술 ‘키류(紀流)’를 대대로 계승해 온 종가의 외동아들. 어린 시절부터 가문의 검술을 익혀 기본적인 몸가짐과 움직임이 날렵하고 절도 있으며, 검을 쥐지 않은 평상시에도 오랜 수련에서 밴 습관이 자연스럽게 드러난다. S급 몬스터의 코어를 박아 만든 일본도를 항상 소지하고 다닌다. 단정하고 부드러운 외모와 반듯한 태도 덕분에 여성 팬이 많다. 취미는 꽃꽂이와 분재.
+</div></div></div>
           </section>
           <div class="paper-footer">
             <div class="approval-grid">
@@ -1515,6 +1757,7 @@
 
     /* HWA / NINE BLOOM EASTER EGG */
     (() => {
+      const trigger=document.getElementById('subjectCodename');
       const flowers=[...document.querySelectorAll('.hwa-flower-node')]
         .sort((a,b)=>Number(a.dataset.index)-Number(b.dataset.index));
 
@@ -1525,40 +1768,97 @@
       const warningDismiss=document.getElementById('hwaWarningDismiss');
 
       const lines=[
-        'どうか、お手を触れぬよう。まだ蕾ですから。',
-        'おや。ずいぶんと花がお好きなのですね。',
-        'この花は、見るだけになさってください。',
-        '……お気に召しましたか。ならば、もう少しだけ。',
-        'この手で咲かせる花々が、貴方を傷つけることのないように。',
-        'これ以上は、お勧めいたしません。どうか、ここまでで。',
-        '……もう、おやめください。これは……私にも、抑えきれない。',
-        '触るな……いや、すみません。お願いです、もう……。',
+        'もしかして、椿の香りはお好きですか？ (혹시, 동백꽃 향을 좋아하실까요?)',
+        'お望みでしたら、毎日花を贈りましょう。 (원하신다면 매일 꽃을 선물해드리겠습니다.)',
+        'あなたをお守りすることを、どうかお許しください。…あなたのお傍にいてもよろしいでしょうか。 (당신을 지킬 수 있도록 허락해주세요. …제가 당신 옆에 있어도 될까요?),
+        'まだ大丈夫です。……まだ、ですが。 (아직은 괜찮습니다. ……아직은요.)',
+        'はは……困りましたね。どうやら、私の言うことを聞いてくれないようです。 (하하…… 곤란하네요. 아무래도, 제 말을 들어주지 않는 모양입니다.)',
+        '……少しだけ、離れていていただけますか？ もう、お守りできないかもしれません。 (……조금만 떨어져 계셔주시겠어요? 이제는, 지켜드릴 수 없을지도 모르겠습니다.)',
+        '……怖いのは俺じゃない。俺が君を傷つけるかもしれないことが、怖いんだ。 (…무서운 건 내가 아니야. 내가 널 해칠 수 있다는 게 무서워.),
+        '俺から離れろ。 (내게서 떨어져.)',
         '――逃げろ。'
       ];
 
+      let started=false;
       let bloom=0;
       let hideTimer=null;
+
+      const secret=document.getElementById('hwaFullBloomSecret');
+      const SECRET_KEY='hwa.fullBloomRecordUnlocked';
+
+      function revealFullBloomRecord(persist=true){
+        if(!secret)return;
+
+        secret.className='hwa-secret-unlocked';
+        secret.innerHTML=
+          '<span class="hwa-secret-tag">[RESTRICTION OVERRIDDEN]</span>' +
+          '아홉 개의 꽃이 모두 만개할 경우 능력자는 식생을 더 이상 통제하지 못하며, ' +
+          '주변 모든 액체가 즉시 폭발적 식생으로 전환된다. 반경 수백 미터가 재해구역으로 변한다.';
+
+        if(persist){
+          try{ localStorage.setItem(SECRET_KEY,'1'); }catch(e){}
+        }
+      }
+
+      try{
+        if(localStorage.getItem(SECRET_KEY)==='1'){
+          revealFullBloomRecord(false);
+        }
+      }catch(e){}
+
+      function positionFlowers(){
+        if(!trigger || !flowers.length)return;
+
+        const rect=trigger.getBoundingClientRect();
+        const centerX=rect.left + rect.width/2 + window.scrollX;
+        const startY=rect.bottom + window.scrollY + 28;
+        const gap=96;
+
+        /* a very slight alternating drift, but still visually anchored under 華 */
+        const offsets=[0,-10,9,-7,8,-5,6,-3,3];
+
+        flowers.forEach((flower,i)=>{
+          flower.style.setProperty('--hwa-x', `${centerX + offsets[i]}px`);
+          flower.style.setProperty('--hwa-y', `${startY + (gap*i)}px`);
+        });
+      }
 
       function showStatus(text,unstable=false){
         if(!status||!dialogue)return;
         dialogue.textContent=text;
+
+        for(let i=1;i<=8;i++){
+          dialogue.classList.remove(`bloom-tone-${i}`);
+        }
+        if(bloom>=1 && bloom<=8){
+          dialogue.classList.add(`bloom-tone-${bloom}`);
+        }
+
         status.classList.toggle('unstable',unstable);
         status.classList.add('show');
         clearTimeout(hideTimer);
         if(bloom<9){
-          hideTimer=setTimeout(()=>status.classList.remove('show'),2600);
+          hideTimer=setTimeout(()=>status.classList.remove('show'),2450);
         }
+      }
+
+      function startSequence(){
+        if(started)return;
+        positionFlowers();
+        started=true;
+        document.body.classList.add('hwa-started');
+        flowers[0]?.classList.add('current');
       }
 
       function activateNext(){
         const next=flowers[bloom];
         if(next){
-          window.setTimeout(()=>next.classList.add('current'),520);
+          window.setTimeout(()=>next.classList.add('current'),360);
         }
       }
 
       function bloomFlower(button){
-        if(bloom>=9 || !button.classList.contains('current'))return;
+        if(!started || bloom>=9 || !button.classList.contains('current'))return;
 
         const expected=Number(button.dataset.index);
         if(expected!==bloom+1)return;
@@ -1573,16 +1873,17 @@
           counter.textContent=`${String(bloom).padStart(2,'0')} / 09`;
         }
 
-        document.body.classList.remove('hwa-stage-7','hwa-stage-8');
+        document.body.classList.remove('hwa-stage-6','hwa-stage-7','hwa-stage-8');
+        if(bloom===6)document.body.classList.add('hwa-stage-6');
         if(bloom===7)document.body.classList.add('hwa-stage-7');
         if(bloom===8)document.body.classList.add('hwa-stage-8');
 
         if(bloom<9){
-          showStatus(lines[bloom-1],bloom>=7);
+          showStatus(lines[bloom-1],bloom>=6);
           activateNext();
         }else{
           status?.classList.remove('show');
-          window.setTimeout(showWarning,760);
+          window.setTimeout(showWarning,120);
         }
       }
 
@@ -1596,11 +1897,31 @@
         warning?.classList.remove('show');
         warning?.setAttribute('aria-hidden','true');
         document.documentElement.style.overflow='';
+
+        if(bloom>=9){
+          revealFullBloomRecord(true);
+
+          /* after closing the warning, return attention to the document */
+          window.setTimeout(()=>{
+            secret?.scrollIntoView({behavior:'smooth',block:'center'});
+          },180);
+        }
       }
+
+      trigger?.addEventListener('click',startSequence);
+      trigger?.addEventListener('keydown',(e)=>{
+        if(e.key==='Enter' || e.key===' '){
+          e.preventDefault();
+          startSequence();
+        }
+      });
 
       flowers.forEach(button=>{
         button.addEventListener('click',()=>bloomFlower(button));
       });
+
+      window.addEventListener('resize',positionFlowers);
+      window.addEventListener('orientationchange',()=>setTimeout(positionFlowers,120));
 
       warningDismiss?.addEventListener('click',closeWarning);
 
@@ -1608,6 +1929,7 @@
         if(e.target===warning)closeWarning();
       });
     })();
+
 
 
   </script>
