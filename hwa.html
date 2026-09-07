@@ -1300,15 +1300,6 @@
     @media(max-width:680px){
       .hwa-flower-layer{height:1110px}
       .hwa-flower-node{--flower-size:52px !important}
-      .hwa-flower-node[data-index="1"]{left:50% !important;top:220px !important}
-      .hwa-flower-node[data-index="2"]{left:45% !important;top:310px !important}
-      .hwa-flower-node[data-index="3"]{left:55% !important;top:400px !important}
-      .hwa-flower-node[data-index="4"]{left:46% !important;top:490px !important}
-      .hwa-flower-node[data-index="5"]{left:54% !important;top:580px !important}
-      .hwa-flower-node[data-index="6"]{left:45% !important;top:670px !important}
-      .hwa-flower-node[data-index="7"]{left:55% !important;top:760px !important}
-      .hwa-flower-node[data-index="8"]{left:47% !important;top:850px !important}
-      .hwa-flower-node[data-index="9"]{left:53% !important;top:940px !important}
     }
   </style>
 
@@ -1770,11 +1761,11 @@
       const lines=[
         'もしかして、椿の香りはお好きですか？ (혹시, 동백꽃 향을 좋아하실까요?)',
         'お望みでしたら、毎日花を贈りましょう。 (원하신다면 매일 꽃을 선물해드리겠습니다.)',
-        'あなたをお守りすることを、どうかお許しください。…あなたのお傍にいてもよろしいでしょうか。 (당신을 지킬 수 있도록 허락해주세요. …제가 당신 옆에 있어도 될까요?),
+        'あなたをお守りすることを、どうかお許しください。……あなたのお傍にいてもよろしいでしょうか。 (당신을 지킬 수 있도록 허락해주세요. ……제가 당신 옆에 있어도 될까요?)',
         'まだ大丈夫です。……まだ、ですが。 (아직은 괜찮습니다. ……아직은요.)',
         'はは……困りましたね。どうやら、私の言うことを聞いてくれないようです。 (하하…… 곤란하네요. 아무래도, 제 말을 들어주지 않는 모양입니다.)',
         '……少しだけ、離れていていただけますか？ もう、お守りできないかもしれません。 (……조금만 떨어져 계셔주시겠어요? 이제는, 지켜드릴 수 없을지도 모르겠습니다.)',
-        '……怖いのは俺じゃない。俺が君を傷つけるかもしれないことが、怖いんだ。 (…무서운 건 내가 아니야. 내가 널 해칠 수 있다는 게 무서워.),
+        '……怖いのは俺じゃない。俺が君を傷つけるかもしれないことが、怖いんだ。 (……무서운 건 내가 아니야. 내가 널 해칠 수 있다는 게 무서워.)',
         '俺から離れろ。 (내게서 떨어져.)',
         '――逃げろ。'
       ];
@@ -1809,12 +1800,18 @@
       function positionFlowers(){
         if(!trigger || !flowers.length)return;
 
-        const rect=trigger.getBoundingClientRect();
-        const centerX=rect.left + rect.width/2 + window.scrollX;
-        const startY=rect.bottom + window.scrollY + 28;
+        const triggerRect=trigger.getBoundingClientRect();
+        const layer=document.getElementById('hwaFlowerLayer');
+        if(!layer)return;
+        const layerRect=layer.getBoundingClientRect();
+
+        /* IMPORTANT:
+           coordinates are calculated INSIDE the flower layer,
+           so the first bud sits directly under 華 regardless of page width/centering/scroll. */
+        const centerX=(triggerRect.left - layerRect.left) + triggerRect.width/2;
+        const startY=(triggerRect.bottom - layerRect.top) + 34;
         const gap=96;
 
-        /* a very slight alternating drift, but still visually anchored under 華 */
         const offsets=[0,-10,9,-7,8,-5,6,-3,3];
 
         flowers.forEach((flower,i)=>{
@@ -1845,6 +1842,7 @@
       function startSequence(){
         if(started)return;
         positionFlowers();
+        requestAnimationFrame(positionFlowers);
         started=true;
         document.body.classList.add('hwa-started');
         flowers[0]?.classList.add('current');
