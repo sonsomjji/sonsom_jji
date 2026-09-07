@@ -772,12 +772,11 @@
 
   </style>
 
-
   <style>
     /* =========================================================
-       HWA EASTER EGG — NINE CAMELLIA BLOOMS
-       Click/tap either vine. One bud blooms per interaction.
-       1–6: composed / 7–8: speech breaks / 9: WARNING
+       HWA EASTER EGG — NINE SCATTERED CAMELLIAS
+       1 bud appears at a time.
+       Click -> it blooms -> next bud appears elsewhere.
        ========================================================= */
 
     .archive-disabled,
@@ -788,7 +787,7 @@
       filter:saturate(.55);
     }
 
-    .hwa-vine-layer{
+    .hwa-flower-layer{
       position:fixed;
       inset:0;
       z-index:44;
@@ -796,146 +795,180 @@
       overflow:hidden;
     }
 
-    .hwa-vine{
+    .hwa-flower-node{
+      --flower-size:74px;
       position:absolute;
-      top:15vh;
-      bottom:10vh;
-      width:86px;
-      pointer-events:auto;
+      width:var(--flower-size);
+      height:var(--flower-size);
+      border:0;
+      padding:0;
+      margin:0;
+      background:transparent;
+      appearance:none;
+      -webkit-appearance:none;
+      pointer-events:none;
+      opacity:0;
+      transform:translate(-50%,-50%) scale(.62);
       cursor:pointer;
-      opacity:.22;
-      transition:opacity .3s ease,filter .3s ease;
+      filter:drop-shadow(0 7px 10px rgba(0,0,0,.48));
+      transition:opacity .35s ease,transform .45s cubic-bezier(.2,.8,.2,1),filter .25s ease;
       -webkit-tap-highlight-color:transparent;
     }
 
-    .hwa-vine:hover,
-    .hwa-vine:focus-visible,
-    .hwa-vine:active{
-      opacity:.42;
-      filter:drop-shadow(0 0 7px rgba(154,71,182,.18));
+    .hwa-flower-node.current{
+      pointer-events:auto;
+      opacity:.86;
+      transform:translate(-50%,-50%) scale(1);
+      animation:hwaBudBreathe 2.8s ease-in-out infinite;
+    }
+
+    .hwa-flower-node.bloomed{
+      pointer-events:none;
+      opacity:.82;
+      transform:translate(-50%,-50%) scale(1);
+      animation:none;
+    }
+
+    .hwa-flower-node.current:hover,
+    .hwa-flower-node.current:focus-visible{
+      opacity:1;
+      filter:
+        drop-shadow(0 7px 10px rgba(0,0,0,.52))
+        drop-shadow(0 0 8px rgba(117,33,49,.24));
       outline:none;
     }
 
-    .hwa-vine.left{left:0}
-    .hwa-vine.right{right:0;transform:scaleX(-1)}
-
-    .vine-stem{
-      position:absolute;
-      left:34px;
-      top:0;
-      bottom:0;
-      width:2px;
-      border-radius:99px;
-      background:
-        linear-gradient(
-          to bottom,
-          transparent,
-          #3d2943 8%,
-          #59365f 32%,
-          #332238 64%,
-          transparent
-        );
-      transform:rotate(2deg);
-      box-shadow:0 0 8px rgba(117,62,130,.12);
+    @keyframes hwaBudBreathe{
+      0%,100%{filter:drop-shadow(0 7px 10px rgba(0,0,0,.48));}
+      50%{filter:drop-shadow(0 7px 10px rgba(0,0,0,.48)) drop-shadow(0 0 8px rgba(118,34,49,.20));}
     }
 
-    .vine-stem::before,
-    .vine-stem::after{
-      content:"";
-      position:absolute;
-      width:46px;
-      height:90px;
-      border:1px solid transparent;
-      border-top-color:#51305a;
-      border-radius:50%;
-      opacity:.75;
+    /* scattered positions */
+    .hwa-flower-node[data-index="1"]{left:88%;top:19%;--flower-size:68px}
+    .hwa-flower-node[data-index="2"]{left:10%;top:31%;--flower-size:72px}
+    .hwa-flower-node[data-index="3"]{left:82%;top:43%;--flower-size:66px}
+    .hwa-flower-node[data-index="4"]{left:17%;top:59%;--flower-size:78px}
+    .hwa-flower-node[data-index="5"]{left:69%;top:67%;--flower-size:72px}
+    .hwa-flower-node[data-index="6"]{left:91%;top:80%;--flower-size:80px}
+    .hwa-flower-node[data-index="7"]{left:9%;top:83%;--flower-size:76px}
+    .hwa-flower-node[data-index="8"]{left:53%;top:89%;--flower-size:70px}
+    .hwa-flower-node[data-index="9"]{left:38%;top:25%;--flower-size:84px}
+
+    .camellia{
+      position:relative;
+      width:100%;
+      height:100%;
     }
 
-    .vine-stem::before{
-      left:-5px;
-      top:20%;
-      transform:rotate(42deg);
-    }
-
-    .vine-stem::after{
-      left:-39px;
-      top:56%;
-      transform:rotate(-38deg);
-    }
-
-    .hwa-bud{
-      position:absolute;
-      left:29px;
-      width:12px;
-      height:12px;
-      border:1px solid #5d3e60;
-      border-radius:50% 50% 46% 54%;
-      background:#120c14;
-      box-shadow:0 0 0 2px rgba(0,0,0,.65);
-      transform:translate(-50%,-50%) scale(.72) rotate(18deg);
-      opacity:.72;
-      transition:
-        width .6s cubic-bezier(.2,.75,.18,1),
-        height .6s cubic-bezier(.2,.75,.18,1),
-        transform .75s cubic-bezier(.2,.75,.18,1),
-        border-color .45s ease,
-        background .45s ease,
-        box-shadow .45s ease,
-        opacity .45s ease;
-    }
-
-    .hwa-bud::before,
-    .hwa-bud::after{
-      content:"";
+    .camellia .petal{
       position:absolute;
       left:50%;
       top:50%;
-      width:100%;
-      height:100%;
-      border-radius:58% 42% 58% 42%;
-      background:inherit;
-      border:inherit;
-      transform:translate(-50%,-50%) rotate(45deg) scale(.88);
+      transform-origin:50% 88%;
+      border-radius:64% 64% 48% 48%;
+      background:linear-gradient(180deg,#9b2735 0%,#761624 42%,#57101c 73%,#350a12 100%);
+      box-shadow:
+        inset 0 3px 4px rgba(210,135,140,.10),
+        inset 0 -3px 5px rgba(25,0,5,.34);
+      transition:
+        transform .85s cubic-bezier(.2,.8,.2,1),
+        width .8s ease,
+        height .8s ease,
+        margin .8s ease,
+        opacity .45s ease;
+    }
+
+    .camellia .outer{
+      width:41.18%;
+      height:48.24%;
+      margin-left:-20.59%;
+      margin-top:-41.76%;
+    }
+
+    .camellia .inner{
+      width:30.59%;
+      height:36.47%;
+      margin-left:-15.29%;
+      margin-top:-31.18%;
+      background:linear-gradient(180deg,#ad3440 0%,#821b29 48%,#54101b 100%);
+    }
+
+    .camellia .flower-center{
+      position:absolute;
+      z-index:12;
+      left:50%;
+      top:50%;
+      width:21.18%;
+      height:21.18%;
+      transform:translate(-50%,-50%) scale(.15);
+      border-radius:50%;
       opacity:0;
-      transition:opacity .5s ease .08s,transform .65s ease;
-    }
-
-    .hwa-bud::after{
-      transform:translate(-50%,-50%) rotate(90deg) scale(.82);
-    }
-
-    .hwa-bud.bloomed{
-      width:24px;
-      height:24px;
-      border-color:#7e2f42;
       background:
-        radial-gradient(circle at 50% 50%,#b47a72 0 9%,#8d3147 10% 30%,#5d1729 31% 60%,#210912 61%);
-      box-shadow:
-        0 0 8px rgba(142,37,63,.3),
-        0 0 18px rgba(101,25,46,.14);
-      transform:translate(-50%,-50%) scale(1) rotate(0deg);
-      opacity:1;
+        radial-gradient(circle at 35% 30%,#c99a48 0 4%,transparent 5%),
+        radial-gradient(circle at 65% 32%,#b98434 0 4%,transparent 5%),
+        radial-gradient(circle at 43% 63%,#c18a35 0 5%,transparent 6%),
+        radial-gradient(circle at 72% 61%,#c69a4b 0 4%,transparent 5%),
+        radial-gradient(circle,#a9752f 0 42%,#704019 43% 58%,#48101a 59%);
+      box-shadow:0 0 5px rgba(176,126,55,.12);
+      transition:transform .65s ease .18s,opacity .4s ease .18s;
     }
 
-    .hwa-bud.bloomed::before,
-    .hwa-bud.bloomed::after{
-      opacity:.92;
-      transform:translate(-50%,-50%) rotate(45deg) scale(1);
+    .camellia .flower-base{
+      position:absolute;
+      z-index:2;
+      left:50%;
+      top:58%;
+      width:25.88%;
+      height:10.59%;
+      transform:translate(-50%,-50%);
+      border-radius:50% 50% 58% 58%;
+      background:linear-gradient(180deg,#303b2e,#1c241c);
+      opacity:.72;
+      transition:opacity .4s ease,transform .7s ease;
     }
 
-    .hwa-bud.bloomed::after{
-      transform:translate(-50%,-50%) rotate(90deg) scale(.88);
+    /* CLOSED BUD */
+    .camellia:not(.open) .outer{
+      width:23.53%;
+      height:42.35%;
+      margin-left:-11.76%;
+      margin-top:-35.29%;
     }
 
-    .hwa-bud.danger{
-      border-color:#b64150;
-      box-shadow:
-        0 0 8px rgba(215,59,77,.45),
-        0 0 22px rgba(174,35,52,.22);
+    .camellia:not(.open) .inner{
+      width:20%;
+      height:37.65%;
+      margin-left:-10%;
+      margin-top:-32.94%;
     }
 
-    .b1{top:7%}.b2{top:18%}.b3{top:30%}.b4{top:42%}.b5{top:54%}
-    .b6{top:65%}.b7{top:75%}.b8{top:85%}.b9{top:94%}
+    .camellia:not(.open) .o1{transform:translateX(-28%) rotate(-13deg) scale(.94)}
+    .camellia:not(.open) .o2{transform:translateX(-15%) rotate(-7deg) scale(.98)}
+    .camellia:not(.open) .o3{transform:translateX(0) rotate(0deg) scale(1)}
+    .camellia:not(.open) .o4{transform:translateX(15%) rotate(7deg) scale(.98)}
+    .camellia:not(.open) .o5{transform:translateX(28%) rotate(13deg) scale(.94)}
+    .camellia:not(.open) .o6{transform:translateY(-3%) rotate(0deg) scale(.90)}
+
+    .camellia:not(.open) .i1{transform:translateX(-18%) translateY(-7%) rotate(-6deg) scale(.83)}
+    .camellia:not(.open) .i2{transform:translateX(-9%) translateY(-10%) rotate(-3deg) scale(.86)}
+    .camellia:not(.open) .i3{transform:translateY(-12%) rotate(0deg) scale(.90)}
+    .camellia:not(.open) .i4{transform:translateX(9%) translateY(-10%) rotate(3deg) scale(.86)}
+    .camellia:not(.open) .i5{transform:translateX(18%) translateY(-7%) rotate(6deg) scale(.83)}
+
+    /* FULL BLOOM */
+    .camellia.open .o1{transform:rotate(0)}
+    .camellia.open .o2{transform:rotate(60deg)}
+    .camellia.open .o3{transform:rotate(120deg)}
+    .camellia.open .o4{transform:rotate(180deg)}
+    .camellia.open .o5{transform:rotate(240deg)}
+    .camellia.open .o6{transform:rotate(300deg)}
+    .camellia.open .i1{transform:rotate(30deg)}
+    .camellia.open .i2{transform:rotate(102deg)}
+    .camellia.open .i3{transform:rotate(174deg)}
+    .camellia.open .i4{transform:rotate(246deg)}
+    .camellia.open .i5{transform:rotate(318deg)}
+    .camellia.open .flower-center{transform:translate(-50%,-50%) scale(1);opacity:1}
+    .camellia.open .flower-base{opacity:.16;transform:translate(-50%,-18%) scale(1.25)}
 
     .hwa-bloom-status{
       position:fixed;
@@ -984,9 +1017,7 @@
       transition:color .25s ease;
     }
 
-    .hwa-bloom-status.unstable .hwa-bloom-dialogue{
-      color:#c0939d;
-    }
+    .hwa-bloom-status.unstable .hwa-bloom-dialogue{color:#c0939d}
 
     body.hwa-stage-7::after,
     body.hwa-stage-8::after{
@@ -998,9 +1029,7 @@
       background:radial-gradient(circle at 50% 48%,transparent 45%,rgba(87,13,26,.055));
     }
 
-    body.hwa-stage-8 .page{
-      animation:hwaUneasy 2.9s ease-in-out infinite;
-    }
+    body.hwa-stage-8 .page{animation:hwaUneasy 2.9s ease-in-out infinite}
 
     @keyframes hwaUneasy{
       0%,100%{transform:translateX(0)}
@@ -1044,9 +1073,7 @@
         ),
         #050102;
       text-align:center;
-      box-shadow:
-        0 0 24px rgba(171,24,46,.22),
-        inset 0 0 40px rgba(110,13,28,.09);
+      box-shadow:0 0 24px rgba(171,24,46,.22),inset 0 0 40px rgba(110,13,28,.09);
       animation:hwaWarningPulse .72s steps(2,end) infinite;
     }
 
@@ -1096,36 +1123,28 @@
       cursor:pointer;
     }
 
-    @media(max-width:820px){
-      .hwa-vine{
-        width:58px;
-        opacity:.18;
-      }
-      .hwa-vine.left{left:-12px}
-      .hwa-vine.right{right:-12px}
-      .vine-stem{left:29px}
-      .hwa-bud{left:29px}
-    }
+    @media(max-width:680px){
+      .hwa-flower-node{--flower-size:58px !important}
+      .hwa-flower-node[data-index="1"]{left:86%;top:17%}
+      .hwa-flower-node[data-index="2"]{left:12%;top:30%}
+      .hwa-flower-node[data-index="3"]{left:85%;top:43%}
+      .hwa-flower-node[data-index="4"]{left:14%;top:57%}
+      .hwa-flower-node[data-index="5"]{left:76%;top:67%}
+      .hwa-flower-node[data-index="6"]{left:87%;top:80%}
+      .hwa-flower-node[data-index="7"]{left:13%;top:81%}
+      .hwa-flower-node[data-index="8"]{left:55%;top:88%}
+      .hwa-flower-node[data-index="9"]{left:38%;top:22%}
 
-    @media(max-width:560px){
-      .hwa-vine{
-        top:13vh;
-        bottom:8vh;
-        width:48px;
-      }
-      .hwa-vine.left{left:-15px}
-      .hwa-vine.right{right:-15px}
-      .hwa-bud.bloomed{width:20px;height:20px}
       .hwa-bloom-status{
         bottom:12px;
         padding:12px 14px;
       }
-      .hwa-bloom-dialogue{
-        font-size:11px;
-      }
+
+      .hwa-bloom-dialogue{font-size:11px}
     }
 
     @media(prefers-reduced-motion:reduce){
+      .hwa-flower-node.current,
       body.hwa-stage-8 .page,
       .hwa-warning-panel{
         animation:none !important;
@@ -1133,25 +1152,119 @@
     }
   </style>
 
+
 </head>
 <body>
 
   <!-- HWA / NINE BLOOM EASTER EGG -->
-  <div class="hwa-vine-layer" id="hwaVineLayer" aria-label="동백 덩굴">
-    <button class="hwa-vine left" id="hwaVineLeft" type="button" aria-label="왼쪽 덩굴">
-      <span class="vine-stem" aria-hidden="true"></span>
-      <span class="hwa-bud b1" data-bloom="1"></span>
-      <span class="hwa-bud b3" data-bloom="3"></span>
-      <span class="hwa-bud b5" data-bloom="5"></span>
-      <span class="hwa-bud b7" data-bloom="7"></span>
-      <span class="hwa-bud b9" data-bloom="9"></span>
+  <div class="hwa-flower-layer" id="hwaFlowerLayer" aria-label="흩어진 동백 봉오리">
+    <button class="hwa-flower-node current" data-index="1" type="button" aria-label="1번째 동백 봉오리">
+      <span class="camellia">
+        <span class="flower-base"></span>
+        <span class="petal outer o1"></span><span class="petal outer o2"></span>
+        <span class="petal outer o3"></span><span class="petal outer o4"></span>
+        <span class="petal outer o5"></span><span class="petal outer o6"></span>
+        <span class="petal inner i1"></span><span class="petal inner i2"></span>
+        <span class="petal inner i3"></span><span class="petal inner i4"></span>
+        <span class="petal inner i5"></span>
+        <span class="flower-center"></span>
+      </span>
     </button>
-    <button class="hwa-vine right" id="hwaVineRight" type="button" aria-label="오른쪽 덩굴">
-      <span class="vine-stem" aria-hidden="true"></span>
-      <span class="hwa-bud b2" data-bloom="2"></span>
-      <span class="hwa-bud b4" data-bloom="4"></span>
-      <span class="hwa-bud b6" data-bloom="6"></span>
-      <span class="hwa-bud b8" data-bloom="8"></span>
+    <button class="hwa-flower-node" data-index="2" type="button" aria-label="2번째 동백 봉오리">
+      <span class="camellia">
+        <span class="flower-base"></span>
+        <span class="petal outer o1"></span><span class="petal outer o2"></span>
+        <span class="petal outer o3"></span><span class="petal outer o4"></span>
+        <span class="petal outer o5"></span><span class="petal outer o6"></span>
+        <span class="petal inner i1"></span><span class="petal inner i2"></span>
+        <span class="petal inner i3"></span><span class="petal inner i4"></span>
+        <span class="petal inner i5"></span>
+        <span class="flower-center"></span>
+      </span>
+    </button>
+    <button class="hwa-flower-node" data-index="3" type="button" aria-label="3번째 동백 봉오리">
+      <span class="camellia">
+        <span class="flower-base"></span>
+        <span class="petal outer o1"></span><span class="petal outer o2"></span>
+        <span class="petal outer o3"></span><span class="petal outer o4"></span>
+        <span class="petal outer o5"></span><span class="petal outer o6"></span>
+        <span class="petal inner i1"></span><span class="petal inner i2"></span>
+        <span class="petal inner i3"></span><span class="petal inner i4"></span>
+        <span class="petal inner i5"></span>
+        <span class="flower-center"></span>
+      </span>
+    </button>
+    <button class="hwa-flower-node" data-index="4" type="button" aria-label="4번째 동백 봉오리">
+      <span class="camellia">
+        <span class="flower-base"></span>
+        <span class="petal outer o1"></span><span class="petal outer o2"></span>
+        <span class="petal outer o3"></span><span class="petal outer o4"></span>
+        <span class="petal outer o5"></span><span class="petal outer o6"></span>
+        <span class="petal inner i1"></span><span class="petal inner i2"></span>
+        <span class="petal inner i3"></span><span class="petal inner i4"></span>
+        <span class="petal inner i5"></span>
+        <span class="flower-center"></span>
+      </span>
+    </button>
+    <button class="hwa-flower-node" data-index="5" type="button" aria-label="5번째 동백 봉오리">
+      <span class="camellia">
+        <span class="flower-base"></span>
+        <span class="petal outer o1"></span><span class="petal outer o2"></span>
+        <span class="petal outer o3"></span><span class="petal outer o4"></span>
+        <span class="petal outer o5"></span><span class="petal outer o6"></span>
+        <span class="petal inner i1"></span><span class="petal inner i2"></span>
+        <span class="petal inner i3"></span><span class="petal inner i4"></span>
+        <span class="petal inner i5"></span>
+        <span class="flower-center"></span>
+      </span>
+    </button>
+    <button class="hwa-flower-node" data-index="6" type="button" aria-label="6번째 동백 봉오리">
+      <span class="camellia">
+        <span class="flower-base"></span>
+        <span class="petal outer o1"></span><span class="petal outer o2"></span>
+        <span class="petal outer o3"></span><span class="petal outer o4"></span>
+        <span class="petal outer o5"></span><span class="petal outer o6"></span>
+        <span class="petal inner i1"></span><span class="petal inner i2"></span>
+        <span class="petal inner i3"></span><span class="petal inner i4"></span>
+        <span class="petal inner i5"></span>
+        <span class="flower-center"></span>
+      </span>
+    </button>
+    <button class="hwa-flower-node" data-index="7" type="button" aria-label="7번째 동백 봉오리">
+      <span class="camellia">
+        <span class="flower-base"></span>
+        <span class="petal outer o1"></span><span class="petal outer o2"></span>
+        <span class="petal outer o3"></span><span class="petal outer o4"></span>
+        <span class="petal outer o5"></span><span class="petal outer o6"></span>
+        <span class="petal inner i1"></span><span class="petal inner i2"></span>
+        <span class="petal inner i3"></span><span class="petal inner i4"></span>
+        <span class="petal inner i5"></span>
+        <span class="flower-center"></span>
+      </span>
+    </button>
+    <button class="hwa-flower-node" data-index="8" type="button" aria-label="8번째 동백 봉오리">
+      <span class="camellia">
+        <span class="flower-base"></span>
+        <span class="petal outer o1"></span><span class="petal outer o2"></span>
+        <span class="petal outer o3"></span><span class="petal outer o4"></span>
+        <span class="petal outer o5"></span><span class="petal outer o6"></span>
+        <span class="petal inner i1"></span><span class="petal inner i2"></span>
+        <span class="petal inner i3"></span><span class="petal inner i4"></span>
+        <span class="petal inner i5"></span>
+        <span class="flower-center"></span>
+      </span>
+    </button>
+    <button class="hwa-flower-node" data-index="9" type="button" aria-label="9번째 동백 봉오리">
+      <span class="camellia">
+        <span class="flower-base"></span>
+        <span class="petal outer o1"></span><span class="petal outer o2"></span>
+        <span class="petal outer o3"></span><span class="petal outer o4"></span>
+        <span class="petal outer o5"></span><span class="petal outer o6"></span>
+        <span class="petal inner i1"></span><span class="petal inner i2"></span>
+        <span class="petal inner i3"></span><span class="petal inner i4"></span>
+        <span class="petal inner i5"></span>
+        <span class="flower-center"></span>
+      </span>
     </button>
   </div>
 
@@ -1172,6 +1285,8 @@
       <button class="hwa-warning-dismiss" id="hwaWarningDismiss" type="button">[ CLOSE ]</button>
     </div>
   </div>
+
+
 
   <main class="page">
     <header class="top-bar">
@@ -1398,16 +1513,10 @@
 
     updateSlide();
 
-  
     /* HWA / NINE BLOOM EASTER EGG */
     (() => {
-      const vines=[
-        document.getElementById('hwaVineLeft'),
-        document.getElementById('hwaVineRight')
-      ].filter(Boolean);
-
-      const buds=[...document.querySelectorAll('.hwa-bud')]
-        .sort((a,b)=>Number(a.dataset.bloom)-Number(b.dataset.bloom));
+      const flowers=[...document.querySelectorAll('.hwa-flower-node')]
+        .sort((a,b)=>Number(a.dataset.index)-Number(b.dataset.index));
 
       const status=document.getElementById('hwaBloomStatus');
       const counter=document.getElementById('hwaBloomCounter');
@@ -1441,30 +1550,39 @@
         }
       }
 
-      function bloomNext(){
-        if(bloom>=9)return;
-        bloom+=1;
-
-        const bud=buds.find(el=>Number(el.dataset.bloom)===bloom);
-        if(bud){
-          bud.classList.add('bloomed');
-          if(bloom>=7)bud.classList.add('danger');
+      function activateNext(){
+        const next=flowers[bloom];
+        if(next){
+          window.setTimeout(()=>next.classList.add('current'),520);
         }
+      }
+
+      function bloomFlower(button){
+        if(bloom>=9 || !button.classList.contains('current'))return;
+
+        const expected=Number(button.dataset.index);
+        if(expected!==bloom+1)return;
+
+        button.classList.remove('current');
+        button.classList.add('bloomed');
+        button.querySelector('.camellia')?.classList.add('open');
+
+        bloom+=1;
 
         if(counter){
           counter.textContent=`${String(bloom).padStart(2,'0')} / 09`;
         }
 
         document.body.classList.remove('hwa-stage-7','hwa-stage-8');
-
         if(bloom===7)document.body.classList.add('hwa-stage-7');
         if(bloom===8)document.body.classList.add('hwa-stage-8');
 
         if(bloom<9){
           showStatus(lines[bloom-1],bloom>=7);
+          activateNext();
         }else{
           status?.classList.remove('show');
-          showWarning();
+          window.setTimeout(showWarning,760);
         }
       }
 
@@ -1480,13 +1598,17 @@
         document.documentElement.style.overflow='';
       }
 
-      vines.forEach(vine=>vine.addEventListener('click',bloomNext));
+      flowers.forEach(button=>{
+        button.addEventListener('click',()=>bloomFlower(button));
+      });
+
       warningDismiss?.addEventListener('click',closeWarning);
 
       warning?.addEventListener('click',(e)=>{
         if(e.target===warning)closeWarning();
       });
     })();
+
 
   </script>
 </body>
