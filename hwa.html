@@ -1385,6 +1385,108 @@
     }
   </style>
 
+
+<style>
+/* ===== CAMELLIA TRANSPARENT BACKGROUND FIX =====
+   Mobile Safari/Chrome included */
+.hwa-flower-layer,
+.hwa-flower-node,
+.hwa-flower-node.current,
+.hwa-flower-node.bloomed,
+.camellia{
+  background:transparent !important;
+  background-color:transparent !important;
+}
+
+.hwa-flower-node{
+  border:none !important;
+  box-shadow:none !important;
+  appearance:none !important;
+  -webkit-appearance:none !important;
+  -webkit-tap-highlight-color:transparent !important;
+  color:transparent;
+}
+
+.hwa-flower-node::before,
+.hwa-flower-node::after,
+.camellia::before,
+.camellia::after{
+  background:transparent;
+}
+
+@media(max-width:680px){
+  .hwa-flower-layer,
+  .hwa-flower-node,
+  .camellia{
+    background:transparent !important;
+    background-color:rgba(0,0,0,0) !important;
+  }
+}
+</style>
+
+
+<style>
+/* ===== BLOOM DIALOGUE MOBILE FIT FIX ===== */
+.hwa-bloom-status{
+  max-height:min(42vh,260px);
+  overflow-y:auto;
+  overflow-x:hidden;
+  scrollbar-width:thin;
+}
+
+.hwa-bloom-dialogue{
+  white-space:normal !important;
+  overflow-wrap:anywhere;
+  word-break:keep-all;
+}
+
+@media(max-width:680px){
+  .hwa-bloom-status{
+    left:12px !important;
+    right:12px !important;
+    bottom:10px !important;
+    width:auto !important;
+    max-width:none !important;
+    max-height:38vh;
+    padding:10px 12px 11px !important;
+    transform:translateY(10px) !important;
+  }
+
+  .hwa-bloom-status.show{
+    transform:translateY(0) !important;
+  }
+
+  .hwa-bloom-counter{
+    margin-bottom:5px !important;
+    font-size:7px !important;
+    gap:8px !important;
+  }
+
+  .hwa-bloom-dialogue{
+    font-size:10px !important;
+    line-height:1.65 !important;
+    letter-spacing:0 !important;
+    word-break:keep-all !important;
+    overflow-wrap:break-word !important;
+  }
+}
+
+@media(max-width:390px){
+  .hwa-bloom-status{
+    left:8px !important;
+    right:8px !important;
+    bottom:8px !important;
+    max-height:40vh;
+    padding:9px 10px 10px !important;
+  }
+
+  .hwa-bloom-dialogue{
+    font-size:9.5px !important;
+    line-height:1.6 !important;
+  }
+}
+</style>
+
 </head>
 <body>
 
