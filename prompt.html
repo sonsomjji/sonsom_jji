@@ -452,12 +452,164 @@
     .hidden-slot{display:none!important}.note{margin-top:32px;padding:14px 16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font:8px/1.7 var(--system);letter-spacing:.5px;color:#594b60}.note strong{color:#8f69a0;font-weight:400}
     footer{margin-top:55px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;font:8px var(--system);letter-spacing:.8px;color:#493d4e}
     @media(max-width:720px){.subject-list{grid-template-columns:1fr}.page{width:min(calc(100% - 24px),1180px)}.hero{padding:52px 0 34px}.subject-head{padding:15px}.hanja{font-size:26px}.prompt-text{font-size:9px}.top{font-size:7px}}
+  
+    /* ===== SHARED TOP BAR / HERO ===== */
+    .top,
+    .top-bar{
+      position:sticky;
+      top:0;
+      z-index:100;
+      display:grid !important;
+      grid-template-columns:1fr auto 1fr;
+      align-items:center;
+      min-height:68px;
+      border-bottom:1px solid #2d1b36;
+      background:linear-gradient(to bottom,rgba(0,0,0,.98),rgba(0,0,0,.9));
+      backdrop-filter:blur(12px);
+      font-family:"Share Tech Mono",Consolas,monospace;
+    }
+
+    /* dim by default; glow only on interaction */
+    .logo{
+      justify-self:start;
+      color:#695276 !important;
+      font:20px "Share Tech Mono",Consolas,monospace !important;
+      letter-spacing:2px !important;
+      text-shadow:none !important;
+      opacity:.72;
+      transition:
+        color .18s ease,
+        text-shadow .18s ease,
+        opacity .18s ease;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    .logo:hover,
+    .logo:focus-visible,
+    .logo:active{
+      color:#e4bcff !important;
+      opacity:1;
+      text-shadow:
+        0 0 6px rgba(204,145,255,.8),
+        0 0 16px rgba(153,73,211,.52),
+        0 0 28px rgba(111,42,179,.28) !important;
+      outline:none;
+    }
+
+    .node-status{
+      justify-self:center;
+      display:flex !important;
+      align-items:center;
+      gap:9px;
+      color:#6f4c7e;
+      font:11px "Share Tech Mono",Consolas,monospace;
+      letter-spacing:1.2px;
+    }
+
+    .status-dot{
+      width:6px;
+      height:6px;
+      flex:0 0 auto;
+      border-radius:50%;
+      background:#a566cc;
+      box-shadow:0 0 6px rgba(192,118,240,.8);
+      animation:sharedPulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes sharedPulse{
+      0%,100%{opacity:.45}
+      50%{opacity:1}
+    }
+
+    .disconnect{
+      justify-self:end;
+      color:#57495d !important;
+      font:11px "Share Tech Mono",Consolas,monospace !important;
+      letter-spacing:.7px !important;
+      transition:color .2s ease,text-shadow .2s ease;
+    }
+
+    .disconnect:hover,
+    .disconnect:focus-visible,
+    .disconnect:active{
+      color:#cc91ff !important;
+      text-shadow:0 0 8px rgba(176,91,229,.45);
+      outline:none;
+    }
+
+    .hero,
+    .directory-header{
+      padding:90px 0 72px !important;
+      text-align:center;
+    }
+
+    .route,
+    .system-path{
+      color:#6f4c7e !important;
+      font:11px "Share Tech Mono",Consolas,monospace !important;
+      letter-spacing:1.6px !important;
+    }
+
+    .hero h1,
+    .directory-title{
+      margin-top:17px !important;
+      color:#e4bcff !important;
+      font-family:"Share Tech Mono",Consolas,monospace !important;
+      font-size:clamp(42px,8vw,72px) !important;
+      font-weight:400 !important;
+      line-height:1 !important;
+      letter-spacing:5px !important;
+      text-shadow:
+        0 0 8px rgba(204,145,255,.30),
+        0 0 24px rgba(111,42,179,.20) !important;
+    }
+
+    @media(max-width:820px){
+      .top,
+      .top-bar{
+        grid-template-columns:1fr 1fr;
+      }
+      .node-status{
+        display:none !important;
+      }
+    }
+
+    @media(max-width:540px){
+      .top,
+      .top-bar{
+        min-height:60px;
+      }
+      .logo{
+        font-size:17px !important;
+        opacity:.68;
+      }
+      .disconnect{
+        font-size:9px !important;
+      }
+      .hero,
+      .directory-header{
+        padding:65px 0 55px !important;
+      }
+      .hero h1,
+      .directory-title{
+        font-size:clamp(36px,11vw,58px) !important;
+        letter-spacing:3px !important;
+      }
+    }
+
   </style>
 </head>
 <body>
 <div class="scan"></div>
 <main class="page">
-<header class="top"><span>VISUAL RECONSTRUCTION NODE / ONLINE</span><a href="gateway.html">&lt; RETURN TO GATEWAY</a></header>
+<header class="top">
+      <a class="logo" href="gateway.html">╾━[0x00::∅::7F]━╼</a>
+      <div class="node-status">
+        <span class="status-dot"></span>
+        NODE CONNECTION ACTIVE
+      </div>
+      <a class="disconnect" href="gateway.html">&lt; DISCONNECT</a>
+    </header>
 
 <section class="hero">
   <p class="route">ROOT / PRIVATE NETWORK / PROMPT</p>
