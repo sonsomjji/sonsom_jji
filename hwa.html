@@ -1487,6 +1487,59 @@
 }
 </style>
 
+
+<style>
+/* ===== TRUE TRANSPARENT CAMELLIA FIX =====
+   iOS/WebKit can rasterize CSS filter:drop-shadow() on transparent buttons
+   as a dark rectangular compositing layer. Remove the filter completely. */
+.hwa-flower-node,
+.hwa-flower-node.current,
+.hwa-flower-node.bloomed,
+.hwa-flower-node.current:hover,
+.hwa-flower-node.current:focus-visible{
+  background:none !important;
+  background-color:transparent !important;
+  box-shadow:none !important;
+  filter:none !important;
+  -webkit-filter:none !important;
+}
+
+.hwa-flower-node.current{
+  animation:none !important;
+}
+
+/* keep only a very subtle "breathing" on the flower itself,
+   without creating a rectangular WebKit filter layer */
+body.hwa-started .hwa-flower-node.current .camellia{
+  animation:hwaCamelliaSoftBreathe 2.8s ease-in-out infinite;
+  transform-origin:50% 50%;
+}
+
+@keyframes hwaCamelliaSoftBreathe{
+  0%,100%{opacity:.94}
+  50%{opacity:1}
+}
+
+.hwa-flower-layer,
+.camellia{
+  background:none !important;
+  background-color:transparent !important;
+}
+
+/* Extra iPhone/Safari safeguard */
+@media(max-width:680px){
+  .hwa-flower-node,
+  .hwa-flower-node.current,
+  .hwa-flower-node.bloomed,
+  .camellia{
+    background:rgba(0,0,0,0) !important;
+    box-shadow:none !important;
+    filter:none !important;
+    -webkit-filter:none !important;
+  }
+}
+</style>
+
 </head>
 <body>
 
