@@ -1930,9 +1930,18 @@ body.hwa-started .hwa-flower-node.current .camellia{
       let hideTimer=null;
 
       const secret=document.getElementById('hwaFullBloomSecret');
-      const SECRET_KEY='hwa.fullBloomRecordUnlocked';
 
-      function revealFullBloomRecord(persist=true){
+      function lockFullBloomRecord(){
+        if(!secret)return;
+        secret.className='hwa-secret-locked';
+        secret.textContent='완전 개화에 관한 기록은 열람이 제한되어 있다.';
+      }
+
+      lockFullBloomRecord();
+      window.addEventListener('pageshow',()=>{
+        if(bloom < 9) lockFullBloomRecord();
+      });
+      function revealFullBloomRecord(){
         if(!secret)return;
 
         secret.className='hwa-secret-unlocked';
@@ -1940,17 +1949,8 @@ body.hwa-started .hwa-flower-node.current .camellia{
           '<span class="hwa-secret-tag">[RESTRICTION OVERRIDDEN]</span>' +
           '아홉 개의 꽃이 모두 만개할 경우 능력자는 식생을 더 이상 통제하지 못하며, ' +
           '주변 모든 액체가 즉시 폭발적 식생으로 전환된다. 반경 수백 미터가 재해구역으로 변한다.';
-
-        if(persist){
-          try{ localStorage.setItem(SECRET_KEY,'1'); }catch(e){}
-        }
       }
 
-      try{
-        if(localStorage.getItem(SECRET_KEY)==='1'){
-          revealFullBloomRecord(false);
-        }
-      }catch(e){}
 
       function positionFlowers(){
         if(!trigger || !flowers.length)return;
@@ -2052,7 +2052,7 @@ body.hwa-started .hwa-flower-node.current .camellia{
         document.documentElement.style.overflow='';
 
         if(bloom>=9){
-          revealFullBloomRecord(true);
+          revealFullBloomRecord();
 
           /* after closing the warning, return attention to the document */
           window.setTimeout(()=>{
