@@ -6,7 +6,7 @@
   <title>╾━[0x00::∅::7F]━╼ | BINA</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@300;400;500;600&family=Noto+Serif+KR:wght@400;500;600;700&family=Share+Tech+Mono&family=Yuji+Boku&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@300;400;500;600&family=Noto+Serif+KR:wght@400;500;600;700&family=Share+Tech+Mono&family=Single+Day&family=Yuji+Boku&display=swap" rel="stylesheet">
   <style>
     :root {
       --background:#000;
@@ -1240,6 +1240,828 @@
 }
 </style>
 
+
+<style>
+/* ===== TICKET ALIGNMENT FIX =====
+   - generated image's real black perforation: ~78.25%
+   - remove legacy CSS ticket notches (black circles)
+   - remove the extra gold tear guide; the image's black perforation is used visually
+*/
+.bina-ticket.bina-ticket-image::before,
+.bina-ticket.bina-ticket-image::after{
+  content:none !important;
+  display:none !important;
+}
+
+.ticket-image-left{
+  clip-path:polygon(0 0,78.25% 0,78.25% 100%,0 100%) !important;
+}
+.ticket-image-right{
+  clip-path:polygon(78.25% 0,100% 0,100% 100%,78.25% 100%) !important;
+}
+
+/* Do not draw a second perforation line over the artwork */
+.bina-ticket-image .bina-tear-line,
+.bina-circus-stage.tearing .bina-ticket-image .bina-tear-line{
+  display:none !important;
+  animation:none !important;
+}
+</style>
+
+
+<style>
+/* ===== CIRCO COLOMBO MEMORY ARCHIVE ===== */
+.bina-circus-layer{
+  overflow:auto;
+  align-items:start;
+  background:rgba(4,2,3,.82);
+}
+.bina-circus-stage{
+  width:min(96vw,940px);
+  min-height:680px;
+  margin:38px auto 70px;
+  align-items:start;
+}
+.bina-memory-archive{
+  position:relative;
+  width:min(92vw,790px) !important;
+  min-height:0 !important;
+  padding:0 0 38px !important;
+  overflow:hidden;
+  color:#4a2e24;
+  border:1px solid #8f6749;
+  background:
+    radial-gradient(circle at 16% 9%,rgba(255,255,228,.55),transparent 25%),
+    radial-gradient(circle at 84% 52%,rgba(126,42,35,.06),transparent 27%),
+    repeating-linear-gradient(0deg,rgba(83,52,31,.025) 0 1px,transparent 1px 5px),
+    #e2cca0 !important;
+  box-shadow:0 30px 80px rgba(0,0,0,.58),inset 0 0 95px rgba(83,45,24,.18) !important;
+  opacity:.2;
+  transform:translateY(22px) scale(.97);
+  transition:opacity .7s ease,transform .7s ease;
+}
+.bina-circus-stage.poster-open .bina-memory-archive{
+  opacity:1;
+  transform:none;
+}
+.bina-memory-archive::after{
+  content:"";
+  position:absolute;
+  inset:13px;
+  pointer-events:none;
+  border:1px solid rgba(143,52,45,.45);
+  outline:1px dashed rgba(143,52,45,.22);
+  outline-offset:5px;
+}
+.bina-memory-archive .poster-close{
+  position:absolute;
+  top:17px;right:20px;
+  z-index:30;
+  width:38px;height:38px;
+  border:1px solid rgba(123,57,46,.35);
+  border-radius:50%;
+  background:rgba(239,218,173,.76);
+  color:#793d34;
+  font-size:22px;
+}
+.memory-masthead{
+  position:relative;
+  padding:46px 32px 32px;
+  text-align:center;
+  background:
+    linear-gradient(90deg,transparent 0 4%,rgba(145,45,43,.11) 4% 6%,transparent 6% 94%,rgba(145,45,43,.11) 94% 96%,transparent 96%),
+    rgba(255,241,202,.18);
+  border-bottom:2px solid rgba(140,53,45,.5);
+}
+.memory-stars{color:#9a4038;letter-spacing:12px;font-size:14px}
+.memory-kicker{margin:10px 0 5px;font:9px var(--font-system);letter-spacing:2.1px;color:#87634d}
+.memory-masthead h2{
+  margin:0;
+  font-family:"Noto Serif KR",serif;
+  font-size:clamp(42px,8vw,72px);
+  line-height:1;
+  letter-spacing:2px;
+  color:#963c37;
+  text-shadow:1px 1px 0 #f4dfae;
+}
+.memory-tagline{margin:9px 0 18px;font:italic 15px Georgia,serif;color:#765441}
+.memory-ribbon{
+  display:flex;justify-content:center;
+}
+.memory-ribbon span{
+  position:relative;
+  padding:8px 30px;
+  background:#9a3d39;
+  color:#f2ddb0;
+  font:10px var(--font-system);
+  letter-spacing:2px;
+}
+.memory-performance{padding:42px 56px 20px}
+.memory-photo{
+  position:relative;
+  background:#f0dfb9;
+  padding:10px;
+  box-shadow:0 12px 25px rgba(74,42,27,.25);
+}
+.memory-photo img{
+  display:block;width:100%;
+  object-fit:cover;
+  filter:saturate(.78) sepia(.12) contrast(.96) brightness(.98);
+}
+.performance-photo{transform:rotate(-.65deg)}
+.performance-photo img{max-height:650px;object-position:center 42%}
+.photo-corner{
+  position:absolute;width:31px;height:31px;
+  border-color:#8c4439;border-style:solid;opacity:.55;
+}
+.c1{left:5px;top:5px;border-width:2px 0 0 2px}.c2{right:5px;top:5px;border-width:2px 2px 0 0}
+.c3{left:5px;bottom:5px;border-width:0 0 2px 2px}.c4{right:5px;bottom:5px;border-width:0 2px 2px 0}
+.memory-caption{
+  padding:16px 5px 0;
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+}
+.memory-caption strong{font:700 21px Georgia,serif;letter-spacing:2px;color:#8d3834}
+.memory-caption em{font:italic 15px Georgia,serif;color:#684b3d}
+.memory-caption span{font:8px var(--font-system);letter-spacing:1.5px;color:#86654f}
+.memory-divider{
+  display:flex;align-items:center;gap:12px;
+  margin:15px 48px 28px;color:#9b433b;
+}
+.memory-divider b{height:1px;background:rgba(142,62,52,.45);flex:1}
+.memory-family-row{
+  padding:5px 58px 36px;
+  display:grid;
+  grid-template-columns:.72fr 1.45fr;
+  gap:34px;
+  align-items:center;
+}
+.memory-note{
+  transform:rotate(-2deg);
+  padding:26px 20px;
+  border:1px dashed rgba(133,76,53,.42);
+  background:rgba(250,230,184,.38);
+  text-align:center;
+  font:italic 18px Georgia,serif;
+  line-height:1.55;
+  color:#714c3c;
+}
+.note-star{display:block;color:#a2473e;margin-bottom:9px}
+.note-small{margin-top:13px!important;font-size:14px!important}
+.family-photo{transform:rotate(1.2deg)}
+.family-photo img{aspect-ratio:16/10;object-position:center 40%}
+.paper-tape{
+  position:absolute;z-index:5;width:76px;height:22px;
+  background:rgba(225,204,156,.72);
+  box-shadow:0 1px 3px rgba(73,45,29,.15);
+}
+.tape-a{left:-21px;top:14px;transform:rotate(-35deg)}
+.tape-b{right:-18px;bottom:12px;transform:rotate(-30deg)}
+.family-caption strong{font-size:17px}
+.family-caption em{font-size:13px}
+.memory-scraps{
+  margin:4px 48px 34px;
+  padding:15px 12px;
+  display:flex;justify-content:space-around;gap:10px;flex-wrap:wrap;
+  border-top:1px dashed rgba(132,70,50,.4);
+  border-bottom:1px dashed rgba(132,70,50,.4);
+  color:#9b453d;
+  font:9px var(--font-system);
+  letter-spacing:1.4px;
+}
+.memory-ending{
+  position:relative;
+  margin-top:22px;
+  padding:44px 60px 32px;
+  background:
+    linear-gradient(180deg,rgba(117,45,40,.02),rgba(65,27,26,.12)),
+    rgba(210,183,136,.35);
+  border-top:1px solid rgba(122,67,48,.4);
+}
+.memory-status{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:10px 12px;
+  align-items:end;
+  font:8px var(--font-system);
+  letter-spacing:1.1px;
+  color:#755747;
+}
+.memory-status b{border-bottom:1px dotted rgba(104,72,55,.48);height:8px}
+.memory-status strong{font-weight:400;color:#583d35}
+.memory-final{
+  margin:52px 0 0;
+  text-align:center;
+  font:italic 23px Georgia,serif;
+  color:#573832;
+}
+.memory-altitude{
+  margin:9px 0 0;text-align:center;
+  font:8px var(--font-system);letter-spacing:2.2px;color:#725249;
+}
+.bina-memory-archive .poster-music{
+  margin:22px auto 0;
+  position:relative;z-index:10;
+}
+@media(max-width:680px){
+  .bina-circus-stage{margin:18px auto 45px}
+  .memory-masthead{padding:38px 18px 27px}
+  .memory-performance{padding:28px 22px 12px}
+  .memory-family-row{padding:4px 24px 28px;grid-template-columns:1fr;gap:20px}
+  .memory-note{order:2}
+  .memory-divider{margin:12px 24px 22px}
+  .memory-scraps{margin:4px 24px 26px}
+  .memory-ending{padding:36px 25px 28px}
+  .memory-status{grid-template-columns:auto 1fr auto;font-size:7px}
+  .memory-final{font-size:19px;margin-top:42px}
+}
+</style>
+
+
+<style>
+/* ===== OLDER PAPER + FRESH INK NOTE ===== */
+.bina-memory-archive{
+  background:
+    radial-gradient(ellipse at 8% 4%,rgba(84,45,24,.20),transparent 13%),
+    radial-gradient(ellipse at 95% 18%,rgba(101,56,27,.18),transparent 17%),
+    radial-gradient(circle at 17% 70%,rgba(112,62,29,.12),transparent 18%),
+    radial-gradient(circle at 82% 87%,rgba(71,39,22,.16),transparent 20%),
+    repeating-linear-gradient(92deg,rgba(83,48,27,.025) 0 1px,transparent 1px 7px),
+    repeating-linear-gradient(3deg,rgba(82,47,27,.018) 0 1px,transparent 1px 5px),
+    #d3b982 !important;
+  filter:sepia(.13) saturate(.83);
+}
+.bina-memory-archive::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  opacity:.75;
+  background:
+    radial-gradient(circle at 3% 12%,rgba(69,35,19,.35) 0 2px,transparent 3px),
+    radial-gradient(circle at 97% 35%,rgba(69,35,19,.28) 0 3px,transparent 4px),
+    radial-gradient(circle at 13% 96%,rgba(69,35,19,.25) 0 2px,transparent 4px),
+    linear-gradient(90deg,rgba(66,32,17,.22),transparent 3%,transparent 96%,rgba(66,32,17,.24)),
+    linear-gradient(180deg,rgba(61,31,18,.24),transparent 4%,transparent 95%,rgba(61,31,18,.30));
+  box-shadow:
+    inset 0 0 32px rgba(60,30,16,.24),
+    inset 0 0 95px rgba(70,35,18,.18);
+  mix-blend-mode:multiply;
+}
+.bina-memory-archive > *{position:relative;z-index:2}
+
+/* worn, uneven outer paper edge */
+.bina-memory-archive{
+  clip-path:polygon(
+    .6% 0,8% .4%,16% .1%,24% .5%,34% .15%,44% .45%,54% .05%,64% .35%,75% .08%,85% .5%,94% .12%,99.4% .6%,
+    100% 9%,99.6% 18%,100% 29%,99.5% 40%,99.9% 52%,99.5% 64%,100% 76%,99.4% 87%,99.7% 96%,99.1% 99.4%,
+    90% 100%,81% 99.5%,70% 99.9%,59% 99.45%,48% 99.9%,37% 99.5%,26% 100%,15% 99.55%,5% 99.9%,.7% 99.3%,
+    0 91%,.45% 81%,.05% 69%,.5% 58%,.1% 46%,.45% 34%,0 22%,.5% 11%
+  );
+}
+.memory-masthead,
+.memory-ending{filter:saturate(.82)}
+.memory-photo{
+  background:#d9c08c;
+  box-shadow:0 12px 25px rgba(60,31,17,.31),0 0 0 1px rgba(79,43,24,.16);
+}
+.memory-photo img{
+  filter:sepia(.25) saturate(.68) contrast(.93) brightness(.93);
+}
+.paper-tape{
+  background:rgba(190,164,112,.72);
+  filter:sepia(.35);
+}
+.memory-caption,
+.memory-note,
+.memory-scraps{opacity:.9}
+
+/* New handwriting: intentionally clean, dark, and not faded with the archive. */
+.fresh-clown-note{
+  position:relative;
+  z-index:15 !important;
+  width:min(72%,500px);
+  margin:34px auto 8px 36px;
+  padding:8px 94px 9px 7px;
+  transform:rotate(-2.2deg);
+  color:#241b19;
+  filter:none !important;
+}
+.fresh-note-text{
+  font-family:"Nanum Pen Script","Gaegu","Noto Sans KR",cursive;
+  font-size:19px;
+  font-weight:700;
+  line-height:1.5;
+  letter-spacing:-.25px;
+  text-shadow:0 .2px 0 #120e0d;
+}
+
+/* hand-drawn crying clown doodle */
+.tear-clown{
+  position:absolute;
+  right:6px;
+  bottom:-8px;
+  width:72px;
+  height:72px;
+  transform:rotate(7deg);
+}
+.clown-face{
+  position:absolute;
+  left:14px;top:14px;
+  width:48px;height:48px;
+  border:2px solid #28201e;
+  border-radius:48% 52% 50% 47%;
+}
+.clown-eye{
+  position:absolute;top:16px;width:5px;height:3px;
+  border-top:2px solid #28201e;
+  border-radius:50%;
+}
+.clown-eye.e1{left:10px;transform:rotate(8deg)}
+.clown-eye.e2{right:10px;transform:rotate(-8deg)}
+.clown-tear{
+  position:absolute;top:21px;width:4px;height:10px;
+  border:1.5px solid #28201e;
+  border-radius:60% 40% 60% 40%;
+  transform:rotate(15deg);
+}
+.clown-tear.t1{left:10px}.clown-tear.t2{right:9px;transform:rotate(-12deg)}
+.clown-nose{
+  position:absolute;left:19px;top:24px;width:9px;height:8px;
+  border:2px solid #28201e;border-radius:50%;
+}
+.clown-mouth{
+  position:absolute;left:13px;top:36px;width:20px;height:8px;
+  border-top:2px solid #28201e;border-radius:50%;
+}
+.clown-hair{
+  position:absolute;width:20px;height:20px;
+  border:2px solid #28201e;border-radius:50%;
+}
+.clown-hair.h1{left:5px;top:7px}
+.clown-hair.h2{left:25px;top:0}
+.clown-hair.h3{right:0;top:8px}
+
+@media(max-width:680px){
+  .fresh-clown-note{
+    width:calc(100% - 38px);
+    margin:28px 19px 4px;
+    padding-right:78px;
+  }
+  .fresh-note-text{font-size:16px}
+  .tear-clown{transform:scale(.88) rotate(7deg);transform-origin:right bottom}
+}
+</style>
+
+
+<style>
+/* tiny fresh marginalia — thin pen, hurried and almost hidden */
+.fresh-clown-note{
+  position:absolute !important;
+  left:25px !important;
+  bottom:25px !important;
+  z-index:20 !important;
+  width:245px !important;
+  margin:0 !important;
+  padding:0 52px 0 0 !important;
+  transform:rotate(-4.2deg) !important;
+  color:rgba(35,28,26,.82) !important;
+  background:none !important;
+  border:0 !important;
+  filter:none !important;
+  opacity:.86 !important;
+  pointer-events:none;
+}
+.fresh-note-text{
+  font-family:"Nanum Pen Script","Gaegu","Noto Sans KR",cursive !important;
+  font-size:10.5px !important;
+  font-weight:400 !important;
+  line-height:1.48 !important;
+  letter-spacing:-.15px !important;
+  text-align:left !important;
+  text-shadow:none !important;
+  white-space:nowrap;
+}
+.clown-scribble{
+  position:absolute;
+  right:0;
+  bottom:-10px;
+  width:48px;
+  height:34px;
+  color:rgba(35,28,26,.70);
+  transform:rotate(9deg);
+  overflow:visible;
+}
+.tear-clown{display:none !important}
+@media(max-width:680px){
+  .fresh-clown-note{
+    left:17px !important;
+    bottom:18px !important;
+    width:210px !important;
+    padding-right:42px !important;
+  }
+  .fresh-note-text{font-size:9px !important}
+  .clown-scribble{width:40px;height:29px}
+  .memory-ending{padding-bottom:94px !important}
+}
+@media(min-width:681px){
+  .memory-ending{padding-bottom:88px !important}
+}
+</style>
+
+
+<style>
+/* ===== fresh, almost-hidden marginalia ===== */
+.fresh-clown-note{
+  position:absolute !important;
+  left:18px !important;
+  bottom:17px !important;
+  z-index:25 !important;
+  width:270px !important;
+  margin:0 !important;
+  padding:0 !important;
+  transform:rotate(-3.7deg) !important;
+  color:rgba(27,23,22,.72) !important;
+  opacity:.82 !important;
+  filter:none !important;
+  background:none !important;
+  border:0 !important;
+  pointer-events:none;
+}
+.fresh-note-text{
+  position:absolute;
+  left:0;
+  bottom:3px;
+  font-family:"Nanum Pen Script","Gaegu","Noto Sans KR",cursive !important;
+  font-size:8.5px !important;
+  font-weight:300 !important;
+  line-height:1.35 !important;
+  letter-spacing:-.35px !important;
+  white-space:nowrap;
+  text-align:left !important;
+  text-shadow:none !important;
+  transform:skewX(-4deg);
+}
+.marginalia-doodle{
+  position:absolute;
+  left:139px;
+  bottom:-13px;
+  width:112px;
+  height:62px;
+  overflow:visible;
+  color:rgba(27,23,22,.62);
+  transform:rotate(3deg);
+}
+.clown-scribble,.tear-clown{display:none !important}
+.bina-memory-archive .poster-music{
+  letter-spacing:1.1px;
+}
+@media(max-width:680px){
+  .fresh-clown-note{
+    left:12px !important;
+    bottom:12px !important;
+    width:225px !important;
+  }
+  .fresh-note-text{font-size:7.4px !important}
+  .marginalia-doodle{
+    left:119px;
+    width:94px;
+    height:54px;
+    bottom:-11px;
+  }
+  .memory-ending{padding-bottom:86px !important}
+}
+</style>
+
+
+<style>
+/* final marginalia placement */
+.memory-ending{
+  min-height:250px;
+  padding-bottom:78px !important;
+}
+.fresh-clown-note{
+  position:absolute !important;
+  left:14px !important;
+  bottom:8px !important;
+  width:310px !important;
+  height:58px !important;
+  margin:0 !important;
+  padding:0 !important;
+  transform:rotate(-2.4deg) !important;
+  color:rgba(28,24,22,.72) !important;
+  opacity:.86 !important;
+  background:none !important;
+  border:0 !important;
+  filter:none !important;
+  pointer-events:none !important;
+}
+.fresh-note-text{
+  position:absolute !important;
+  left:0 !important;
+  bottom:5px !important;
+  margin:0 !important;
+  font-family:"Nanum Pen Script","Gaegu","Noto Sans KR",cursive !important;
+  font-size:7.2px !important;
+  font-weight:300 !important;
+  line-height:1.28 !important;
+  letter-spacing:-.42px !important;
+  white-space:nowrap !important;
+  color:rgba(28,24,22,.74) !important;
+  text-shadow:none !important;
+  transform:rotate(-1.5deg) skewX(-5deg) !important;
+}
+.marginalia-doodle{
+  position:absolute !important;
+  left:142px !important;
+  bottom:-5px !important;
+  width:150px !important;
+  height:58px !important;
+  color:rgba(28,24,22,.58) !important;
+  transform:rotate(2.5deg) !important;
+  overflow:visible !important;
+}
+@media(max-width:680px){
+  .memory-ending{min-height:225px;padding-bottom:70px !important}
+  .fresh-clown-note{
+    left:9px !important;
+    bottom:6px !important;
+    width:255px !important;
+    height:51px !important;
+  }
+  .fresh-note-text{font-size:6.3px !important}
+  .marginalia-doodle{
+    left:121px !important;
+    width:124px !important;
+    height:50px !important;
+  }
+}
+</style>
+
+
+<style>
+/* ===== user's own handwritten marginalia ===== */
+.fresh-clown-note,
+.marginalia-doodle,
+.clown-scribble,
+.tear-clown{
+  display:none !important;
+}
+
+.memory-ending{
+  min-height:275px !important;
+  padding-bottom:92px !important;
+}
+
+.fresh-handwritten-note{
+  position:absolute !important;
+  left:17px !important;
+  bottom:5px !important;
+  z-index:30 !important;
+  width:315px !important;
+  margin:0 !important;
+  padding:0 !important;
+  background:none !important;
+  border:0 !important;
+  filter:none !important;
+  opacity:.96 !important;
+  pointer-events:none !important;
+  transform:rotate(-1.1deg) !important;
+  transform-origin:left bottom !important;
+}
+
+.fresh-handwritten-note img{
+  display:block !important;
+  width:100% !important;
+  height:auto !important;
+  max-width:none !important;
+  background:transparent !important;
+  filter:none !important;
+  opacity:1 !important;
+  mix-blend-mode:multiply;
+}
+
+@media(max-width:680px){
+  .memory-ending{
+    min-height:235px !important;
+    padding-bottom:82px !important;
+  }
+  .fresh-handwritten-note{
+    left:9px !important;
+    bottom:4px !important;
+    width:235px !important;
+  }
+}
+</style>
+
+
+<style>
+/* ===== fresh fountain-pen marginalia ===== */
+.fresh-handwritten-note,
+.fresh-clown-note,
+.marginalia-doodle,
+.clown-scribble,
+.tear-clown{display:none !important}
+
+.memory-ending{
+  min-height:270px !important;
+  padding-bottom:92px !important;
+}
+
+.fresh-ink-note{
+  position:absolute !important;
+  left:18px !important;
+  bottom:7px !important;
+  z-index:40 !important;
+  width:330px !important;
+  height:83px !important;
+  margin:0 !important;
+  padding:0 !important;
+  color:rgba(28,23,22,.76) !important;
+  background:none !important;
+  border:0 !important;
+  opacity:.91 !important;
+  transform:rotate(-3.4deg) !important;
+  transform-origin:left bottom !important;
+  pointer-events:none !important;
+  filter:none !important;
+}
+
+.ink-writing{
+  position:absolute !important;
+  left:0 !important;
+  bottom:8px !important;
+  margin:0 !important;
+  padding:0 !important;
+  font-family:"Nanum Pen Script","Nanum Brush Script","Gaegu","Noto Sans KR",cursive !important;
+  font-size:11px !important;
+  font-weight:400 !important;
+  line-height:1.28 !important;
+  letter-spacing:-.55px !important;
+  white-space:nowrap !important;
+  color:rgba(24,20,19,.78) !important;
+  text-shadow:none !important;
+  transform:skewX(-8deg) rotate(-1deg) !important;
+}
+
+.ink-doodle{
+  position:absolute !important;
+  left:137px !important;
+  bottom:-8px !important;
+  width:183px !important;
+  height:94px !important;
+  overflow:visible !important;
+  color:rgba(24,20,19,.69) !important;
+  transform:rotate(4deg) !important;
+}
+.ink-doodle .ink-main{stroke-width:1.05}
+.ink-doodle .ink-ghost{stroke-width:.55;opacity:.48}
+
+@media(max-width:680px){
+  .memory-ending{
+    min-height:238px !important;
+    padding-bottom:82px !important;
+  }
+  .fresh-ink-note{
+    left:10px !important;
+    bottom:5px !important;
+    width:275px !important;
+    height:70px !important;
+  }
+  .ink-writing{font-size:9px !important}
+  .ink-doodle{
+    left:114px !important;
+    width:151px !important;
+    height:79px !important;
+  }
+}
+</style>
+
+
+<style>
+/* ===== quiet corner note / no doodle / no music ===== */
+.poster-music,
+.ink-doodle,
+.marginalia-doodle,
+.clown-scribble,
+.tear-clown{
+  display:none !important;
+}
+
+.memory-ending{
+  min-height:235px !important;
+  padding-bottom:68px !important;
+}
+
+.fresh-ink-note{
+  position:absolute !important;
+  left:13px !important;
+  bottom:8px !important;
+  width:auto !important;
+  height:auto !important;
+  margin:0 !important;
+  padding:0 !important;
+  transform:rotate(-2.8deg) !important;
+  transform-origin:left bottom !important;
+  color:rgba(28,23,22,.67) !important;
+  opacity:.86 !important;
+  pointer-events:none !important;
+  background:none !important;
+  border:0 !important;
+  filter:none !important;
+}
+
+.ink-writing{
+  position:static !important;
+  margin:0 !important;
+  padding:0 !important;
+  font-family:"Single Day","Nanum Pen Script","Gaegu",cursive !important;
+  font-size:10px !important;
+  font-weight:400 !important;
+  line-height:1.23 !important;
+  letter-spacing:-.35px !important;
+  white-space:nowrap !important;
+  color:rgba(27,22,21,.70) !important;
+  text-shadow:none !important;
+  transform:skewX(-5deg) !important;
+}
+
+@media(max-width:680px){
+  .memory-ending{
+    min-height:215px !important;
+    padding-bottom:58px !important;
+  }
+  .fresh-ink-note{
+    left:9px !important;
+    bottom:6px !important;
+  }
+  .ink-writing{
+    font-size:8.7px !important;
+  }
+}
+</style>
+
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap" rel="stylesheet">
+
+<style>
+/* ===== BINA fresh note: Nanum Brush Script / diagonal handwriting ===== */
+.fresh-ink-note{
+  position:absolute !important;
+  left:15px !important;
+  bottom:42px !important;
+  width:300px !important;
+  height:118px !important;
+  margin:0 !important;
+  padding:0 !important;
+  z-index:40 !important;
+  pointer-events:none !important;
+  background:none !important;
+  border:0 !important;
+  filter:none !important;
+  opacity:.88 !important;
+  transform:none !important;
+}
+
+.ink-writing{
+  position:absolute !important;
+  left:0 !important;
+  bottom:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  font-family:"Nanum Brush Script", cursive !important;
+  font-size:17px !important;
+  font-weight:400 !important;
+  line-height:1.02 !important;
+  letter-spacing:-.7px !important;
+  white-space:nowrap !important;
+  color:rgba(31,24,22,.73) !important;
+  text-shadow:none !important;
+
+  /* bottom-left -> upper-right, like a hurried note written across the corner */
+  transform:rotate(18deg) skewX(-3deg) !important;
+  transform-origin:left bottom !important;
+}
+
+/* second line sits slightly inward so it does not look typeset */
+.ink-writing br{
+  line-height:.92 !important;
+}
+
+@media(max-width:680px){
+  .fresh-ink-note{
+    left:10px !important;
+    bottom:32px !important;
+    width:235px !important;
+    height:96px !important;
+  }
+  .ink-writing{
+    font-size:13.5px !important;
+    letter-spacing:-.55px !important;
+    transform:rotate(18deg) skewX(-3deg) !important;
+  }
+}
+</style>
+
 </head>
 <body>
   <main class="page">
@@ -1421,26 +2243,71 @@
   <div class="bina-circus-stage" id="binaCircusStage">
     <div class="bina-particles" id="binaParticles" aria-hidden="true"></div>
 
-    <article class="bina-poster" aria-label="낡은 콜롬보 서커스 포스터">
+    <article class="bina-poster bina-memory-archive" aria-label="Circo Colombo 추억 보관 기록">
       <button class="poster-close" id="binaPosterClose" type="button" aria-label="닫기">×</button>
-      <p class="poster-kicker">CIRCO COLOMBO / AERIAL PERFORMANCE</p>
-      <h2 class="poster-title">COLOMBINA</h2>
-      <p class="poster-sub">The girl who never touched the ground.</p>
 
-      <div class="poster-gallery">
-        <figure class="poster-photo young">
-          <img src="bina-aerial-young.jpg" alt="공중그네를 잡고 허공에서 활짝 웃고 있는 10대 시절의 비나">
-          <figcaption class="poster-caption">BEATRICE COLOMBO / TEEN AERIALIST</figcaption>
-        </figure>
-        <figure class="poster-photo family">
-          <img src="bina-family.jpg" alt="무대 뒤편에서 비나를 받쳐주던 가족들의 흐릿한 단체 사진">
-          <figcaption class="poster-caption">COLOMBO FAMILY / BACKSTAGE</figcaption>
-        </figure>
-      </div>
+      <header class="memory-masthead">
+        <div class="memory-stars">★ ✦ ★</div>
+        <p class="memory-kicker">CIRCO COLOMBO · PRIVATE PERFORMANCE ARCHIVE</p>
+        <h2>CIRCO COLOMBO</h2>
+        <p class="memory-tagline">Una famiglia, un cielo.</p>
+        <div class="memory-ribbon"><span>COLOMBINA · AERIALIST</span></div>
+      </header>
 
-      <p class="poster-quote">“더는 닿을 수 없는 고도.”</p>
-      <p class="poster-altitude">ALTITUDE: 0m</p>
-      <button class="poster-music" id="binaMusicToggle" type="button">[ MUSIC BOX : OFF ]</button>
+      <section class="memory-performance">
+        <div class="memory-photo performance-photo">
+          <img src="bina-aerial-young.jpg" alt="공중그네 공연 중 환하게 웃는 10대 시절의 비나">
+          <span class="photo-corner c1"></span><span class="photo-corner c2"></span>
+          <span class="photo-corner c3"></span><span class="photo-corner c4"></span>
+        </div>
+        <div class="memory-caption">
+          <strong>COLOMBINA</strong>
+          <em>A little higher, always.</em>
+          <span>AERIAL PERFORMANCE / 20XX.XX.XX</span>
+        </div>
+      </section>
+
+      <div class="memory-divider"><span>✦</span><b></b><span>★</span><b></b><span>✦</span></div>
+
+      <section class="memory-family-row">
+        <div class="memory-note">
+          <span class="note-star">★</span>
+          <p>Papà says I smile<br>differently when I'm in the air.</p>
+          <p class="note-small">I think he's right.</p>
+        </div>
+
+        <div>
+          <div class="memory-photo family-photo">
+            <span class="paper-tape tape-a"></span>
+            <span class="paper-tape tape-b"></span>
+            <img src="bina-family.jpg" alt="공연 뒤 무대에서 함께 웃고 있는 비나와 엄마, 아빠, 오빠">
+          </div>
+          <div class="memory-caption family-caption">
+            <strong>COLOMBO FAMILY</strong>
+            <em>Backstage, after the show.</em>
+            <span>MAMMA · PAPÀ · FRATELLO · BEATRICE</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="memory-scraps" aria-hidden="true">
+        <span>ADMIT ONE</span><span>★</span><span>20XX</span><span>FLY HIGH</span><span>✦</span>
+      </section>
+
+      <footer class="memory-ending">
+        <div class="memory-status">
+          <span>ARCHIVE STATUS</span><b></b><strong>DISCONTINUED</strong>
+          <span>LAST PERFORMANCE</span><b></b><strong>20XX.XX.XX</strong>
+          <span>CURRENT ALTITUDE</span><b></b><strong>0 m</strong>
+        </div>
+        <p class="memory-final">Un'altezza ormai irraggiungibile.</p>
+        <p class="memory-altitude">ALTITUDINE: 0 m</p>
+      </footer>
+
+      
+      <aside class="fresh-ink-note" aria-label="최근에 덧붙여진 메모">
+        <p class="ink-writing">과거의 팬케이크는 정말 눈부셨군요!<br>물론 지금도 아름답지만!</p>
+      </aside>
     </article>
 
     <button class="bina-ticket bina-ticket-image" id="binaTicket" type="button" aria-label="낡은 Circo Colombo 서커스 티켓 열기">
@@ -1486,7 +2353,6 @@
     const ticket=document.getElementById('binaTicket');
     const posterClose=document.getElementById('binaPosterClose');
     const particles=document.getElementById('binaParticles');
-    const musicToggle=document.getElementById('binaMusicToggle');
 
     function resetCircus(){
       circusStage?.classList.remove('tearing','torn','poster-open');
@@ -1506,12 +2372,6 @@
     function closeCircus(){
       circusLayer?.classList.remove('show');
       circusLayer?.setAttribute('aria-hidden','true');
-      if(window.__binaMusicTimer){
-        clearInterval(window.__binaMusicTimer);
-        window.__binaMusicTimer=null;
-      }
-      window.__binaMusicOn=false;
-      if(musicToggle)musicToggle.textContent='[ MUSIC BOX : OFF ]';
     }
 
     eyeTrigger?.addEventListener('click',openCircus);
@@ -1527,6 +2387,7 @@
       window.setTimeout(()=>{
         circusStage?.classList.add('poster-open');
         if(ticket)ticket.style.display='none';
+        circusLayer?.scrollTo({top:0,behavior:'smooth'});
       },900);
     });
 
@@ -1549,46 +2410,6 @@
         particles.appendChild(p);
       }
     }
-
-    let binaAudioCtx=null;
-    let binaStep=0;
-    window.__binaMusicOn=false;
-    const binaMotif=[72,76,79,76,74,72,69,72,76,74,72,67];
-
-    function binaTone(midi){
-      if(!binaAudioCtx)return;
-      const osc=binaAudioCtx.createOscillator();
-      const gain=binaAudioCtx.createGain();
-      osc.type='sine';
-      osc.frequency.value=440*Math.pow(2,(midi-69)/12);
-      gain.gain.setValueAtTime(.0001,binaAudioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(.045,binaAudioCtx.currentTime+.015);
-      gain.gain.exponentialRampToValueAtTime(.0001,binaAudioCtx.currentTime+.85);
-      osc.connect(gain).connect(binaAudioCtx.destination);
-      osc.start();
-      osc.stop(binaAudioCtx.currentTime+.95);
-    }
-
-    function binaMusicTick(){
-      binaTone(binaMotif[binaStep%binaMotif.length]);
-      binaStep++;
-    }
-
-    musicToggle?.addEventListener('click',async()=>{
-      if(!binaAudioCtx)binaAudioCtx=new (window.AudioContext||window.webkitAudioContext)();
-      if(binaAudioCtx.state==='suspended')await binaAudioCtx.resume();
-
-      window.__binaMusicOn=!window.__binaMusicOn;
-      if(window.__binaMusicOn){
-        binaMusicTick();
-        window.__binaMusicTimer=setInterval(binaMusicTick,760);
-        musicToggle.textContent='[ MUSIC BOX : ON ]';
-      }else{
-        clearInterval(window.__binaMusicTimer);
-        window.__binaMusicTimer=null;
-        musicToggle.textContent='[ MUSIC BOX : OFF ]';
-      }
-    });
 
   </script>
 
