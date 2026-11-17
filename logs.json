@@ -39,4 +39,24 @@
   "excerpt": "결은 I에게 끝나지 않는 문장이었다. 마침표를 찍을 수 없는.",
   "url": "logs/log_post_2026-11-14.html"
 },
+ {
+  "id": "log_post_0001-11-13",
+  "title": "다양한 호칭 근데 이제 목소리 톤은 같은",
+  "type": "OOC",
+  "pair": "I X 결",
+  "date": "2026-11-13",
+  "publishedAt": "2026-11-17T07:48:35.156Z",
+  "excerpt": "대답해 봐, 내 예쁜아.",
+  "url": "logs/log_post_0001-11-13.html"
+},
+  {
+  "id": "log_post_2026-11-12",
+  "title": "PC와 NPC의 전투 묘사",
+  "type": "OOC",
+  "pair": "I X 결",
+  "date": "2026-11-12",
+  "publishedAt": "2026-11-17T07:54:17.767Z",
+  "excerpt": "",
+  "url": "logs/log_post_2026-11-12.html"
+},
 ]
