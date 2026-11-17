@@ -1,11 +1,22 @@
 [
   {
-    "id": "example-001",
-    "title": "첫 번째 기록 — 예시 게시물",
-    "pair": "결 × 상대 캐릭터 A",
-    "date": "2026-11-17",
+  "id": "igyeol-01",
+  "title": "缺, 結.",
+  "type": "MAIN",
+  "pair": "I X 결",
+  "date": "2025-12-05",
+  "publishedAt": "2026-11-17T07:09:28.262Z",
+  "excerpt": "결(結)이야. 맺어지는 거. 나한테.",
+  "url": "logs/log_post_2025-12-051.html"
+},
+  {
+    "id": "igyeol-02",
+    "title": "사랑 받아도 되는 사람일까.",
+    "pair": "결 × I",
+    "type": "MAIN STORY",
+    "date": "2025-12-05",
     "publishedAt": "2026-11-17T15:00:00+09:00",
-    "excerpt": "이 게시물은 구조 확인을 위한 예시입니다. 실제 로그를 붙여 넣어 교체하세요.",
-    "url": "logs/log_001.html"
+    "excerpt": "백 번을 물어도 답은 안 바뀌어, 결아. 천 번을 물어도.",
+    "url": "logs/log_post_2025-12-05.html"
   }
 ]
